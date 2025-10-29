@@ -1,13 +1,12 @@
-# OPP\_Clinic-Management-System
+# OOP Clinic management system.
 
-A comprehensive system to manage skin and dental clinic activities.
-
-\##Group members:Vargas Pérez César Alexander
-
-&nbsp;		Toapanta Orejuela Adrian Michael
-
-&nbsp;		Santórum Sandoval Thais Yetsalem
-
-\##Team 06 Paradigm
-###NRC:28434
+This project is a system designed to help manage a clinic’s main operations, including patient medical records, prescriptions, appointments, and billing. It organizes information efficiently, improves communication between patients, doctors, and receptionists, and reduces errors compared to manual paper-based methods.
+ ---
+## Team 6 - Paradigm.
+### Members:
+     * Vargas Pérez César Alexander
+     * Toapanta Orejuela Adrian Michael
+     * Santórum Sandoval Thais Yetsalem
+---
+#### NRC:28434
 
