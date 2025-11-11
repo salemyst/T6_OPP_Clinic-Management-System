@@ -1,1 +1,8 @@
-#### SRS (IEEE-830) and other documents to gather customers' needs.
+#### \# ESPE2510-OOPSW28434-PARADIGM
+
+#### In this folder we will records the requirments of the software.
+
+#### 
+
+#### 
+
