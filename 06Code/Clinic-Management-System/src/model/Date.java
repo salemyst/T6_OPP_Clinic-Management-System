@@ -1,10 +1,9 @@
-
 package model;
-
 /**
  *
- * @author Adrian Toapanta, Object Masters, @ESPE
+ * @author César Vargas, Paradigm, @ESPE
  */
+
 public class Date {
 
     private int day;
@@ -66,7 +65,25 @@ public class Date {
 
     @Override
     public String toString() {
-        // Formato: YYYY-MM-DD @ HH:MM
         return String.format("%04d-%02d-%02d @ %02d:%02d", year, month, day, hour, minute);
+    }
+    
+    public void setDate(int day, int month, int year) {
+        this.setDay(day);
+        this.setMonth(month);
+        this.setYear(year);
+    }
+
+    public void setTime(int hour, int minute) {
+        this.setHour(hour);
+        this.setMinute(minute);
+    }
+
+    public String getDate() {
+        return String.format("%04d-%02d-%02d", this.year, this.month, this.day);
+    }
+
+    public String getTime() {
+        return String.format("%02d:%02d", this.hour, this.minute);
     }
 }

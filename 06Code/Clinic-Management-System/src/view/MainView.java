@@ -1,211 +1,611 @@
-
 package view;
-
-import model.Appointment;
-import model.Clinic;
-import model.Date; //
-import model.Doctor;
-import model.MedicalHistory;
-import model.Patient;
-import model.PatientRepository;
-import model.Receptionist;
-
-import java.util.Scanner;
 /**
  *
- * @author Adrian Toapanta, Object Masters, @ESPE
+ * @author César Vargas, Paradigm, @ESPE
  */
 
-
+import model.*;
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class MainView {
 
     private static Clinic clinic;
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        // Define el nombre del archivo JSON (se guardará en la raíz del proyecto)
-        PatientRepository patientRepository = new PatientRepository("patients.json");
-        
+    private static Receptionist loggedInReceptionist;
+    private static Doctor loggedInDoctor;
+    private static Patient loggedInPatient;
 
-        clinic = new Clinic(patientRepository);
+    public static void main(String[] args) {
+
+        clinic = new Clinic("Toamedical", "Av. America", "098-765-4321");
 
         if (clinic.getDoctors().isEmpty()) {
-            clinic.addDoctor(new Doctor("D001", "Dr. Alan Grant", "Cardiología", "099123456", "agrant@clinic.com"));
+            clinic.addDoctor(new Doctor(1, "Dr. Alan Grant", "Cardiologia", "099123456", "agrant@clinic.com", "agrant", "***"));
+            clinic.addDoctor(new Doctor(2, "Dra. Ellie Sattler", "Pediatria", "099123457", "esattler@clinic.com", "esattler", "****"));
         }
-        if (clinic.getReceptionists().isEmpty) {
-            clinic.addReceptionist(new Receptionist("R001", "John Hammond", "099654321", "jhammond@clinic.com"));
+        if (clinic.getReceptionists().isEmpty()) {
+            clinic.addReceptionist(new Receptionist(1, "John Hammond", "099654321", "jhammond@clinic.com"));
         }
+
+        if (!clinic.getReceptionists().isEmpty()) {
+            loggedInReceptionist = clinic.getReceptionists().get(0);
+        }
+        
+        loggedInDoctor = null;
 
         runMainMenu();
     }
 
     private static void runMainMenu() {
         int choice = 0;
-        while (choice != 5) {
-            System.out.println("\n--- Sistema de Gestión de Clínica ---");
+        while (choice != 4) {
+            System.out.println("\n--- Sistema de Gestion de Clinica ---");
+            System.out.println("Clinica: " + clinic.getName());
             System.out.println("Seleccione su rol:");
-            System.out.println("1. Admin");
-            System.out.println("2. Recepcionista");
-            System.out.println("3. Doctor");
-            System.out.println("4. Paciente");
-            System.out.println("5. Salir");
-            System.out.print("Opción: ");
-            choice = Integer.parseInt(scanner.nextLine());
+            System.out.println("1. Recepcionista");
+            System.out.println("2. Doctor");
+            System.out.println("3. Paciente");
+            System.out.println("4. Salir");
+
+            choice = readInt("Opcion: ");
 
             switch (choice) {
-                case 1 -> runAdminMenu();
-                case 2 -> runReceptionistMenu();
-                case 3 -> runDoctorMenu();
-                case 4 -> runPatientMenu();
-                case 5 -> System.out.println("Saliendo del sistema...");
-                default -> System.out.println("Opción no válida.");
+                case 1:
+                    if (loggedInReceptionist == null) {
+                        System.out.println("Error: No hay recepcionistas en el sistema.");
+                        break;
+                    }
+                    runReceptionistMenu();
+                    break;
+                case 2:
+                    runDoctorMenu();
+                    break;
+                case 3:
+                    runPatientMenu();
+                    break;
+                case 4:
+                    System.out.println("Saliendo del sistema...");
+                    break;
+                default:
+                    System.out.println("Opcion no valida. Intente de nuevo.");
             }
         }
     }
 
-    // --- Menús de Actores (Simplificados) ---
-
-    private static void runAdminMenu() {
-        System.out.println("\n== Menú Admin ==");
-        System.out.println("Doctores actuales:");
-        clinic.getDoctors().forEach(System.out::println);
-    }
-
     private static void runReceptionistMenu() {
-        System.out.println("\n== Menú Recepcionista ==");
-        System.out.println("1. Registrar Nuevo Paciente");
-        System.out.println("2. Agendar Cita");
-        System.out.print("Opción: ");
-        int choice = Integer.parseInt(scanner.nextLine());
+        int choice = 0;
+        while (choice != 8) {
+            System.out.println("\n== Menu Recepcionista (" + loggedInReceptionist.getName() + ") ==");
+            System.out.println("1. Registrar Nuevo Paciente");
+            System.out.println("2. Agendar Cita");
+            System.out.println("3. Actualizar Informacion de Paciente");
+            System.out.println("4. Reagendar Cita");
+            System.out.println("5. Cancelar Cita");
+            System.out.println("6. Modificar Doctor");
+            System.out.println("7. Modificar Recepcionista");
+            System.out.println("8. Volver al Menu Principal");
 
-        if (choice == 1) {
-            registerNewPatient();
-        } else if (choice == 2) {
-            scheduleNewAppointment();
+            choice = readInt("Opcion: ");
+
+            switch (choice) {
+                case 1: doRegisterNewPatient(); break;
+                case 2: doScheduleNewAppointment(); break;
+                case 3: doUpdatePatientInfo(); break;
+                case 4: doRescheduleAppointment(); break;
+                case 5: doCancelAppointment(); break;
+                case 6: doModifyDoctor(); break;
+                case 7: doModifyReceptionist(); break;
+                case 8: System.out.println("Volviendo..."); break;
+                default: System.out.println("Opcion no valida.");
+            }
         }
     }
 
     private static void runDoctorMenu() {
-        System.out.println("\n== Menú Doctor ==");
-        System.out.println("1. Actualizar Historia Clínica");
-        System.out.print("Opción: ");
-        int choice = Integer.parseInt(scanner.nextLine());
-
-        if (choice == 1) {
-            updateMedicalHistory();
-        }
-    }
-    
-    private static void runPatientMenu() {
-        System.out.println("\n== Menú Paciente ==");
-        System.out.println("1. Ver mi Historia Clínica");
-        System.out.print("Opción: ");
-        int choice = Integer.parseInt(scanner.nextLine());
-
-        if (choice == 1) {
-            viewMedicalHistory();
-        }
-    }
-
-    // --- Lógica de Casos de Uso ---
-
-    private static void registerNewPatient() {
-        System.out.println("\n--- Registrar Nuevo Paciente ---");
-        System.out.print("ID del Paciente (ej. P001): ");
-        String id = scanner.nextLine();
-        System.out.print("Nombre Completo: ");
-        String name = scanner.nextLine();
-        System.out.print("Género: ");
-        String gender = scanner.nextLine();
-        System.out.print("Teléfono: ");
-        String phone = scanner.nextLine();
-        System.out.print("Dirección: ");
-        String address = scanner.nextLine();
         
-        Patient newPatient = new Patient(id, name, gender, phone, address);
-        clinic.registerPatient(newPatient); // Esto guarda en JSON
-    }
-    
-    private static void scheduleNewAppointment() {
-        System.out.println("\n--- Agendar Cita ---");
-        System.out.print("ID de la Cita (ej. A001): ");
-        String appId = scanner.nextLine();
-        System.out.print("ID del Paciente (ej. P001): ");
-        String patId = scanner.nextLine();
-        System.out.print("ID del Doctor (ej. D001): ");
-        String docId = scanner.nextLine();
-        
-        // Pedimos los datos para nuestra clase Date
-        System.out.println("Ingrese fecha y hora de la cita:");
-        System.out.print("Año (ej. 2025): ");
-        int year = Integer.parseInt(scanner.nextLine());
-        System.out.print("Mes (1-12): ");
-        int month = Integer.parseInt(scanner.nextLine());
-        System.out.print("Día (1-31): ");
-        int day = Integer.parseInt(scanner.nextLine());
-        System.out.print("Hora (0-23): ");
-        int hour = Integer.parseInt(scanner.nextLine());
-        System.out.print("Minuto (0-59): ");
-        int minute = Integer.parseInt(scanner.nextLine());
-        
-        Date appDate = new Date(day, month, year, hour, minute);
-        
-        Appointment newAppointment = new Appointment(appId, appDate, patId, docId);
-        clinic.scheduleAppointment(newAppointment);
-        System.out.println("Cita agendada para " + appDate.toString());
-    }
-    
-    private static void updateMedicalHistory() {
-        System.out.println("\n--- Actualizar Historia Clínica ---");
-        System.out.print("Ingrese ID del Paciente: ");
-        String patientId = scanner.nextLine();
-        
-        Patient patient = clinic.searchPatientById(patientId);
-        if (patient == null) {
-            System.out.println("Error: Paciente no encontrado.");
-            return;
-        }
-        
-        System.out.println("Paciente encontrado: " + patient.getFullName());
-        System.out.print("ID del Registro de Historia (ej. H001): ");
-        String historyId = scanner.nextLine();
-        System.out.print("Observaciones: ");
-        String observations = scanner.nextLine();
-        System.out.print("Tratamientos: ");
-        String treatments = scanner.nextLine();
-        System.out.print("Alergias: ");
-        String allergies = scanner.nextLine();
-        System.out.print("Enfermedades: ");
-        String diseases = scanner.nextLine();
-        
-        // Usamos una fecha simple (actual) para el registro
-        Date recordDate = new Date(10, 11, 2025, 21, 0); // Simulación de fecha actual
-        
-        MedicalHistory newRecord = new MedicalHistory(historyId, recordDate, allergies, diseases, treatments, observations);
-        
-        // Este método actualiza el paciente y guarda en JSON
-        clinic.updatePatientMedicalHistory(patient, newRecord); 
-    }
-    
-    private static void viewMedicalHistory() {
-        System.out.println("\n--- Ver Historia Clínica ---");
-        System.out.print("Ingrese su ID de Paciente: ");
-        String patientId = scanner.nextLine();
-
-        Patient patient = clinic.searchPatientById(patientId);
-        if (patient == null) {
-            System.out.println("Error: Paciente no encontrado.");
-            return;
-        }
-
-        System.out.println("Mostrando historial para: " + patient.getFullName());
-        if (patient.getMedicalHistory().isEmpty()) {
-            System.out.println("No hay registros médicos.");
-        } else {
-            for (MedicalHistory record : patient.getMedicalHistory()) {
-                System.out.println(" - " + record.toString());
+        if (loggedInDoctor == null) {
+            boolean loginSuccess = doDoctorLogin();
+            if (!loginSuccess) {
+                return; 
             }
         }
+        
+        int choice = 0;
+        // --- CAMBIO AQUI ---
+        while (choice != 8) { // <- Sale con 8
+            System.out.println("\n== Menu Doctor (" + loggedInDoctor.getFullName() + ") ==");
+            System.out.println("1. Anadir Registro a Historia Clinica"); // <- Renombrado
+            System.out.println("2. Modificar Registro de Historia Clinica"); // <- NUEVO
+            System.out.println("3. Ver Historia Clinica de Paciente"); // <- Renumerado
+            System.out.println("4. Crear Prescripcion"); // <- Renumerado
+            System.out.println("5. Ver mis Citas"); // <- Renumerado
+            System.out.println("6. Marcar Cita como Completada"); // <- Renumerado
+            System.out.println("7. Generar Factura (Billing)"); // <- Renumerado
+            System.out.println("8. Volver al Menu Principal (Cerrar Sesion)"); // <- Renumerado
+
+            choice = readInt("Opcion: ");
+
+            switch (choice) {
+                case 1: doAddNewMedicalRecord(); break; // <- Renombrado
+                case 2: doModifyMedicalRecord(); break; // <- NUEVO
+                case 3: doDoctorViewMedicalHistory(); break; // <- Renumerado
+                case 4: doCreatePrescription(); break; // <- Renumerado
+                case 5: loggedInDoctor.viewAppointments(clinic); break; // <- Renumerado
+                case 6: doMarkAppointmentCompleted(); break; // <- Renumerado
+                case 7: doGenerateBill(); break; // <- Renumerado
+                case 8: // <- Renumerado
+                    System.out.println("Cerrando sesion de doctor...");
+                    loggedInDoctor = null; 
+                    return; 
+                default: System.out.println("Opcion no valida.");
+            }
+        }
+    }
+
+    private static void runPatientMenu() {
+        System.out.println("\n== Menu Paciente ==");
+        int patientId = readInt("Por favor, ingrese su ID de Paciente para continuar: ");
+        loggedInPatient = clinic.searchPatient(patientId);
+
+        if (loggedInPatient == null) {
+            System.out.println("Error: Paciente con ID " + patientId + " no encontrado.");
+            return;
+        }
+
+        int choice = 0;
+        while (choice != 5) {
+            System.out.println("\n== Menu Paciente (Hola, " + loggedInPatient.getFullName() + ") ==");
+            System.out.println("1. Ver mi Historia Clinica");
+            System.out.println("2. Solicitar una Cita (Simulacion)");
+            System.out.println("3. Ver/Pagar Facturas");
+            System.out.println("4. Ver mis Prescripciones (Imprimir)");
+            System.out.println("5. Salir (Cerrar Sesion de Paciente)");
+
+            choice = readInt("Opcion: ");
+
+            switch (choice) {
+                case 1: loggedInPatient.viewMedicalHistory(); break;
+                case 2: loggedInPatient.requestAppointment(); break;
+                case 3: doPayBill(); break;
+                case 4: doPrintPrescription(); break;
+                case 5: System.out.println("Cerrando sesion de paciente..."); loggedInPatient = null; break;
+                default: System.out.println("Opcion no valida.");
+            }
+        }
+    }
+    
+    private static boolean doDoctorLogin() {
+        System.out.println("\n--- Inicio de Sesion (Doctor) ---");
+        String username = readString("Usuario: ");
+        String password = readString("Contrasena: ");
+        
+        for (Doctor doctor : clinic.getDoctors()) {
+            if (username.equals(doctor.getUsername()) && password.equals(doctor.getPassword())) {
+                loggedInDoctor = doctor;
+                System.out.println("Bienvenido, " + doctor.getFullName());
+                return true;
+            }
+        }
+        
+        System.out.println("Error: Usuario o contrasena incorrectos.");
+        return false;
+    }
+
+    private static void doRegisterNewPatient() {
+        System.out.println("\n--- Registrar Nuevo Paciente ---");
+        int id = readInt("ID del Paciente (numero): ");
+        
+        if (clinic.searchPatient(id) != null) {
+            System.out.println("Error: Ya existe un paciente con el ID " + id + ". Registro cancelado.");
+            return;
+        }
+        
+        String name = readString("Nombre Completo: ");
+        String gender = readString("Genero: ");
+        String phone = readString("Telefono: ");
+        String address = readString("Direccion: ");
+
+        loggedInReceptionist.registerPatient(clinic, id, name, gender, phone, address);
+        System.out.println("Paciente registrado exitosamente.");
+    }
+
+    private static void doScheduleNewAppointment() {
+        System.out.println("\n--- Agendar Cita ---");
+        int appId = readInt("ID de la Cita (numero): ");
+        int patId = readInt("ID del Paciente (numero): ");
+
+        if (clinic.searchPatient(patId) == null) {
+            System.out.println("Error: Paciente no encontrado.");
+            return;
+        }
+
+        int docId = readInt("ID del Doctor (numero): ");
+        if (clinic.searchDoctor(docId) == null) {
+            System.out.println("Error: Doctor no encontrado.");
+            return;
+        }
+
+        Date appDate = readDate("--- Fecha y Hora de la Cita ---");
+
+        loggedInReceptionist.createAppointment(clinic, appId, appDate, patId, docId);
+        System.out.println("Cita agendada exitosamente.");
+    }
+
+    private static void doUpdatePatientInfo() {
+        System.out.println("\n--- Actualizar Info de Paciente ---");
+        int patientId = readInt("ID del Paciente a actualizar: ");
+        Patient patient = clinic.searchPatient(patientId);
+
+        if (patient == null) {
+            System.out.println("Error: Paciente no encontrado.");
+            return;
+        }
+
+        System.out.println("Paciente encontrado: " + patient.getFullName());
+        System.out.println("Deje en blanco si no desea cambiar el dato.");
+
+        System.out.print("Nuevo Telefono (" + patient.getPhone() + "): ");
+        String newPhone = scanner.nextLine();
+        System.out.print("Nueva Direccion (" + patient.getAddress() + "): ");
+        String newAddress = scanner.nextLine();
+
+        if (newPhone.isEmpty()) newPhone = patient.getPhone();
+        if (newAddress.isEmpty()) newAddress = patient.getAddress();
+
+        loggedInReceptionist.updatePatientInfo(clinic, patient, newPhone, newAddress);
+        System.out.println("Informacion actualizada exitosamente.");
+    }
+
+    private static void doRescheduleAppointment() {
+        System.out.println("\n--- Reagendar Cita ---");
+        int appId = readInt("ID de la Cita a reagendar: ");
+        Appointment app = findAppointmentById(appId);
+
+        if (app == null) {
+            System.out.println("Error: Cita no encontrada.");
+            return;
+        }
+
+        System.out.println("Cita encontrada: " + app.toString());
+        Date newDate = readDate("--- Nueva Fecha y Hora ---");
+
+        app.reschedule(newDate);
+    }
+
+    private static void doCancelAppointment() {
+        System.out.println("\n--- Cancelar Cita ---");
+        int appId = readInt("ID de la Cita a cancelar: ");
+        Appointment app = findAppointmentById(appId);
+
+        if (app == null) {
+            System.out.println("Error: Cita no encontrada.");
+            return;
+        }
+
+        app.cancel();
+    }
+    private static void doModifyDoctor() {
+        System.out.println("\n--- Modificar Doctor ---");
+        int doctorId = readInt("ID del Doctor a modificar: ");
+        Doctor doctor = clinic.searchDoctor(doctorId);
+
+        if (doctor == null) {
+            System.out.println("Error: Doctor no encontrado.");
+            return;
+        }
+
+        System.out.println("Doctor encontrado: " + doctor.getFullName());
+        System.out.println("Deje en blanco si no desea cambiar el dato.");
+
+        System.out.print("Nuevo Telefono (" + doctor.getPhone() + "): ");
+        String newPhone = scanner.nextLine();
+        System.out.print("Nuevo Email (" + doctor.getEmail() + "): ");
+        String newEmail = scanner.nextLine();
+
+        if (newPhone.isEmpty()) newPhone = doctor.getPhone();
+        if (newEmail.isEmpty()) newEmail = doctor.getEmail();
+
+        doctor.setPhone(newPhone);
+        doctor.setEmail(newEmail);
+
+        clinic.saveDoctorChanges();
+        System.out.println("Doctor actualizado exitosamente.");
+    }
+
+    private static void doModifyReceptionist() {
+        System.out.println("\n--- Modificar Recepcionista ---");
+        int recId = readInt("ID del Recepcionista a modificar: ");
+        Receptionist rec = clinic.searchReceptionist(recId);
+
+        if (rec == null) {
+            System.out.println("Error: Recepcionista no encontrado.");
+            return;
+        }
+
+        System.out.println("Recepcionista encontrado: " + rec.getName());
+        System.out.println("Deje en blanco si no desea cambiar el dato.");
+
+        System.out.print("Nuevo Telefono (" + rec.getPhone() + "): ");
+        String newPhone = scanner.nextLine();
+        System.out.print("Nuevo Email (" + rec.getEmail() + "): ");
+        String newEmail = scanner.nextLine();
+
+        if (newPhone.isEmpty()) newPhone = rec.getPhone();
+        if (newEmail.isEmpty()) newEmail = rec.getEmail();
+
+        rec.setPhone(newPhone);
+        rec.setEmail(newEmail);
+
+        clinic.saveReceptionistChanges();
+        System.out.println("Recepcionista actualizado exitosamente.");
+    }
+
+    // --- METODO RENOMBRADO Y MODIFICADO ---
+    private static void doAddNewMedicalRecord() {
+        System.out.println("\n--- Anadir Registro a Historia Clinica ---");
+        int patientId = readInt("Ingrese ID del Paciente: ");
+        Patient patient = clinic.searchPatient(patientId); 
+
+        if (patient == null) {
+            System.out.println("Error: Paciente no encontrado.");
+            return;
+        }
+
+        System.out.println("Paciente encontrado: " + patient.getFullName());
+        int historyId = readInt("ID del nuevo Registro de Historia (numero): ");
+        String observations = readString("Observaciones: ");
+        String treatments = readString("Tratamientos: ");
+        String allergies = readString("Alergias: ");
+        String diseases = readString("Enfermedades: ");
+
+        Date recordDate = readDate("--- Fecha del Registro ---");
+
+        MedicalHistory newRecord = new MedicalHistory(historyId, recordDate, allergies, diseases, treatments, observations);
+        
+        newRecord.addRecord(); // <-- Se llama el metodo de MedicalHistory
+
+        loggedInDoctor.updateMedicalHistory(clinic, patient, newRecord);
+        System.out.println("Historial actualizado exitosamente.");
+    }
+    
+    // --- NUEVO METODO ---
+    private static void doModifyMedicalRecord() {
+        System.out.println("\n--- Modificar Registro de Historia Clinica ---");
+        int patientId = readInt("Ingrese ID del Paciente: ");
+        Patient patient = clinic.searchPatient(patientId); 
+
+        if (patient == null) {
+            System.out.println("Error: Paciente no encontrado.");
+            return;
+        }
+        
+        if (patient.getMedicalHistory() == null || patient.getMedicalHistory().isEmpty()) {
+            System.out.println("El paciente no tiene registros para modificar.");
+            return;
+        }
+        
+        System.out.println("Registros existentes para " + patient.getFullName() + ":");
+        patient.viewMedicalHistory();
+        
+        int historyId = readInt("Ingrese el ID del registro que desea modificar: ");
+        
+        MedicalHistory recordToModify = null;
+        for (MedicalHistory record : patient.getMedicalHistory()) {
+            if (record.getHistoryId() == historyId) {
+                recordToModify = record;
+                break;
+            }
+        }
+        
+        if (recordToModify == null) {
+            System.out.println("Error: No se encontro un registro con ese ID.");
+            return;
+        }
+        
+        System.out.println("Registro encontrado. Deje en blanco para no cambiar.");
+        
+        System.out.print("Nuevas Observaciones (" + recordToModify.getObservations() + "): ");
+        String newObs = scanner.nextLine();
+        System.out.print("Nuevos Tratamientos (" + recordToModify.getTreatments() + "): ");
+        String newTreat = scanner.nextLine();
+        
+        if (!newObs.isEmpty()) recordToModify.setObservations(newObs);
+        if (!newTreat.isEmpty()) recordToModify.setTreatments(newTreat);
+        
+        recordToModify.updateHistory(); // <-- Se llama el metodo de MedicalHistory
+        
+        clinic.savePatientChanges();
+        System.out.println("Registro modificado exitosamente.");
+    }
+    // --- FIN NUEVO METODO ---
+
+    private static void doDoctorViewMedicalHistory() {
+        System.out.println("\n--- Ver Historia Clinica de Paciente ---");
+        int patientId = readInt("Ingrese ID del Paciente: ");
+        Patient patient = clinic.searchPatient(patientId);
+
+        if (patient == null) {
+            System.out.println("Error: Paciente no encontrado.");
+            return;
+        }
+
+        patient.viewMedicalHistory();
+    }
+
+    private static void doCreatePrescription() {
+        System.out.println("\n--- Crear Prescripcion ---");
+        int patientId = readInt("ID del Paciente: ");
+        Patient patient = clinic.searchPatient(patientId);
+
+        if (patient == null) {
+            System.out.println("Error: Paciente no encontrado.");
+            return;
+        }
+
+        int presId = readInt("ID de la Prescripcion (numero): ");
+        String medication = readString("Medicamento: ");
+        String dosage = readString("Dosis (ej. 100mg): ");
+        String instructions = readString("Instrucciones (ej. cada 8 horas): ");
+        Date presDate = readDate("--- Fecha de la Prescripcion ---");
+
+        Prescription p = new Prescription(presId, medication, dosage, instructions, presDate);
+
+        p.printPrescription();
+    }
+
+    private static void doMarkAppointmentCompleted() {
+        System.out.println("\n--- Marcar Cita como Completada ---");
+        int appId = readInt("ID de la Cita a completar: ");
+        Appointment app = findAppointmentById(appId);
+
+        if (app == null) {
+            System.out.println("Error: Cita no encontrada.");
+            return;
+        }
+
+        app.markCompleted();
+    }
+
+    private static void doGenerateBill() {
+        System.out.println("\n--- Generar Factura ---");
+        int patientId = readInt("ID del Paciente a facturar: ");
+        Patient patient = clinic.searchPatient(patientId);
+
+        if (patient == null) {
+            System.out.println("Error: Paciente no encontrado.");
+            return;
+        }
+
+        int billId = readInt("ID de la Factura (numero): ");
+        double amount = readDouble("Monto de la Factura (ej. 40.50): ");
+        Date billDate = readDate("--- Fecha de la Factura ---");
+
+        Billing bill = new Billing(billId, amount, billDate, "Pending", patientId);
+        bill.generateBill();
+
+        clinic.saveNewBill(bill);
+
+        System.out.println("Factura guardada exitosamente.");
+        bill.viewBill();
+    }
+
+    private static void doPayBill() {
+        System.out.println("\n--- Pagar Factura ---");
+
+        List<Billing> pendingBills = new ArrayList<>();
+        for (Billing bill : clinic.getBillings()) {
+            if (bill.getPatientId() == loggedInPatient.getPatientId() &&
+                bill.getStatus().equalsIgnoreCase("Pending")) {
+                pendingBills.add(bill);
+            }
+        }
+
+        if (pendingBills.isEmpty()) {
+            System.out.println("No tiene facturas pendientes por pagar.");
+            return;
+        }
+
+        System.out.println("Facturas pendientes:");
+        for (Billing bill : pendingBills) {
+            System.out.println("  ID: " + bill.getBillId() + ", Monto: $" + bill.getAmount() + ", Fecha: " + bill.getDate().getDate());
+        }
+
+        int billId = readInt("Ingrese el ID de la factura que desea pagar (0 para cancelar): ");
+        if (billId == 0) return;
+
+        Billing billToPay = clinic.searchBill(billId);
+
+        if (billToPay == null || billToPay.getPatientId() != loggedInPatient.getPatientId() || !billToPay.getStatus().equalsIgnoreCase("Pending")) {
+            System.out.println("Error: ID de factura no valido o ya esta pagada.");
+            return;
+        }
+
+        System.out.println("--- Factura a Pagar ---");
+        billToPay.viewBill();
+
+        loggedInPatient.payBill(billToPay);
+        clinic.saveBillingChanges();
+
+        System.out.println("--- Estado Actualizado de la Factura ---");
+        billToPay.viewBill();
+    }
+
+    private static void doPrintPrescription() {
+        System.out.println("\n--- Imprimir Prescripcion (Simulacion) ---");
+        System.out.println("Se generara una prescripcion de prueba.");
+        System.out.println("En un sistema real, aqui se listarian las prescripciones guardadas.");
+
+        Date testDate = new Date(11, 11, 2025, 10, 0);
+        Prescription testPrescription = new Prescription(999, "Paracetamol", "500mg", "Cada 8 horas por 3 dias", testDate);
+
+        testPrescription.printPrescription();
+    }
+
+    private static int readInt(String prompt) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Debe ingresar un numero entero. Intente de nuevo.");
+            }
+        }
+    }
+
+    private static int readIntRange(String prompt, int min, int max) {
+        while (true) {
+            int num = readInt(prompt);
+
+            if (num >= min && num <= max) {
+                return num;
+            } else {
+                System.out.println("Error: El numero debe estar entre " + min + " y " + max + ". Intente de nuevo.");
+            }
+        }
+    }
+
+    private static double readDouble(String prompt) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                return Double.parseDouble(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Debe ingresar un numero (ej. 40.50). Intente de nuevo.");
+            }
+        }
+    }
+
+    private static String readString(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine();
+            if (input == null || input.trim().isEmpty()) {
+                System.out.println("Error: La entrada no puede estar vacia. Intente de nuevo.");
+            } else {
+                return input.trim();
+            }
+        }
+    }
+
+    private static Date readDate(String title) {
+        System.out.println(title);
+        int year = readIntRange("  Anio (2024 o 2025): ", 2024, 2025);
+        int month = readIntRange("  Mes (1-12): ", 1, 12);
+        int day = readIntRange("  Dia (1-31): ", 1, 31);
+        int hour = readIntRange("  Hora (0-23): ", 0, 23);
+        int minute = readIntRange("  Minuto (0-59): ", 0, 59);
+        return new Date(day, month, year, hour, minute);
+    }
+
+    private static Appointment findAppointmentById(int appId) {
+        for (Appointment app : clinic.getAppointments()) {
+            if (app.getAppointmentId() == appId) {
+                return app;
+            }
+        }
+        return null;
     }
 }

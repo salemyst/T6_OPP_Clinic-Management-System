@@ -1,16 +1,15 @@
-
 package model;
+/**
+ *
+ * @author César Vargas, Paradigm, @ESPE
+ */
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Adrian Toapanta, Object Masters, @ESPE
- */
 public class Patient {
 
-    private String patientId;
+    private int patientId;
     private String fullName;
     private String gender;
     private String phone;
@@ -21,7 +20,7 @@ public class Patient {
         this.medicalHistory = new ArrayList<>();
     }
 
-    public Patient(String patientId, String fullName, String gender, String phone, String address) {
+    public Patient(int patientId, String fullName, String gender, String phone, String address) {
         this.patientId = patientId;
         this.fullName = fullName;
         this.gender = gender;
@@ -30,16 +29,15 @@ public class Patient {
         this.medicalHistory = new ArrayList<>();
     }
     
-    // Método helper
     public void addMedicalRecord(MedicalHistory record) {
         this.medicalHistory.add(record);
     }
 
-    public String getPatientId() {
+    public int getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(String patientId) {
+    public void setPatientId(int patientId) {
         this.patientId = patientId;
     }
 
@@ -86,5 +84,27 @@ public class Patient {
     @Override
     public String toString() {
         return "Patient{" + "patientId=" + patientId + ", fullName=" + fullName + ", phone=" + phone + ", address=" + address + '}';
+    }
+    
+    public void requestAppointment() {
+        System.out.println("Paciente " + this.fullName + " esta solicitando una cita.");
+    }
+
+    public void viewMedicalHistory() {
+        System.out.println("--- Mostrando Historial Medico para " + this.fullName + " ---");
+        if (this.medicalHistory == null || this.medicalHistory.isEmpty()) {
+            System.out.println("No hay registros medicos disponibles.");
+            return;
+        }
+        
+        for (MedicalHistory record : this.medicalHistory) {
+            System.out.println(record.toString());
+        }
+    }
+
+    public void payBill(Billing bill) {
+        System.out.println("Paciente " + this.fullName + " esta pagando la factura " + bill.getBillId());
+        bill.updatePayment("Pagado"); 
+        System.out.println("Factura pagada. Nuevo estado: " + bill.getStatus());
     }
 }

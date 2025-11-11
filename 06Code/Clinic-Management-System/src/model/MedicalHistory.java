@@ -1,14 +1,13 @@
-
 package model;
-
 /**
  *
- * @author Adrian Toapanta, Object Masters, @ESPE
+ * @author César Vargas, Paradigm, @ESPE
  */
+
 public class MedicalHistory {
 
-    private String historyId;
-    private Date date; // Usamos nuestra clase Date
+    private int historyId;
+    private Date date; 
     private String allergies;
     private String diseases;
     private String treatments;
@@ -17,7 +16,7 @@ public class MedicalHistory {
     public MedicalHistory() {
     }
 
-    public MedicalHistory(String historyId, Date date, String allergies, String diseases, String treatments, String observations) {
+    public MedicalHistory(int historyId, Date date, String allergies, String diseases, String treatments, String observations) {
         this.historyId = historyId;
         this.date = date;
         this.allergies = allergies;
@@ -26,11 +25,11 @@ public class MedicalHistory {
         this.observations = observations;
     }
 
-    public String getHistoryId() {
+    public int getHistoryId() {
         return historyId;
     }
 
-    public void setHistoryId(String historyId) {
+    public void setHistoryId(int historyId) {
         this.historyId = historyId;
     }
 
@@ -77,5 +76,13 @@ public class MedicalHistory {
     @Override
     public String toString() {
         return "MedicalHistory{" + "historyId=" + historyId + ", date=" + date + ", observations=" + observations + ", treatments=" + treatments + '}';
+    }
+    
+    public void addRecord() {
+        System.out.println("Metodo addRecord llamado para Historial ID: " + this.historyId);
+    }
+    
+    public void updateHistory() {
+        System.out.println("Metodo updateHistory llamado para Historial ID: " + this.historyId);
     }
 }

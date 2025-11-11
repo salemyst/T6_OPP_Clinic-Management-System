@@ -1,22 +1,21 @@
-
 package model;
-
 /**
  *
- * @author Adrian Toapanta, Object Masters, @ESPE
+ * @author César Vargas, Paradigm, @ESPE
  */
+
 public class Billing {
 
-    private String billId;
+    private int billId;
     private double amount;
-    private Date date; // Usamos nuestra clase Date
-    private String status; // Ej: "Paid", "Pending"
-    private String patientId;
+    private Date date; 
+    private String status; 
+    private int patientId;
 
     public Billing() {
     }
 
-    public Billing(String billId, double amount, Date date, String status, String patientId) {
+    public Billing(int billId, double amount, Date date, String status, int patientId) {
         this.billId = billId;
         this.amount = amount;
         this.date = date;
@@ -24,11 +23,11 @@ public class Billing {
         this.patientId = patientId;
     }
 
-    public String getBillId() {
+    public int getBillId() {
         return billId;
     }
 
-    public void setBillId(String billId) {
+    public void setBillId(int billId) {
         this.billId = billId;
     }
 
@@ -56,16 +55,35 @@ public class Billing {
         this.status = status;
     }
 
-    public String getPatientId() {
+    public int getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(String patientId) {
+    public void setPatientId(int patientId) {
         this.patientId = patientId;
     }
 
     @Override
     public String toString() {
         return "Billing{" + "billId=" + billId + ", amount=" + amount + ", date=" + date + ", status=" + status + '}';
+    }
+    
+    public void generateBill() {
+        System.out.println("Factura " + this.billId + " generada por un monto de " + this.amount);
+        this.status = "Pending"; 
+    }
+
+    public void updatePayment(String newStatus) {
+        this.status = newStatus;
+    }
+
+    public void viewBill() {
+        System.out.println("--- Viendo Factura ---");
+        System.out.println("ID Factura: " + this.billId);
+        System.out.println("Paciente ID: " + this.patientId);
+        System.out.println("Fecha: " + this.date.toString());
+        System.out.println("Monto: $" + this.amount);
+        System.out.println("Estado: " + this.status);
+        System.out.println("----------------------");
     }
 }
