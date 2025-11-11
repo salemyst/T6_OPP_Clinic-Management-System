@@ -1,0 +1,71 @@
+
+package model;
+
+/**
+ *
+ * @author Adrian Toapanta, Object Masters, @ESPE
+ */
+public class Appointment {
+
+    private String appointmentId;
+    private Date date; // Usamos nuestra clase Date
+    private String status;
+    private String patientId;
+    private String doctorId;
+
+    public Appointment() {
+    }
+
+    public Appointment(String appointmentId, Date date, String patientId, String doctorId) {
+        this.appointmentId = appointmentId;
+        this.date = date;
+        this.patientId = patientId;
+        this.doctorId = doctorId;
+        this.status = "Scheduled";
+    }
+
+    public String getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(String appointmentId) {
+        this.appointmentId = appointmentId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
+
+    public String getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    @Override
+    public String toString() {
+        return "Appointment{" + "appointmentId=" + appointmentId + ", date=" + date + ", status=" + status + ", patientId=" + patientId + ", doctorId=" + doctorId + '}';
+    }
+}
