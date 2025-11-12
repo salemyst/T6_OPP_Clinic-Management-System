@@ -1,0 +1,10 @@
+[
+  {
+    "patientId": 2,
+    "fullName": "Adrian Toapanta",
+    "gender": "male",
+    "phone": "1234567890",
+    "address": "pepitoarroyo",
+    "medicalHistory": []
+  }
+]
