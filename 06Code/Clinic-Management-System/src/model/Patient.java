@@ -1,7 +1,7 @@
 package model;
 /**
  *
- * @author César Vargas, Paradigm, @ESPE
+ * @author Adrian Toapanta, Paradigm, @ESPE
  */
 
 import java.util.ArrayList;
@@ -22,65 +22,61 @@ public class Patient {
 
     public Patient(int patientId, String fullName, String gender, String phone, String address) {
         this.patientId = patientId;
-        this.fullName = fullName;
-        this.gender = gender;
-        this.phone = phone;
-        this.address = address;
+        setFullName(fullName); 
+        setGender(gender);
+        setPhone(phone);
+        setAddress(address);
         this.medicalHistory = new ArrayList<>();
+    }
+    
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
+    }
+
+    public void setFullName(String fullName) {
+        if (fullName == null || fullName.trim().isEmpty() || !fullName.matches("^[a-zA-Z\\s]+$")) {
+            throw new IllegalArgumentException("El nombre del paciente solo debe contener letras y espacios.");
+        }
+        this.fullName = fullName.trim();
+    }
+    
+    public void setGender(String gender) {
+        if (gender == null || gender.trim().isEmpty() || !gender.matches("^[a-zA-Z\\s]+$")) {
+            throw new IllegalArgumentException("El genero solo debe contener letras.");
+        }
+        this.gender = gender.trim();
+    }
+
+    public void setPhone(String phone) {
+        if (phone == null || !phone.matches("^\\d{10}$")) {
+            throw new IllegalArgumentException("El numero de telefono debe tener exactamente 10 dígitos numericos.");
+        }
+        this.phone = phone;
+    }
+
+    public void setAddress(String address) {
+        if (address == null || address.trim().isEmpty() || !address.matches("^[a-zA-Z0-9\\s.,#-]+$")) {
+            throw new IllegalArgumentException("La direccion contiene caracteres invalidos o está vacía.");
+        }
+        this.address = address.trim();
+    }
+    
+
+    public int getPatientId() { return patientId; }
+    public String getFullName() { return fullName; }
+    public String getGender() { return gender; }
+    public String getPhone() { return phone; }
+    public String getAddress() { return address; }
+    public List<MedicalHistory> getMedicalHistory() { return medicalHistory; }
+
+    public void setMedicalHistory(List<MedicalHistory> medicalHistory) {
+        this.medicalHistory = medicalHistory;
     }
     
     public void addMedicalRecord(MedicalHistory record) {
         this.medicalHistory.add(record);
     }
-
-    public int getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public List<MedicalHistory> getMedicalHistory() {
-        return medicalHistory;
-    }
-
-    public void setMedicalHistory(List<MedicalHistory> medicalHistory) {
-        this.medicalHistory = medicalHistory;
-    }
-
+    
     @Override
     public String toString() {
         return "Patient{" + "patientId=" + patientId + ", fullName=" + fullName + ", phone=" + phone + ", address=" + address + '}';

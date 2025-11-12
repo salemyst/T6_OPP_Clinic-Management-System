@@ -1,7 +1,7 @@
 package view;
 /**
  *
- * @author César Vargas, Paradigm, @ESPE
+ * @author Adrian Toapanta, Paradigm, @ESPE
  */
 
 import model.*;
@@ -114,31 +114,30 @@ public class MainView {
         }
         
         int choice = 0;
-        // --- CAMBIO AQUI ---
-        while (choice != 8) { // <- Sale con 8
+        while (choice != 8) {
             System.out.println("\n== Menu Doctor (" + loggedInDoctor.getFullName() + ") ==");
-            System.out.println("1. Anadir Registro a Historia Clinica"); // <- Renombrado
-            System.out.println("2. Modificar Registro de Historia Clinica"); // <- NUEVO
-            System.out.println("3. Ver Historia Clinica de Paciente"); // <- Renumerado
-            System.out.println("4. Crear Prescripcion"); // <- Renumerado
-            System.out.println("5. Ver mis Citas"); // <- Renumerado
-            System.out.println("6. Marcar Cita como Completada"); // <- Renumerado
-            System.out.println("7. Generar Factura (Billing)"); // <- Renumerado
-            System.out.println("8. Volver al Menu Principal (Cerrar Sesion)"); // <- Renumerado
+            System.out.println("1. Anadir Registro a Historia Clinica");
+            System.out.println("2. Modificar Registro de Historia Clinica");
+            System.out.println("3. Ver Historia Clinica de Paciente");
+            System.out.println("4. Crear Prescripcion");
+            System.out.println("5. Ver mis Citas");
+            System.out.println("6. Marcar Cita como Completada");
+            System.out.println("7. Generar Factura (Billing)");
+            System.out.println("8. Volver al Menu Principal (Cerrar Sesion)");
 
             choice = readInt("Opcion: ");
 
             switch (choice) {
-                case 1: doAddNewMedicalRecord(); break; // <- Renombrado
-                case 2: doModifyMedicalRecord(); break; // <- NUEVO
-                case 3: doDoctorViewMedicalHistory(); break; // <- Renumerado
-                case 4: doCreatePrescription(); break; // <- Renumerado
-                case 5: loggedInDoctor.viewAppointments(clinic); break; // <- Renumerado
-                case 6: doMarkAppointmentCompleted(); break; // <- Renumerado
-                case 7: doGenerateBill(); break; // <- Renumerado
-                case 8: // <- Renumerado
+                case 1: doAddNewMedicalRecord(); break;
+                case 2: doModifyMedicalRecord(); break;
+                case 3: doDoctorViewMedicalHistory(); break;
+                case 4: doCreatePrescription(); break;
+                case 5: loggedInDoctor.viewAppointments(clinic); break;
+                case 6: doMarkAppointmentCompleted(); break;
+                case 7: doGenerateBill(); break;
+                case 8:
                     System.out.println("Cerrando sesion de doctor...");
-                    loggedInDoctor = null; 
+                    loggedInDoctor = null;  
                     return; 
                 default: System.out.println("Opcion no valida.");
             }
@@ -203,11 +202,61 @@ public class MainView {
             return;
         }
         
-        String name = readString("Nombre Completo: ");
-        String gender = readString("Genero: ");
-        String phone = readString("Telefono: ");
-        String address = readString("Direccion: ");
+        String name = null;
+        String gender = null;
+        String phone = null;
+        String address = null;
+        Patient tempPatient = new Patient(); // Se usa para validar los setters
 
+        // --- VALIDACION Y CICLO PARA NOMBRE COMPLETO ---
+        while (name == null) {
+            String input = readString("Nombre Completo: ");
+            try {
+                tempPatient.setFullName(input);
+                name = input; // Válido, salir del bucle
+            } catch (IllegalArgumentException e) {
+                System.out.println("ERROR: " + e.getMessage());
+                System.out.println("Por favor, ingrese el nombre nuevamente.");
+            }
+        }
+
+        while (gender == null) {
+            String input = readString("Genero: ");
+            try {
+                tempPatient.setGender(input);
+                gender = input; 
+            } catch (IllegalArgumentException e) {
+                System.out.println("ERROR: " + e.getMessage());
+                System.out.println("Por favor, ingrese el genero nuevamente.");
+            }
+        }
+
+        // --- VALIDACION Y CICLO PARA TELEFONO ---
+        while (phone == null) {
+            String input = readString("Telefono: ");
+            try {
+                tempPatient.setPhone(input);
+                phone = input; 
+            } catch (IllegalArgumentException e) {
+                System.out.println("ERROR: " + e.getMessage());
+                System.out.println("Por favor, ingrese el telefono nuevamente.");
+            }
+        }
+
+        // --- VALIDACION Y CICLO PARA DIRECCION ---
+        while (address == null) {
+            String input = readString("Direccion: ");
+            try {
+                tempPatient.setAddress(input);
+                address = input; // Válido, salir del bucle
+            } catch (IllegalArgumentException e) {
+                System.out.println("ERROR: " + e.getMessage());
+                System.out.println("Por favor, ingrese la direccion nuevamente.");
+            }
+        }
+        
+        // --- REGISTRO FINAL ---
+        // Se asume que el método registerPatient en Receptionist usa los datos validados.
         loggedInReceptionist.registerPatient(clinic, id, name, gender, phone, address);
         System.out.println("Paciente registrado exitosamente.");
     }
@@ -247,14 +296,44 @@ public class MainView {
         System.out.println("Paciente encontrado: " + patient.getFullName());
         System.out.println("Deje en blanco si no desea cambiar el dato.");
 
-        System.out.print("Nuevo Telefono (" + patient.getPhone() + "): ");
-        String newPhone = scanner.nextLine();
-        System.out.print("Nueva Direccion (" + patient.getAddress() + "): ");
-        String newAddress = scanner.nextLine();
+        String newPhone = null;
+        String newAddress = null;
 
-        if (newPhone.isEmpty()) newPhone = patient.getPhone();
-        if (newAddress.isEmpty()) newAddress = patient.getAddress();
+        // --- VALIDACION Y CICLO PARA NUEVO TELEFONO ---
+        while (newPhone == null) {
+            System.out.print("Nuevo Telefono (" + patient.getPhone() + "): ");
+            String input = scanner.nextLine();
+            if (input.isEmpty()) {
+                newPhone = patient.getPhone(); // No cambiar
+                break;
+            }
+            try {
+                patient.setPhone(input);
+                newPhone = input; // Válido
+            } catch (IllegalArgumentException e) {
+                System.out.println("ERROR: " + e.getMessage());
+                System.out.println("Por favor, ingrese el telefono nuevamente.");
+            }
+        }
 
+        // --- VALIDACION Y CICLO PARA NUEVA DIRECCION ---
+        while (newAddress == null) {
+            System.out.print("Nueva Direccion (" + patient.getAddress() + "): ");
+            String input = scanner.nextLine();
+            if (input.isEmpty()) {
+                newAddress = patient.getAddress(); // No cambiar
+                break;
+            }
+            try {
+                patient.setAddress(input);
+                newAddress = input; // Válido
+            } catch (IllegalArgumentException e) {
+                System.out.println("ERROR: " + e.getMessage());
+                System.out.println("Por favor, ingrese la dirección nuevamente.");
+            }
+        }
+        
+        // --- ACTUALIZACION FINAL ---
         loggedInReceptionist.updatePatientInfo(clinic, patient, newPhone, newAddress);
         System.out.println("Informacion actualizada exitosamente.");
     }
@@ -300,12 +379,29 @@ public class MainView {
         System.out.println("Doctor encontrado: " + doctor.getFullName());
         System.out.println("Deje en blanco si no desea cambiar el dato.");
 
-        System.out.print("Nuevo Telefono (" + doctor.getPhone() + "): ");
-        String newPhone = scanner.nextLine();
-        System.out.print("Nuevo Email (" + doctor.getEmail() + "): ");
-        String newEmail = scanner.nextLine();
+        String newPhone = null;
+        String newEmail = null;
+        
+        // --- VALIDACION Y CICLO PARA NUEVO TELEFONO ---
+        while (newPhone == null) {
+            System.out.print("Nuevo Telefono (" + doctor.getPhone() + "): ");
+            String input = scanner.nextLine();
+            if (input.isEmpty()) {
+                newPhone = doctor.getPhone();
+                break;
+            }
+            try {
+                // Validación estricta solo si el usuario introduce un valor
+                new Patient().setPhone(input); // Usamos el setter de Patient para validar el formato 10-dígitos
+                newPhone = input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("ERROR: El telefono debe tener 10 dígitos. Intente de nuevo.");
+            }
+        }
 
-        if (newPhone.isEmpty()) newPhone = doctor.getPhone();
+        System.out.print("Nuevo Email (" + doctor.getEmail() + "): ");
+        newEmail = scanner.nextLine(); // No hay validación compleja para email en el código original
+
         if (newEmail.isEmpty()) newEmail = doctor.getEmail();
 
         doctor.setPhone(newPhone);
@@ -328,12 +424,29 @@ public class MainView {
         System.out.println("Recepcionista encontrado: " + rec.getName());
         System.out.println("Deje en blanco si no desea cambiar el dato.");
 
-        System.out.print("Nuevo Telefono (" + rec.getPhone() + "): ");
-        String newPhone = scanner.nextLine();
-        System.out.print("Nuevo Email (" + rec.getEmail() + "): ");
-        String newEmail = scanner.nextLine();
+        String newPhone = null;
+        String newEmail = null;
 
-        if (newPhone.isEmpty()) newPhone = rec.getPhone();
+        // --- VALIDACION Y CICLO PARA NUEVO TELEFONO ---
+        while (newPhone == null) {
+            System.out.print("Nuevo Telefono (" + rec.getPhone() + "): ");
+            String input = scanner.nextLine();
+            if (input.isEmpty()) {
+                newPhone = rec.getPhone();
+                break;
+            }
+            try {
+                // Validación estricta solo si el usuario introduce un valor
+                new Patient().setPhone(input); // Usamos el setter de Patient para validar el formato 10-dígitos
+                newPhone = input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("ERROR: El telefono debe tener 10 dígitos. Intente de nuevo.");
+            }
+        }
+        
+        System.out.print("Nuevo Email (" + rec.getEmail() + "): ");
+        newEmail = scanner.nextLine(); // No hay validación compleja para email en el código original
+
         if (newEmail.isEmpty()) newEmail = rec.getEmail();
 
         rec.setPhone(newPhone);
@@ -365,7 +478,7 @@ public class MainView {
 
         MedicalHistory newRecord = new MedicalHistory(historyId, recordDate, allergies, diseases, treatments, observations);
         
-        newRecord.addRecord(); // <-- Se llama el metodo de MedicalHistory
+        newRecord.addRecord();
 
         loggedInDoctor.updateMedicalHistory(clinic, patient, newRecord);
         System.out.println("Historial actualizado exitosamente.");
@@ -415,7 +528,7 @@ public class MainView {
         if (!newObs.isEmpty()) recordToModify.setObservations(newObs);
         if (!newTreat.isEmpty()) recordToModify.setTreatments(newTreat);
         
-        recordToModify.updateHistory(); // <-- Se llama el metodo de MedicalHistory
+        recordToModify.updateHistory();
         
         clinic.savePatientChanges();
         System.out.println("Registro modificado exitosamente.");

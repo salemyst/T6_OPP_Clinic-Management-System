@@ -1,0 +1,26 @@
+[
+  {
+    "patientId": 12,
+    "fullName": "123123",
+    "gender": "12312",
+    "phone": "asdhvbajshdvajhsdd",
+    "address": "1238719237213dasjdk",
+    "medicalHistory": []
+  },
+  {
+    "patientId": 2,
+    "fullName": "asdajskbd",
+    "gender": "m",
+    "phone": "asdjkbasd",
+    "address": "asdljknasjkdbas",
+    "medicalHistory": []
+  },
+  {
+    "patientId": 1,
+    "fullName": "asdasd",
+    "gender": "feasda",
+    "phone": "2345678901",
+    "address": "qweqweqweqw",
+    "medicalHistory": []
+  }
+]
