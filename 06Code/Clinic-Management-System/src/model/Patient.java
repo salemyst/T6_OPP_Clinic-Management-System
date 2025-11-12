@@ -49,7 +49,7 @@ public class Patient {
 
     public void setPhone(String phone) {
         if (phone == null || !phone.matches("^\\d{10}$")) {
-            throw new IllegalArgumentException("El numero de telefono debe tener exactamente 10 dígitos numericos.");
+            throw new IllegalArgumentException("El numero de telefono debe tener exactamente 10 digitos numericos.");
         }
         this.phone = phone;
     }
