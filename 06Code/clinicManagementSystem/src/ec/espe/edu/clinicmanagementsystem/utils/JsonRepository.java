@@ -1,4 +1,4 @@
-package utils;
+package ec.espe.edu.clinicmanagementsystem.utils;
 /**
  *
  * @author César Vargas, Paradigm, @ESPE

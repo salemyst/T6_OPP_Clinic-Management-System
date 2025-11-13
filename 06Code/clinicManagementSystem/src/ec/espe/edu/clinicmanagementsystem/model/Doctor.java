@@ -93,7 +93,7 @@ public class Doctor {
     }
 
     public void updateMedicalHistory(Clinic clinic, Patient patient, MedicalHistory newRecord) {
-        System.out.println("Dr. " + this.fullName + " actualizando historial de " + patient.getFullName());
+        System.out.println(this.fullName + " actualizando historial de " + patient.getFullName());
         patient.addMedicalRecord(newRecord); 
         clinic.savePatientChanges(); 
     }
@@ -105,7 +105,7 @@ public class Doctor {
     }
     
     public void diagnose(Patient patient, String diagnosis) {
-        System.out.println("Dr. " + this.fullName + " diagnostico a " + patient.getFullName() + " con: " + diagnosis);
+        System.out.println(  this.fullName + " diagnostico a " + patient.getFullName() + " con: " + diagnosis);
     }
 
     @Override

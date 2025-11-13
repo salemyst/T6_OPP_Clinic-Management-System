@@ -79,10 +79,10 @@ public class MedicalHistory {
     }
     
     public void addRecord() {
-        System.out.println("Metodo addRecord llamado para Historial ID: " + this.historyId);
+        System.out.println("Historial ID: " + this.historyId);
     }
     
     public void updateHistory() {
-        System.out.println("Metodo updateHistory llamado para Historial ID: " + this.historyId);
+        System.out.println("Historial ID: " + this.historyId);
     }
 }
