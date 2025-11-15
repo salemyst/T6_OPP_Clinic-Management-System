@@ -29,7 +29,11 @@ public class Validations {
             if (num >= min && num <= max) {
                 return num;
             } else {
-                System.out.println("Error: El numero debe estar entre " + min + " y " + max + ". Intente de nuevo.");
+                if (min == max) {
+                    System.out.println("Error: El anio debe ser el actual (2025). Intente de nuevo");
+                }else{
+                    System.out.println("Error: El numero debe estar entre " + min + " y " + max + ". Intente de nuevo.");  
+                }              
             }
         }
     }
