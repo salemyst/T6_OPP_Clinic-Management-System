@@ -5,10 +5,10 @@ package ec.espe.edu.clinicmanagementsystem.model;
  */
 
 import com.google.gson.reflect.TypeToken;
+import ec.espe.edu.clinicmanagementsystem.utils.JsonRepository;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import ec.espe.edu.clinicmanagementsystem.utils.JsonRepository;
 
 public class Clinic {
 
@@ -20,13 +20,15 @@ public class Clinic {
     private transient JsonRepository<Doctor> doctorRepository;
     private transient JsonRepository<Receptionist> receptionistRepository;
     private transient JsonRepository<Billing> billingRepository;
-    private transient JsonRepository<Appointment> appointmentRepository; 
+    private transient JsonRepository<Appointment> appointmentRepository;
+    private transient JsonRepository<Prescription> prescriptionRepository; 
 
     private List<Patient> patients;
     private List<Doctor> doctors;
     private List<Receptionist> receptionists;
     private List<Appointment> appointments;
     private List<Billing> billings;
+    private List<Prescription> prescriptions; 
 
     public Clinic(String name, String address, String phone) {
         this.name = name;
@@ -37,19 +39,22 @@ public class Clinic {
         Type doctorListType = new TypeToken<ArrayList<Doctor>>(){}.getType();
         Type receptionistListType = new TypeToken<ArrayList<Receptionist>>(){}.getType();
         Type billingListType = new TypeToken<ArrayList<Billing>>(){}.getType();
-        Type appointmentListType = new TypeToken<ArrayList<Appointment>>(){}.getType(); 
+        Type appointmentListType = new TypeToken<ArrayList<Appointment>>(){}.getType();
+        Type prescriptionListType = new TypeToken<ArrayList<Prescription>>(){}.getType(); 
 
         this.patientRepository = new JsonRepository<>("patients.json", patientListType);
         this.doctorRepository = new JsonRepository<>("doctors.json", doctorListType);
         this.receptionistRepository = new JsonRepository<>("receptionists.json", receptionistListType);
         this.billingRepository = new JsonRepository<>("billings.json", billingListType);
-        this.appointmentRepository = new JsonRepository<>("appointments.json", appointmentListType); 
+        this.appointmentRepository = new JsonRepository<>("appointments.json", appointmentListType);
+        this.prescriptionRepository = new JsonRepository<>("prescriptions.json", prescriptionListType);
 
         this.patients = patientRepository.loadData();
         this.doctors = doctorRepository.loadData();
         this.receptionists = receptionistRepository.loadData();
         this.billings = billingRepository.loadData();
-        this.appointments = appointmentRepository.loadData(); 
+        this.appointments = appointmentRepository.loadData();
+        this.prescriptions = prescriptionRepository.loadData(); 
     }
 
     public void addDoctor(Doctor doctor) {
@@ -78,7 +83,7 @@ public class Clinic {
         
     public void saveNewAppointment(Appointment appointment) {
         this.appointments.add(appointment);
-        this.appointmentRepository.saveData(this.appointments); 
+        this.appointmentRepository.saveData(this.appointments);
     }
     
     public void savePatientChanges() {
@@ -102,8 +107,13 @@ public class Clinic {
         this.billingRepository.saveData(this.billings);
     }
     
-    public void saveAppointmentChanges() { 
+    public void saveAppointmentChanges() {
         this.appointmentRepository.saveData(this.appointments);
+    }
+    
+    public void saveNewPrescription(Prescription prescription) {
+        this.prescriptions.add(prescription);
+        this.prescriptionRepository.saveData(this.prescriptions);
     }
     
     public Doctor searchDoctor(int doctorId) {
@@ -235,5 +245,21 @@ public class Clinic {
 
     public void setAppointmentRepository(JsonRepository<Appointment> appointmentRepository) {
         this.appointmentRepository = appointmentRepository;
+    }
+    
+    public JsonRepository<Prescription> getPrescriptionRepository() { 
+        return prescriptionRepository;
+    }
+
+    public void setPrescriptionRepository(JsonRepository<Prescription> prescriptionRepository) { 
+        this.prescriptionRepository = prescriptionRepository;
+    }
+
+    public List<Prescription> getPrescriptions() { 
+        return prescriptions;
+    }
+
+    public void setPrescriptions(List<Prescription> prescriptions) { 
+        this.prescriptions = prescriptions;
     }
 }

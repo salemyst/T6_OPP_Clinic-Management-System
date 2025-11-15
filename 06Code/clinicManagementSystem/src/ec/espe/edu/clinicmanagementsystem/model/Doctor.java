@@ -100,7 +100,7 @@ public class Doctor {
 
     public Prescription createPrescription(Patient patient, int presId, String medication, String dosage, Date date) {
         System.out.println("Dr. " + this.fullName + " creando prescripcion para " + patient.getFullName());
-        Prescription newPrescription = new Prescription(presId, medication, dosage, "Tomar cada 8 horas", date);
+        Prescription newPrescription = new Prescription(presId,patient.getPatientId(), medication, dosage, "Tomar cada 8 horas", date);
         return newPrescription;
     }
     
