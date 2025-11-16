@@ -10,7 +10,7 @@ import ec.espe.edu.clinicmanagementsystem.model.Notification;
 import ec.espe.edu.clinicmanagementsystem.model.Patient;
 import ec.espe.edu.clinicmanagementsystem.model.Prescription;
 import ec.espe.edu.clinicmanagementsystem.model.Receptionist;
-import ec.espe.edu.clinicmanagementsystem.utils.Validations;
+import ec.espe.edu.clinicmanagementsystem.utils.Validation;
 import java.util.List;
 import java.util.ArrayList;
 /**
@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class MainView {
 
     private static Clinic clinic;
-
     private static Receptionist loggedInReceptionist;
     private static Doctor loggedInDoctor;
     private static Patient loggedInPatient;
@@ -55,7 +54,7 @@ public class MainView {
             System.out.println("3. Paciente");
             System.out.println("4. Salir");
 
-            choice = Validations.readInt("Opcion: ");
+            choice = Validation.readInt("Opcion: ");
 
             switch (choice) {
                 case 1:
@@ -97,7 +96,7 @@ public class MainView {
             System.out.println("7. Modificar Recepcionista");
             System.out.println("8. Volver al Menu Principal (Cerrar Sesion)");
 
-            choice = Validations.readInt("Opcion: ");
+            choice = Validation.readInt("Opcion: ");
 
             switch (choice) {
                 case 1: doRegisterNewPatient(); break;
@@ -137,7 +136,7 @@ public class MainView {
             System.out.println("7. Generar Factura (Billing)");
             System.out.println("8. Volver al Menu Principal (Cerrar Sesion)");
 
-            choice = Validations.readInt("Opcion: ");
+            choice = Validation.readInt("Opcion: ");
 
             switch (choice) {
                 case 1: doAddNewMedicalRecord(); break;
@@ -158,7 +157,7 @@ public class MainView {
 
     private static void runPatientMenu() {
         System.out.println("\n== Menu Paciente ==");
-        int patientId = Validations.readInt("Por favor, ingrese su ID de Paciente para continuar: ");
+        int patientId = Validation.readInt("Por favor, ingrese su ID de Paciente para continuar: ");
         loggedInPatient = clinic.searchPatient(patientId);
 
         if (loggedInPatient == null) {
@@ -175,7 +174,7 @@ public class MainView {
             System.out.println("4. Ver mis Prescripciones");
             System.out.println("5. Salir (Cerrar Sesion de Paciente)");
 
-            choice = Validations.readInt("Opcion: ");
+            choice = Validation.readInt("Opcion: ");
 
             switch (choice) {
                 case 1: loggedInPatient.viewMedicalHistory(); break;
@@ -190,8 +189,8 @@ public class MainView {
 
     private static boolean doDoctorLogin() {
         System.out.println("\n--- Inicio de Sesion (Doctor) ---");
-        String username = Validations.readString("Usuario: ");
-        String password = Validations.readString("Contrasena: ");
+        String username = Validation.readString("Usuario: ");
+        String password = Validation.readString("Contrasena: ");
 
         for (Doctor doctor : clinic.getDoctors()) {
             if (username.equals(doctor.getUsername()) && password.equals(doctor.getPassword())) {
@@ -207,8 +206,8 @@ public class MainView {
     
     private static boolean doReceptionistLogin() {
         System.out.println("\n--- Inicio de Sesion (Recepcionista) ---");
-        String username = Validations.readString("Usuario: ");
-        String password = Validations.readString("Contrasena: ");
+        String username = Validation.readString("Usuario: ");
+        String password = Validation.readString("Contrasena: ");
 
         for (Receptionist rec : clinic.getReceptionists()) {
             if (username.equals(rec.getUsername()) && password.equals(rec.getPassword())) {
@@ -224,21 +223,21 @@ public class MainView {
 
     private static void doRegisterNewPatient() {
         System.out.println("\n--- Registrar Nuevo Paciente ---");
-        int id = Validations.readInt("ID del Paciente (numero): ");
+        int id = Validation.readPositiveInt("ID del Paciente (numero): ");
 
         if (clinic.searchPatient(id) != null) {
             System.out.println("Error: Ya existe un paciente con el ID " + id + ". Registro cancelado.");
             return;
         }
-
+        
         String name = null;
         String gender = null;
         String phone = null;
         String address = null;
-        Patient tempPatient = new Patient();
+        Patient tempPatient = new Patient(id,name,gender,phone,address);
 
         while (name == null) {
-            String input = Validations.readString("Nombre Completo: ");
+            String input = Validation.readString("Nombre Completo: ");
             try {
                 tempPatient.setFullName(input);
                 name = input;
@@ -249,7 +248,7 @@ public class MainView {
         }
 
         while (gender == null) {
-            String input = Validations.readString("Genero: ");
+            String input = Validation.readString("Genero: ");
             try {
                 tempPatient.setGender(input);
                 gender = input;
@@ -260,7 +259,7 @@ public class MainView {
         }
 
         while (phone == null) {
-            String input = Validations.readString("Telefono: ");
+            String input = Validation.readString("Telefono: ");
             try {
                 tempPatient.setPhone(input);
                 phone = input;
@@ -271,7 +270,7 @@ public class MainView {
         }
 
         while (address == null) {
-            String input = Validations.readString("Direccion: ");
+            String input = Validation.readString("Direccion: ");
             try {
                 tempPatient.setAddress(input);
                 address = input;
@@ -280,7 +279,7 @@ public class MainView {
                 System.out.println("Por favor, ingrese la direccion nuevamente.");
             }
         }
-
+        
         loggedInReceptionist.registerPatient(clinic, id, name, gender, phone, address);
         System.out.println("Paciente registrado exitosamente.");
     }
@@ -288,26 +287,26 @@ public class MainView {
     private static void doScheduleNewAppointment() {
         System.out.println("\n--- Agendar Cita ---");
 
-        int appId = Validations.readInt("ID de la Cita (numero): ");
+        int appId = Validation.readPositiveInt("ID de la Cita (numero): ");
         if (findAppointmentById(appId) != null) {
             System.out.println("Error: Ya existe una cita con el ID " + appId + ". Agendamiento cancelado.");
             return;
         }
 
-        int patId = Validations.readInt("ID del Paciente (numero): ");
+        int patId = Validation.readPositiveInt("ID del Paciente (numero): ");
         Patient patient = clinic.searchPatient(patId);
         if (patient == null) {
             System.out.println("Error: Paciente no encontrado.");
             return;
         }
 
-        int docId = Validations.readInt("ID del Doctor (numero): ");
+        int docId = Validation.readPositiveInt("ID del Doctor (numero): ");
         if (clinic.searchDoctor(docId) == null) {
             System.out.println("Error: Doctor no encontrado.");
             return;
         }
 
-        Date appDate = Validations.readDate("--- Fecha y Hora de la Cita ---");
+        Date appDate = Validation.readDate("--- Fecha y Hora de la Cita ---");
 
         for (Appointment existingApp : clinic.getAppointments()) {
             if (existingApp.getDoctorId() == docId && existingApp.getDate().toString().equals(appDate.toString())) {
@@ -320,7 +319,8 @@ public class MainView {
         loggedInReceptionist.createAppointment(clinic, appId, appDate, patId, docId);
         System.out.println("Cita agendada exitosamente.");
 
-        String message = "Confirmacion para " + patient.getFullName() +
+        String patientName = (patient.getFullName() != null) ? patient.getFullName() : "Paciente ID " + patient.getPatientId();
+        String message = "Confirmacion para " + patientName +
                          ": Su cita (ID " + appId + ") ha sido agendada para el " +
                          appDate.toString();
 
@@ -332,7 +332,7 @@ public class MainView {
 
     private static void doUpdatePatientInfo() {
         System.out.println("\n--- Actualizar Info de Paciente ---");
-        int patientId = Validations.readInt("ID del Paciente a actualizar: ");
+        int patientId = Validation.readPositiveInt("ID del Paciente a actualizar: ");
         Patient patient = clinic.searchPatient(patientId);
 
         if (patient == null) {
@@ -348,7 +348,7 @@ public class MainView {
 
         while (newPhone == null) {
             System.out.print("Nuevo Telefono (" + patient.getPhone() + "): ");
-            String input = Validations.readString(""); 
+            String input = Validation.readString(""); 
             if (input.isEmpty()) {
                 newPhone = patient.getPhone();
                 break;
@@ -364,7 +364,7 @@ public class MainView {
 
         while (newAddress == null) {
             System.out.print("Nueva Direccion (" + patient.getAddress() + "): ");
-            String input = Validations.readString("");
+            String input = Validation.readString("");
             if (input.isEmpty()) {
                 newAddress = patient.getAddress();
                 break;
@@ -384,7 +384,7 @@ public class MainView {
 
     private static void doRescheduleAppointment() {
         System.out.println("\n--- Reagendar Cita ---");
-        int appId = Validations.readInt("ID de la Cita a reagendar: ");
+        int appId = Validation.readPositiveInt("ID de la Cita a reagendar: ");
         Appointment app = findAppointmentById(appId);
 
         if (app == null) {
@@ -393,7 +393,7 @@ public class MainView {
         }
 
         System.out.println("Cita encontrada: " + app.toString());
-        Date newDate = Validations.readDate("--- Nueva Fecha y Hora ---");
+        Date newDate = Validation.readDate("--- Nueva Fecha y Hora ---");
 
         for (Appointment existingApp : clinic.getAppointments()) {
             if (existingApp.getAppointmentId() != app.getAppointmentId() && 
@@ -409,7 +409,7 @@ public class MainView {
         clinic.saveAppointmentChanges();
         
         Patient patient = clinic.searchPatient(app.getPatientId());
-        String patientName = (patient != null) ? patient.getFullName() : "Paciente";
+        String patientName = (patient != null && patient.getFullName() != null) ? patient.getFullName() : "Paciente ID " + app.getPatientId();
         String message = "Aviso para " + patientName + ": Su cita (ID " + app.getAppointmentId() + ") ha sido REAGENDADA para el " + newDate.toString();
         Date notificationDate = new Date(newDate.getDay(), newDate.getMonth(), newDate.getYear(), newDate.getHour(), newDate.getMinute() + 1);
         Notification notification = new Notification(message, notificationDate);
@@ -418,7 +418,7 @@ public class MainView {
 
     private static void doCancelAppointment() {
         System.out.println("\n--- Cancelar Cita ---");
-        int appId = Validations.readInt("ID de la Cita a cancelar: ");
+        int appId = Validation.readPositiveInt("ID de la Cita a cancelar: ");
         Appointment app = findAppointmentById(appId);
 
         if (app == null) {
@@ -430,7 +430,7 @@ public class MainView {
         clinic.saveAppointmentChanges();
 
         Patient patient = clinic.searchPatient(app.getPatientId());
-        String patientName = (patient != null) ? patient.getFullName() : "Paciente";
+        String patientName = (patient != null && patient.getFullName() != null) ? patient.getFullName() : "Paciente ID " + app.getPatientId();
         Date currentDate = new Date(11, 11, 2025, 12, 0); 
         String message = "Aviso para " + patientName + ": Su cita (ID " + app.getAppointmentId() + ") del " + app.getDate().toString() + " ha sido CANCELADA.";
         Notification notification = new Notification(message, currentDate);
@@ -439,7 +439,7 @@ public class MainView {
     
     private static void doModifyDoctor() {
         System.out.println("\n--- Modificar Doctor ---");
-        int doctorId = Validations.readInt("ID del Doctor a modificar: ");
+        int doctorId = Validation.readPositiveInt("ID del Doctor a modificar: ");
         Doctor doctor = clinic.searchDoctor(doctorId);
 
         if (doctor == null) {
@@ -455,7 +455,7 @@ public class MainView {
 
         while (newPhone == null) {
             System.out.print("Nuevo Telefono (" + doctor.getPhone() + "): ");
-            String input = Validations.readString("");
+            String input = Validation.readString("");
             if (input.isEmpty()) {
                 newPhone = doctor.getPhone();
                 break;
@@ -469,7 +469,7 @@ public class MainView {
         }
 
         System.out.print("Nuevo Email (" + doctor.getEmail() + "): ");
-        newEmail = Validations.readString("");
+        newEmail = Validation.readString("");
 
         if (newEmail.isEmpty()) newEmail = doctor.getEmail();
 
@@ -482,7 +482,7 @@ public class MainView {
 
     private static void doModifyReceptionist() {
         System.out.println("\n--- Modificar Recepcionista ---");
-        int recId = Validations.readInt("ID del Recepcionista a modificar: ");
+        int recId = Validation.readPositiveInt("ID del Recepcionista a modificar: ");
         Receptionist rec = clinic.searchReceptionist(recId);
 
         if (rec == null) {
@@ -498,7 +498,7 @@ public class MainView {
 
         while (newPhone == null) {
             System.out.print("Nuevo Telefono (" + rec.getPhone() + "): ");
-            String input = Validations.readString("");
+            String input = Validation.readString("");
             if (input.isEmpty()) {
                 newPhone = rec.getPhone();
                 break;
@@ -512,7 +512,7 @@ public class MainView {
         }
 
         System.out.print("Nuevo Email (" + rec.getEmail() + "): ");
-        newEmail = Validations.readString("");
+        newEmail = Validation.readString("");
 
         if (newEmail.isEmpty()) newEmail = rec.getEmail();
 
@@ -525,7 +525,7 @@ public class MainView {
 
     private static void doAddNewMedicalRecord() {
         System.out.println("\n--- Anadir Registro a Historia Clinica ---");
-        int patientId = Validations.readInt("Ingrese ID del Paciente: ");
+        int patientId = Validation.readPositiveInt("Ingrese ID del Paciente: ");
         Patient patient = clinic.searchPatient(patientId); 
 
         if (patient == null) {
@@ -534,13 +534,13 @@ public class MainView {
         }
 
         System.out.println("Paciente encontrado: " + patient.getFullName());
-        int historyId = Validations.readInt("ID del nuevo Registro de Historia (numero): ");
-        String observations = Validations.readString("Observaciones: ");
-        String treatments = Validations.readString("Tratamientos: ");
-        String allergies = Validations.readString("Alergias: ");
-        String diseases = Validations.readString("Enfermedades: ");
+        int historyId = Validation.readPositiveInt("ID del nuevo Registro de Historia (numero): ");
+        String observations = Validation.readString("Observaciones: ");
+        String treatments = Validation.readString("Tratamientos: ");
+        String allergies = Validation.readString("Alergias: ");
+        String diseases = Validation.readString("Enfermedades: ");
 
-        Date recordDate = Validations.readDate("--- Fecha del Registro ---");
+        Date recordDate = Validation.readDate("--- Fecha del Registro ---");
 
         MedicalHistory newRecord = new MedicalHistory(historyId, recordDate, allergies, diseases, treatments, observations);
         
@@ -552,7 +552,7 @@ public class MainView {
     
     private static void doModifyMedicalRecord() {
         System.out.println("\n--- Modificar Registro de Historia Clinica ---");
-        int patientId = Validations.readInt("Ingrese ID del Paciente: ");
+        int patientId = Validation.readPositiveInt("Ingrese ID del Paciente: ");
         Patient patient = clinic.searchPatient(patientId); 
 
         if (patient == null) {
@@ -568,7 +568,7 @@ public class MainView {
         System.out.println("Registros existentes para " + patient.getFullName() + ":");
         patient.viewMedicalHistory();
         
-        int historyId = Validations.readInt("Ingrese el ID del registro que desea modificar: ");
+        int historyId = Validation.readPositiveInt("Ingrese el ID del registro que desea modificar: ");
         
         MedicalHistory recordToModify = null;
         for (MedicalHistory record : patient.getMedicalHistory()) {
@@ -586,9 +586,9 @@ public class MainView {
         System.out.println("Registro encontrado. Deje en blanco para no cambiar.");
         
         System.out.print("Nuevas Observaciones (" + recordToModify.getObservations() + "): ");
-        String newObs = Validations.readString("");
+        String newObs = Validation.readString("");
         System.out.print("Nuevos Tratamientos (" + recordToModify.getTreatments() + "): ");
-        String newTreat = Validations.readString("");
+        String newTreat = Validation.readString("");
         
         if (!newObs.isEmpty()) recordToModify.setObservations(newObs);
         if (!newTreat.isEmpty()) recordToModify.setTreatments(newTreat);
@@ -601,7 +601,7 @@ public class MainView {
 
     private static void doDoctorViewMedicalHistory() {
         System.out.println("\n--- Ver Historia Clinica de Paciente ---");
-        int patientId = Validations.readInt("Ingrese ID del Paciente: ");
+        int patientId = Validation.readPositiveInt("Ingrese ID del Paciente: ");
         Patient patient = clinic.searchPatient(patientId);
 
         if (patient == null) {
@@ -614,7 +614,7 @@ public class MainView {
 
     private static void doCreatePrescription() {
         System.out.println("\n--- Crear Prescripcion ---");
-        int patientId = Validations.readInt("ID del Paciente: ");
+        int patientId = Validation.readPositiveInt("ID del Paciente: ");
         Patient patient = clinic.searchPatient(patientId);
 
         if (patient == null) {
@@ -622,11 +622,11 @@ public class MainView {
             return;
         }
 
-        int presId = Validations.readInt("ID de la Prescripcion (numero): ");
-        String medication = Validations.readString("Medicamento: ");
-        String dosage = Validations.readString("Dosis (ej. 100mg): ");
-        String instructions = Validations.readString("Instrucciones (ej. cada 8 horas): ");
-        Date presDate = Validations.readDate("--- Fecha de la Prescripcion ---");
+        int presId = Validation.readPositiveInt("ID de la Prescripcion (numero): ");
+        String medication = Validation.readString("Medicamento: ");
+        String dosage = Validation.readString("Dosis (ej. 100mg): ");
+        String instructions = Validation.readString("Instrucciones (ej. cada 8 horas): ");
+        Date presDate = Validation.readDate("--- Fecha de la Prescripcion ---");
 
         Prescription p = new Prescription(presId, patientId, medication, dosage, instructions, presDate);
         
@@ -638,7 +638,7 @@ public class MainView {
 
     private static void doMarkAppointmentCompleted() {
         System.out.println("\n--- Marcar Cita como Completada ---");
-        int appId = Validations.readInt("ID de la Cita a completar: ");
+        int appId = Validation.readPositiveInt("ID de la Cita a completar: ");
         Appointment app = findAppointmentById(appId);
 
         if (app == null) {
@@ -652,7 +652,7 @@ public class MainView {
 
     private static void doGenerateBill() {
         System.out.println("\n--- Generar Factura ---");
-        int patientId = Validations.readInt("ID del Paciente a facturar: ");
+        int patientId = Validation.readPositiveInt("ID del Paciente a facturar: ");
         Patient patient = clinic.searchPatient(patientId);
 
         if (patient == null) {
@@ -660,9 +660,9 @@ public class MainView {
             return;
         }
 
-        int billId = Validations.readInt("ID de la Factura (numero): ");
-        double amount = Validations.readDouble("Monto de la Factura (ej. 40.50): ");
-        Date billDate = Validations.readDate("--- Fecha de la Factura ---");
+        int billId = Validation.readPositiveInt("ID de la Factura (numero): ");
+        double amount = Validation.readPositiveDouble("Monto de la Factura (ej. 40.50): ");
+        Date billDate = Validation.readDate("--- Fecha de la Factura ---");
 
         Billing bill = new Billing(billId, amount, billDate, "Pending", patientId);
         bill.generateBill();
@@ -694,7 +694,7 @@ public class MainView {
             System.out.println("  ID: " + bill.getBillId() + ", Monto: $" + bill.getAmount() + ", Fecha: " + bill.getDate().getDate());
         }
 
-        int billId = Validations.readInt("Ingrese el ID de la factura que desea pagar (0 para cancelar): ");
+        int billId = Validation.readInt("Ingrese el ID de la factura que desea pagar (0 para cancelar): ");
         if (billId == 0) return;
 
         Billing billToPay = clinic.searchBill(billId);

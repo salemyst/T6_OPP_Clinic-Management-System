@@ -6,6 +6,7 @@ package ec.espe.edu.clinicmanagementsystem.model;
 
 import com.google.gson.reflect.TypeToken;
 import ec.espe.edu.clinicmanagementsystem.utils.JsonRepository;
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,28 +36,32 @@ public class Clinic {
         this.address = address;
         this.phone = phone;
 
+        String dataDirectory = "data";
+        new File(dataDirectory).mkdirs();
+        
+        String dir = dataDirectory + File.separator;
+
         Type patientListType = new TypeToken<ArrayList<Patient>>(){}.getType();
         Type doctorListType = new TypeToken<ArrayList<Doctor>>(){}.getType();
         Type receptionistListType = new TypeToken<ArrayList<Receptionist>>(){}.getType();
         Type billingListType = new TypeToken<ArrayList<Billing>>(){}.getType();
         Type appointmentListType = new TypeToken<ArrayList<Appointment>>(){}.getType();
-        Type prescriptionListType = new TypeToken<ArrayList<Prescription>>(){}.getType(); 
+        Type prescriptionListType = new TypeToken<ArrayList<Prescription>>(){}.getType();
 
-        this.patientRepository = new JsonRepository<>("patients.json", patientListType);
-        this.doctorRepository = new JsonRepository<>("doctors.json", doctorListType);
-        this.receptionistRepository = new JsonRepository<>("receptionists.json", receptionistListType);
-        this.billingRepository = new JsonRepository<>("billings.json", billingListType);
-        this.appointmentRepository = new JsonRepository<>("appointments.json", appointmentListType);
-        this.prescriptionRepository = new JsonRepository<>("prescriptions.json", prescriptionListType);
+        this.patientRepository = new JsonRepository<>(dir + "patients.json", patientListType);
+        this.doctorRepository = new JsonRepository<>(dir + "doctors.json", doctorListType);
+        this.receptionistRepository = new JsonRepository<>(dir + "receptionists.json", receptionistListType);
+        this.billingRepository = new JsonRepository<>(dir + "billings.json", billingListType);
+        this.appointmentRepository = new JsonRepository<>(dir + "appointments.json", appointmentListType);
+        this.prescriptionRepository = new JsonRepository<>(dir + "prescriptions.json", prescriptionListType);
 
         this.patients = patientRepository.loadData();
         this.doctors = doctorRepository.loadData();
         this.receptionists = receptionistRepository.loadData();
         this.billings = billingRepository.loadData();
         this.appointments = appointmentRepository.loadData();
-        this.prescriptions = prescriptionRepository.loadData(); 
+        this.prescriptions = prescriptionRepository.loadData();
     }
-
     public void addDoctor(Doctor doctor) {
         this.doctors.add(doctor);
         this.doctorRepository.saveData(this.doctors);
