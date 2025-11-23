@@ -7,6 +7,7 @@ package ec.espe.edu.clinicmanagementsystem.model;
 public class Prescription {
 
     private int prescriptionId;
+    private int patientId; 
     private String medication;
     private String dosage;
     private String instructions;
@@ -15,8 +16,9 @@ public class Prescription {
     public Prescription() {
     }
 
-    public Prescription(int prescriptionId, String medication, String dosage, String instructions, Date date) {
+    public Prescription(int prescriptionId, int patientId, String medication, String dosage, String instructions, Date date) {
         this.prescriptionId = prescriptionId;
+        this.patientId = patientId; 
         this.medication = medication;
         this.dosage = dosage;
         this.instructions = instructions;
@@ -29,6 +31,14 @@ public class Prescription {
 
     public void setPrescriptionId(int prescriptionId) {
         this.prescriptionId = prescriptionId;
+    }
+    
+    public int getPatientId() { 
+        return patientId;
+    }
+
+    public void setPatientId(int patientId) { 
+        this.patientId = patientId;
     }
 
     public String getMedication() {
@@ -65,12 +75,13 @@ public class Prescription {
 
     @Override
     public String toString() {
-        return "Prescription{" + "prescriptionId=" + prescriptionId + ", medication=" + medication + ", dosage=" + dosage + ", date=" + date + '}';
+        return "Prescription{" + "prescriptionId=" + prescriptionId + ", patientId=" + patientId + ", medication=" + medication + ", dosage=" + dosage + '}';
     }
     
     public void printPrescription() {
         System.out.println("\n--- Imprimiendo Prescripcion ---");
         System.out.println("ID Prescripcion: " + this.prescriptionId);
+        System.out.println("Paciente ID: " + this.patientId);
         System.out.println("Fecha: " + this.date.toString());
         System.out.println("---------------------------------");
         System.out.println("Medicamento: " + this.medication);

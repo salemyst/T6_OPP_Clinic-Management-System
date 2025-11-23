@@ -75,7 +75,13 @@ public class MedicalHistory {
 
     @Override
     public String toString() {
-        return "MedicalHistory{" + "historyId=" + historyId + ", date=" + date + ", observations=" + observations + ", treatments=" + treatments + '}';
+        return "Historial Medico" + 
+                "\n ID: " + historyId + 
+                "\nFecha: " + date + 
+                "\nAlergias: "+ allergies +
+                "\nEnfermedades: "+ diseases + 
+                "\nTratamientos: " + treatments +
+                "\nObservaciones: " + observations ;
     }
     
     public void addRecord() {

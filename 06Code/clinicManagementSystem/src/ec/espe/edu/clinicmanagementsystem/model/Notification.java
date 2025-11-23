@@ -1,10 +1,9 @@
-
 package ec.espe.edu.clinicmanagementsystem.model;
-
 /**
  *
  * @author César Vargas, Paradigm, @ESPE
  */
+
 public class Notification {
 
     private String message;

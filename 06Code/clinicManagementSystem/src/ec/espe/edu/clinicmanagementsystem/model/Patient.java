@@ -15,17 +15,17 @@ public class Patient {
     private String phone;
     private String address;
     private List<MedicalHistory> medicalHistory;
-
+    
     public Patient() {
         this.medicalHistory = new ArrayList<>();
     }
 
     public Patient(int patientId, String fullName, String gender, String phone, String address) {
         this.patientId = patientId;
-        setFullName(fullName); 
-        setGender(gender);
-        setPhone(phone);
-        setAddress(address);
+        this.fullName = fullName;
+        this.gender = gender;
+        this.phone = phone;
+        this.address = address;
         this.medicalHistory = new ArrayList<>();
     }
     

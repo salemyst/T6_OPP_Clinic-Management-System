@@ -20,7 +20,7 @@ public class Appointment {
         this.date = date;
         this.patientId = patientId;
         this.doctorId = doctorId;
-        this.status = "Scheduled"; 
+        this.status = "Agendado"; 
     }
 
     public int getAppointmentId() {
@@ -65,22 +65,28 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Appointment{" + "appointmentId=" + appointmentId + ", date=" + date + ", status=" + status + ", patientId=" + patientId + ", doctorId=" + doctorId + '}';
+        return "-------------------------"+
+                "\nCITA" + "(" + appointmentId +")"+ 
+                "\nFecha: " + date + 
+                "\nEstado: " + status + 
+                "\nID del paciente: " + patientId + 
+                "\nID del Doctor: " + doctorId + 
+                "\n-------------------------";  
     }
     
     public void reschedule(Date newDate) {
         this.setDate(newDate);
-        this.setStatus("Scheduled"); 
+        this.setStatus("Agendada"); 
         System.out.println("Cita " + this.appointmentId + " reagendada para: " + newDate.toString());
     }
 
     public void cancel() {
-        this.setStatus("Canceled");
+        this.setStatus("Cancelada");
         System.out.println("Cita " + this.appointmentId + " ha sido cancelada.");
     }
 
     public void markCompleted() {
-        this.setStatus("Completed");
+        this.setStatus("Completeda");
         System.out.println("Cita " + this.appointmentId + " marcada como completada.");
     }
 }
