@@ -1,0 +1,94 @@
+-------------------------------------------------------------------------------
+Test set: ec.edu.espe.clinicmanagementsystem.model.DoctorTest
+-------------------------------------------------------------------------------
+Tests run: 12, Failures: 10, Errors: 0, Skipped: 0, Time elapsed: 0.060 s <<< FAILURE! -- in ec.edu.espe.clinicmanagementsystem.model.DoctorTest
+ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testSetDoctorId -- Time elapsed: 0.015 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testSetDoctorId(DoctorTest.java:40)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testSetFullName -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testSetFullName(DoctorTest.java:49)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testUpdateMedicalHistory -- Time elapsed: 0.006 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testUpdateMedicalHistory(DoctorTest.java:114)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testViewAppointments -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testViewAppointments(DoctorTest.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testCreatePrescriptionCheckDefaultInstructions -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testCreatePrescriptionCheckDefaultInstructions(DoctorTest.java:147)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testDiagnose -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testDiagnose(DoctorTest.java:134)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testCreatePrescription -- Time elapsed: 0 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testCreatePrescription(DoctorTest.java:126)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testSetSpecialty -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testSetSpecialty(DoctorTest.java:58)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testSetEmail -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testSetEmail(DoctorTest.java:76)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testSetPhone -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.DoctorTest.testSetPhone(DoctorTest.java:67)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+

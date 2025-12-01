@@ -1,0 +1,103 @@
+-------------------------------------------------------------------------------
+Test set: ec.edu.espe.clinicmanagementsystem.model.PatientTest
+-------------------------------------------------------------------------------
+Tests run: 14, Failures: 11, Errors: 0, Skipped: 0, Time elapsed: 0.050 s <<< FAILURE! -- in ec.edu.espe.clinicmanagementsystem.model.PatientTest
+ec.edu.espe.clinicmanagementsystem.model.PatientTest.testSetPatientId -- Time elapsed: 0.013 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.PatientTest.testSetPatientId(PatientTest.java:44)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.PatientTest.testSetMedicalHistory -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.PatientTest.testSetMedicalHistory(PatientTest.java:135)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.PatientTest.testSetAddressValid -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.PatientTest.testSetAddressValid(PatientTest.java:114)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.PatientTest.testPayBill -- Time elapsed: 0.003 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.PatientTest.testPayBill(PatientTest.java:181)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.PatientTest.testSetAddressInvalid -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.PatientTest.testSetAddressInvalid(PatientTest.java:125)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.PatientTest.testSetPhoneValid -- Time elapsed: 0 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.PatientTest.testSetPhoneValid(PatientTest.java:94)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.PatientTest.testSetFullNameValid -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.PatientTest.testSetFullNameValid(PatientTest.java:54)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.PatientTest.testViewMedicalHistory -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.PatientTest.testViewMedicalHistory(PatientTest.java:165)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.PatientTest.testAddMedicalRecord -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.PatientTest.testAddMedicalRecord(PatientTest.java:147)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.PatientTest.testSetGenderValid -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.PatientTest.testSetGenderValid(PatientTest.java:74)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.model.PatientTest.testRequestAppointment -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
+	at ec.edu.espe.clinicmanagementsystem.model.PatientTest.testRequestAppointment(PatientTest.java:156)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+

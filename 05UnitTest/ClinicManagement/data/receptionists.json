@@ -1,0 +1,10 @@
+[
+  {
+    "receptionistId": 1,
+    "name": "John Hammond",
+    "phone": "099654321",
+    "email": "jhammond@clinic.com",
+    "username": "jhammond",
+    "password": "1234"
+  }
+]
