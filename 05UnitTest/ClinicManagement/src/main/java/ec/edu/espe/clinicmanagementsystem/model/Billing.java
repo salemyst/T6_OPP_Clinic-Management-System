@@ -1,7 +1,8 @@
 package ec.edu.espe.clinicmanagementsystem.model;
 /**
  *
- * @author César Vargas, Paradigm, @ESPE
+ * @author Adrian Toapanta, Object Masters, @ESPE
+
  */
 
 public class Billing {

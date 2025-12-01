@@ -1,4 +1,5 @@
+ec\edu\espe\clinicmanagementsystem\model\AppointmentTest.class
+ec\edu\espe\clinicmanagementsystem\model\BillingTest.class
 ec\edu\espe\clinicmanagementsystem\model\PatientTest.class
-ec\edu\espe\clinicmanagementsystem\model\ValidationTest.class
-ec\edu\espe\clinicmanagementsystem\model\RecepcionistTest.class
+ec\edu\espe\clinicmanagementsystem\model\DateTest.class
 ec\edu\espe\clinicmanagementsystem\model\DoctorTest.class

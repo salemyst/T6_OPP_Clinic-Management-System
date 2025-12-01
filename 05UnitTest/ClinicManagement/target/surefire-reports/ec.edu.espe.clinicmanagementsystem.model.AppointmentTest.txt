@@ -1,129 +1,39 @@
 -------------------------------------------------------------------------------
 Test set: ec.edu.espe.clinicmanagementsystem.model.AppointmentTest
 -------------------------------------------------------------------------------
-Tests run: 14, Failures: 14, Errors: 0, Skipped: 0, Time elapsed: 0.051 s <<< FAILURE! -- in ec.edu.espe.clinicmanagementsystem.model.AppointmentTest
-ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testSetDoctorId -- Time elapsed: 0.016 s <<< FAILURE!
+Tests run: 9, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 0.052 s <<< FAILURE! -- in ec.edu.espe.clinicmanagementsystem.model.AppointmentTest
+ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testEmptyConstructor -- Time elapsed: 0.005 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: The test case is a prototype.
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
-	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
-	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testSetDoctorId(AppointmentTest.java:113)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testEmptyConstructor(AppointmentTest.java:34)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testSetPatientId -- Time elapsed: 0 s <<< FAILURE!
+ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testSetAndGetDate -- Time elapsed: 0.002 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: The test case is a prototype.
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
-	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
-	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testSetPatientId(AppointmentTest.java:94)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testSetAndGetDate(AppointmentTest.java:71)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testGetDoctorId -- Time elapsed: 0 s <<< FAILURE!
+ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testReschedule -- Time elapsed: 0.003 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: The test case is a prototype.
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
-	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
-	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testGetDoctorId(AppointmentTest.java:104)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testReschedule(AppointmentTest.java:94)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testToString -- Time elapsed: 0.003 s <<< FAILURE!
+ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testMarkCompleted -- Time elapsed: 0.001 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: The test case is a prototype.
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
-	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
-	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testToString(AppointmentTest.java:122)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-
-ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testGetDate -- Time elapsed: 0 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: The test case is a prototype.
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
-	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
-	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testGetDate(AppointmentTest.java:47)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-
-ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testReschedule -- Time elapsed: 0.001 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: The test case is a prototype.
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
-	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
-	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testReschedule(AppointmentTest.java:131)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-
-ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testSetAppointmentId -- Time elapsed: 0 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: The test case is a prototype.
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
-	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
-	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testSetAppointmentId(AppointmentTest.java:37)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-
-ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testGetPatientId -- Time elapsed: 0.002 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: The test case is a prototype.
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
-	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
-	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testGetPatientId(AppointmentTest.java:85)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-
-ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testCancel -- Time elapsed: 0.001 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: The test case is a prototype.
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
-	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
-	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testCancel(AppointmentTest.java:139)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-
-ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testSetStatus -- Time elapsed: 0 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: The test case is a prototype.
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
-	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
-	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testSetStatus(AppointmentTest.java:75)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-
-ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testGetStatus -- Time elapsed: 0 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: The test case is a prototype.
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
-	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
-	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testGetStatus(AppointmentTest.java:66)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-
-ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testSetDate -- Time elapsed: 0 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: The test case is a prototype.
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
-	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
-	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testSetDate(AppointmentTest.java:56)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-
-ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testMarkCompleted -- Time elapsed: 0 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: The test case is a prototype.
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
-	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
-	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testMarkCompleted(AppointmentTest.java:147)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-
-ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testGetAppointmentId -- Time elapsed: 0 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: The test case is a prototype.
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
-	at org.junit.jupiter.api.Assertions.fail(Assertions.java:134)
-	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testGetAppointmentId(AppointmentTest.java:28)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+	at ec.edu.espe.clinicmanagementsystem.model.AppointmentTest.testMarkCompleted(AppointmentTest.java:115)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
