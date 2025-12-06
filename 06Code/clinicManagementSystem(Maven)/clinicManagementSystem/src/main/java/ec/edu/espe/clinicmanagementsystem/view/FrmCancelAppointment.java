@@ -44,6 +44,11 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
         jLabel1.setText("CLINICA TOAMEDICAL");
 
         btnBackToMenu.setText("Regresar al menú");
+        btnBackToMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackToMenuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -187,6 +192,14 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
            txtAppointmentId.requestFocus();
        }  
     }//GEN-LAST:event_txtAppointmentIdActionPerformed
+
+    private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
+        FrmReceptionistMenu login = new FrmReceptionistMenu();
+        login.setVisible(true);
+
+
+        this.dispose();          // TODO add your handling code here:
+    }//GEN-LAST:event_btnBackToMenuActionPerformed
     
     private void emptyFields() {
         
