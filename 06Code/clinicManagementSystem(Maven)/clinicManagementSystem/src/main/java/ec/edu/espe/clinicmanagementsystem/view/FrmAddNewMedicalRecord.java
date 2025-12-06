@@ -1,5 +1,6 @@
 package ec.edu.espe.clinicmanagementsystem.view;
 
+import com.toedter.calendar.JDateChooser;
 import ec.edu.espe.clinicmanagementsystem.model.Date;
 import ec.edu.espe.clinicmanagementsystem.model.MedicalHistory;
 import ec.edu.espe.clinicmanagementsystem.utils.GUIValidation;
@@ -16,6 +17,7 @@ public class FrmAddNewMedicalRecord extends javax.swing.JFrame {
     Date date = new Date();
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmAddNewMedicalRecord.class.getName());
+    private JDateChooser calDateMedicalRecord;
 
     /**
      * Creates new form FrmAddNewMedicalRecord
@@ -56,7 +58,6 @@ public class FrmAddNewMedicalRecord extends javax.swing.JFrame {
         txaTreatments = new javax.swing.JTextArea();
         txtAllergies = new javax.swing.JTextField();
         txtDiseases = new javax.swing.JTextField();
-        calDateMedicalRecord = new com.toedter.calendar.JDateChooser();
         txtPatientId = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         btnAddRegister = new javax.swing.JButton();
@@ -173,11 +174,8 @@ public class FrmAddNewMedicalRecord extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1032, Short.MAX_VALUE)
                             .addComponent(jScrollPane3)))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(calDateMedicalRecord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel9)
@@ -220,9 +218,7 @@ public class FrmAddNewMedicalRecord extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(txtDiseases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(calDateMedicalRecord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel10)
                 .addGap(41, 41, 41))
         );
 
@@ -386,7 +382,6 @@ public class FrmAddNewMedicalRecord extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddRegister;
     private javax.swing.JButton btnBackToMenu;
-    private com.toedter.calendar.JDateChooser calDateMedicalRecord;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
