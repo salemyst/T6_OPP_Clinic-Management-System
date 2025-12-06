@@ -44,11 +44,6 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
         jLabel1.setText("CLINICA TOAMEDICAL");
 
         btnBackToMenu.setText("Regresar al menú");
-        btnBackToMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackToMenuActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,12 +92,6 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Ingrese el id de la cita a cancelar: ");
 
-        txtAppointmentId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAppointmentIdActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -125,6 +114,11 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
         );
 
         btnCancelAppointment.setText("Cancelar Cita");
+        btnCancelAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelAppointmentActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -172,7 +166,7 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtAppointmentIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAppointmentIdActionPerformed
+    private void btnCancelAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelAppointmentActionPerformed
         int option = 0;
         
         if(!GUIValidation.validateOnlyNumbers(txtAppointmentId, "Ingrese el id de la cita a cancelar")){
@@ -180,8 +174,7 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
         }
         int appointmentId = getValue();
         readValues();
-        
-        
+       
         option = JOptionPane.showConfirmDialog(rootPane, "Cancelando Cita " + appointmentId , "Está seguro de cancelar su cita? ", JOptionPane.YES_NO_CANCEL_OPTION);
        if (option == JOptionPane.YES_OPTION){
            JOptionPane.showMessageDialog(rootPane, "La cita " + appointmentId + " fué Cancelada." );
@@ -190,16 +183,8 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(rootPane, "La cita no se cancelará ","",JOptionPane.WARNING_MESSAGE);
        } else {
            txtAppointmentId.requestFocus();
-       }  
-    }//GEN-LAST:event_txtAppointmentIdActionPerformed
-
-    private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
-        FrmReceptionistMenu login = new FrmReceptionistMenu();
-        login.setVisible(true);
-
-
-        this.dispose();          // TODO add your handling code here:
-    }//GEN-LAST:event_btnBackToMenuActionPerformed
+       } 
+    }//GEN-LAST:event_btnCancelAppointmentActionPerformed
     
     private void emptyFields() {
         
