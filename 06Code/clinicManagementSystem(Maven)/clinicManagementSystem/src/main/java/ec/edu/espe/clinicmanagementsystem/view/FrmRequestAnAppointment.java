@@ -34,11 +34,11 @@ public class FrmRequestAnAppointment extends javax.swing.JFrame {
         ToamedicalLb = new javax.swing.JLabel();
         SolicitarCitaLb = new javax.swing.JLabel();
         DoctorIdLb = new javax.swing.JPanel();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
+        calendar = new com.toedter.calendar.JCalendar();
         jLabel1 = new javax.swing.JLabel();
-        Idtxt = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        DoctorId = new javax.swing.JTextField();
+        txtDoctorId = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -65,9 +65,9 @@ public class FrmRequestAnAppointment extends javax.swing.JFrame {
 
         jLabel1.setText("Id del paciente:");
 
-        Idtxt.addActionListener(new java.awt.event.ActionListener() {
+        txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IdtxtActionPerformed(evt);
+                txtIdActionPerformed(evt);
             }
         });
 
@@ -78,6 +78,11 @@ public class FrmRequestAnAppointment extends javax.swing.JFrame {
         jLabel4.setText("Hora");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10 am", "11 am", "12 am", "13 am" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -95,7 +100,7 @@ public class FrmRequestAnAppointment extends javax.swing.JFrame {
             .addGroup(DoctorIdLbLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(DoctorIdLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(DoctorIdLbLayout.createSequentialGroup()
                         .addGroup(DoctorIdLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(DoctorIdLbLayout.createSequentialGroup()
@@ -110,8 +115,8 @@ public class FrmRequestAnAppointment extends javax.swing.JFrame {
                                         .addComponent(jLabel2))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(DoctorIdLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(Idtxt)
-                                        .addComponent(DoctorId, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)))))
+                                        .addComponent(txtId)
+                                        .addComponent(txtDoctorId, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(DoctorIdLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(CancelarButton)
@@ -124,18 +129,18 @@ public class FrmRequestAnAppointment extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(DoctorIdLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(Idtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DoctorIdLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(DoctorId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDoctorId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(DoctorIdLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
                 .addGroup(DoctorIdLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
@@ -177,14 +182,47 @@ public class FrmRequestAnAppointment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void IdtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IdtxtActionPerformed
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_IdtxtActionPerformed
+    }//GEN-LAST:event_txtIdActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         JOptionPane.showMessageDialog(rootPane,"Guardando cita");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void emptyFields() {
+        
+        txtId.setText("");
+    }
+    
+    public int getValue() {
+        
+        return Integer.parseInt(txtId.getText());
+  
+    }
+    
+    private void readValues() {
+    
+    int appointmentId = Integer.parseInt(txtId.getText());
+    }
+       private void emptyFieldsDoctor() {
+        
+        txtDoctorId.setText("");
+    }
+    
+    public int getValueDoctor() {
+        
+        return Integer.parseInt(txtDoctorId.getText());
+    }
+    
+    private void readValuesDoctor() {
+    
+    int appointmentId = Integer.parseInt(txtDoctorId.getText());
+    }
     /**
      * @param args the command line arguments
      */
@@ -212,18 +250,18 @@ public class FrmRequestAnAppointment extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelarButton;
-    private javax.swing.JTextField DoctorId;
     private javax.swing.JPanel DoctorIdLb;
-    private javax.swing.JTextField Idtxt;
     private javax.swing.JLabel SolicitarCitaLb;
     private javax.swing.JLabel ToamedicalLb;
     private javax.swing.JButton btnGuardar;
-    private com.toedter.calendar.JCalendar jCalendar1;
+    private com.toedter.calendar.JCalendar calendar;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField txtDoctorId;
+    private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 }
