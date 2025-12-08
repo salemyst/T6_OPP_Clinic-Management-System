@@ -17,37 +17,7 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
     public FrmCreatePrescription() {
         initComponents();
     }
-  private void emptyFields() {
-        
-        txtIdPaciente.setText("");
-        txtBoxobservaciones.setText("");
-    }
-    
-    public int getValue() {
-        
-        return Integer.parseInt(txtIdPaciente.getText());
-  
-    }
-    
-    private void readValues() {
-    
-    int appointmentId = Integer.parseInt(txtIdPaciente.getText());
-    }
-    private void emptyFieldsMedication() {
-        
-        txtMedication.setText("");
-    }
-    
-    public String getValueMedication() {
-        
-       return  txtMedication.getText();
-  
-    }
-    
-    private void readValuesMedication() {
-    
-    int appointmentId = Integer.parseInt(txtMedication.getText());
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,7 +31,7 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
         PrescriptionLb = new javax.swing.JLabel();
         PrescriptionNameLb = new javax.swing.JPanel();
         cedulaLb = new javax.swing.JLabel();
-        txtIdPaciente = new javax.swing.JTextField();
+        cedula = new javax.swing.JTextField();
         MedicamentoLb = new javax.swing.JLabel();
         txtMedication = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -78,11 +48,11 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
         PrescriptionLb.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         PrescriptionLb.setText("Crear Prescripcion");
 
-        cedulaLb.setText("Id del paciente: ");
+        cedulaLb.setText("Cédula del paciente: ");
 
-        txtIdPaciente.addActionListener(new java.awt.event.ActionListener() {
+        cedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdPacienteActionPerformed(evt);
+                cedulaActionPerformed(evt);
             }
         });
 
@@ -123,7 +93,7 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
                             .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
                                 .addComponent(cedulaLb)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jLabel1)
@@ -139,7 +109,7 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cedulaLb)
-                    .addComponent(txtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(MedicamentoLb)
@@ -186,9 +156,9 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtIdPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdPacienteActionPerformed
+    private void cedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cedulaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdPacienteActionPerformed
+    }//GEN-LAST:event_cedulaActionPerformed
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
         JOptionPane.showMessageDialog(rootPane,"Preescripcion Creada");
@@ -226,11 +196,11 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
     private javax.swing.JPanel PrescriptionNameLb;
     private javax.swing.JButton SaveButton;
     private javax.swing.JLabel ToamedicalLb;
+    private javax.swing.JTextField cedula;
     private javax.swing.JLabel cedulaLb;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtBoxobservaciones;
-    private javax.swing.JTextField txtIdPaciente;
     private javax.swing.JTextField txtMedication;
     // End of variables declaration//GEN-END:variables
 }

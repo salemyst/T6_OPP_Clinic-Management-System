@@ -5,6 +5,7 @@ package ec.edu.espe.clinicmanagementsystem.view;
  * @author César Vargas, Paradigm, @ESPE
  */
 
+import ec.edu.espe.clinicmanagementsystem.controller.AppointmentController;
 import ec.edu.espe.clinicmanagementsystem.model.Appointment;
 import ec.edu.espe.clinicmanagementsystem.model.Date;
 import ec.edu.espe.clinicmanagementsystem.utils.GUIValidation;
@@ -256,15 +257,33 @@ public class FrmRequestAppointment extends javax.swing.JFrame {
         readValues();
         
         option = JOptionPane.showConfirmDialog(rootPane, "Agendando una Cita\n" + appointment, "Agendar una cita", JOptionPane.YES_NO_CANCEL_OPTION);
-       if (option == JOptionPane.YES_OPTION){
-           JOptionPane.showMessageDialog(rootPane, "La cita fué agendada" + appointment);
-           emptyFields();           
-       } else if (option == JOptionPane.NO_OPTION){
-           JOptionPane.showMessageDialog(rootPane, "La cita no se agendará.","",JOptionPane.WARNING_MESSAGE);
-       } else {
-           txtAppointmentId.requestFocus();
-       }  
-      
+        
+        if (option == JOptionPane.YES_OPTION) {
+
+            try {
+                AppointmentController controller = new AppointmentController();
+                
+                boolean saved = controller.saveAppointment(appointment);
+
+                controller.close();
+                
+                if(saved) {
+                    JOptionPane.showMessageDialog(rootPane, "La cita fue guardada en MongoDB exitosamente.");
+                    emptyFields(); 
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Error al guardar en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            } catch (Exception e) {
+                 JOptionPane.showMessageDialog(rootPane, "Error de conexión: " + e.getMessage());
+            }
+            
+        } else if (option == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(rootPane, "La cita no se agendará.", "", JOptionPane.WARNING_MESSAGE);
+        } else {
+            txtAppointmentId.requestFocus();
+        }  
+    
     }//GEN-LAST:event_btnRequestAppointmentActionPerformed
 
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed

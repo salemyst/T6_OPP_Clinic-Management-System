@@ -96,7 +96,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="cedulaLb" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtIdPaciente" min="-2" pref="235" max="-2" attributes="0"/>
+                                  <Component id="cedula" min="-2" pref="235" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -120,7 +120,7 @@
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="cedulaLb" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtIdPaciente" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cedula" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -144,12 +144,12 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="cedulaLb">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Id del paciente: "/>
+            <Property name="text" type="java.lang.String" value="C&#xe9;dula del paciente: "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtIdPaciente">
+        <Component class="javax.swing.JTextField" name="cedula">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtIdPacienteActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cedulaActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="MedicamentoLb">

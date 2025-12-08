@@ -74,6 +74,7 @@ ec\edu\espe\clinicmanagementsystem\view\FrmCreatePrescription$2.class
 ec\edu\espe\clinicmanagementsystem\view\FrmRescheduleAppointment.class
 ec\edu\espe\clinicmanagementsystem\view\FrmModifyDoctor$1.class
 ec\edu\espe\clinicmanagementsystem\view\FrmLogInReceptionist$4.class
+ec\edu\espe\clinicmanagementsystem\controller\AppointmentController.class
 ec\edu\espe\clinicmanagementsystem\view\FrmLogInReceptionist$1.class
 ec\edu\espe\clinicmanagementsystem\view\FrmAddNewMedicalRecord.class
 ec\edu\espe\clinicmanagementsystem\view\FrmRequestAnAppointment$1.class

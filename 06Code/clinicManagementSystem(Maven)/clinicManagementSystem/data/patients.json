@@ -1,0 +1,10 @@
+[
+  {
+    "patientId": 5,
+    "fullName": "Sisas",
+    "gender": "Masculino",
+    "phone": "0987678923",
+    "address": "Peru",
+    "medicalHistory": []
+  }
+]
