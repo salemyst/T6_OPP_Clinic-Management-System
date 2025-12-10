@@ -112,6 +112,30 @@ public class GUIValidation {
         markSuccess(txt);
         return true;
     }
+    public static boolean validateFutureDate(JDateChooser dateChooser) {
+        Date date = dateChooser.getDate();
+
+        if (date == null) {
+            showErrorDate(dateChooser, "El cambo fecha de nacimiento no puede estar vacío");
+            return false;
+        }
+
+        Calendar today = Calendar.getInstance();
+
+        today.set(Calendar.HOUR_OF_DAY, 23);
+        today.set(Calendar.MINUTE, 59);
+        today.set(Calendar.SECOND, 59);
+        today.set(Calendar.MILLISECOND, 999);
+
+        boolean isValid = date.before(today.getTime());
+
+        if (!isValid) {
+            showErrorDate(dateChooser, "La fecha no puede ser una fecha futura");
+        } else {
+            markSuccessDate(dateChooser);
+        }
+        return isValid;
+    }
 
     private static void showError(JTextComponent component, String message) {
         component.setBackground(COLOR_ERROR);

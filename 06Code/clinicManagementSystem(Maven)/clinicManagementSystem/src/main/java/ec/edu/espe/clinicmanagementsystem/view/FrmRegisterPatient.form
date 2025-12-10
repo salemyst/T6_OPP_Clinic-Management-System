@@ -93,7 +93,7 @@
                                               <Component id="radGenderFemale" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="txtBirthDate" max="32767" attributes="0"/>
+                                              <Component id="calBirthDate" max="32767" attributes="0"/>
                                               <Component id="txtAdress" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -106,7 +106,7 @@
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                           <Component id="txtAge" alignment="0" pref="161" max="32767" attributes="0"/>
-                                          <Component id="txPhoneNumber" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtPhoneNumber" alignment="0" max="32767" attributes="0"/>
                                           <Component id="txtEmail" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -114,7 +114,7 @@
                               <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="txtRescheduleAppointmentId" min="-2" pref="163" max="-2" attributes="0"/>
+                              <Component id="txtPatientId" min="-2" pref="163" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -156,7 +156,7 @@
                       <EmptySpace pref="36" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtRescheduleAppointmentId" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPatientId" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -181,12 +181,12 @@
                                           <Component id="txtAdress" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="txtBirthDate" min="-2" max="-2" attributes="0"/>
+                                  <Component id="calBirthDate" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -222,7 +222,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Birth Date:"/>
+                <Property name="text" type="java.lang.String" value="Fecha de nacimiento"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
@@ -294,10 +294,10 @@
                 <Property name="toolTipText" type="java.lang.String" value="Ingrese las calles principales."/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txPhoneNumber">
+            <Component class="javax.swing.JTextField" name="txtPhoneNumber">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txPhoneNumberActionPerformed"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txPhoneNumberKeyTyped"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPhoneNumberActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPhoneNumberKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
@@ -310,7 +310,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtEmail">
             </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="txtBirthDate">
+            <Component class="com.toedter.calendar.JDateChooser" name="calBirthDate">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
@@ -345,9 +345,9 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtRescheduleAppointmentId">
+            <Component class="javax.swing.JTextField" name="txtPatientId">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtRescheduleAppointmentIdActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPatientIdActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

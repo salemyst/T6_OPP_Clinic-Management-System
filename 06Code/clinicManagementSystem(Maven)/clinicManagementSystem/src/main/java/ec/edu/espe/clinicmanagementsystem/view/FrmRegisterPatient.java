@@ -5,6 +5,7 @@ import java.time.Period;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;
 import com.toedter.calendar.JDateChooser;
+import ec.edu.espe.clinicmanagementsystem.utils.GUIValidation;
 
 
 /**
@@ -20,10 +21,9 @@ public FrmRegisterPatient() {
     initComponents();
     this.setLocationRelativeTo(null);
 
-
-    txtBirthDate.addPropertyChangeListener("date", evt -> {
-        if (txtBirthDate.getDate() != null) {
-            LocalDate birthDate = txtBirthDate.getDate()
+    calBirthDate.addPropertyChangeListener("date", evt -> {
+        if (calBirthDate.getDate() != null) {
+            LocalDate birthDate = calBirthDate.getDate()
                     .toInstant()
                     .atZone(ZoneId.systemDefault())
                     .toLocalDate();
@@ -61,15 +61,15 @@ public FrmRegisterPatient() {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtAdress = new javax.swing.JTextField();
-        txPhoneNumber = new javax.swing.JTextField();
+        txtPhoneNumber = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        txtBirthDate = new com.toedter.calendar.JDateChooser();
+        calBirthDate = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
-        txtRescheduleAppointmentId = new javax.swing.JTextField();
+        txtPatientId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(243, 231, 243));
@@ -81,7 +81,7 @@ public FrmRegisterPatient() {
         jLabel3.setText("Nombre completo:");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Birth Date:");
+        jLabel5.setText("Fecha de nacimiento");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Edad:");
@@ -117,14 +117,14 @@ public FrmRegisterPatient() {
 
         txtAdress.setToolTipText("Ingrese las calles principales.");
 
-        txPhoneNumber.addActionListener(new java.awt.event.ActionListener() {
+        txtPhoneNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txPhoneNumberActionPerformed(evt);
+                txtPhoneNumberActionPerformed(evt);
             }
         });
-        txPhoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtPhoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txPhoneNumberKeyTyped(evt);
+                txtPhoneNumberKeyTyped(evt);
             }
         });
 
@@ -152,9 +152,9 @@ public FrmRegisterPatient() {
             }
         });
 
-        txtRescheduleAppointmentId.addActionListener(new java.awt.event.ActionListener() {
+        txtPatientId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRescheduleAppointmentIdActionPerformed(evt);
+                txtPatientIdActionPerformed(evt);
             }
         });
 
@@ -182,7 +182,7 @@ public FrmRegisterPatient() {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(radGenderFemale))
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtBirthDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(calBirthDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txtAdress)))
                                 .addGap(46, 46, 46)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -192,11 +192,11 @@ public FrmRegisterPatient() {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtAge, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                                    .addComponent(txPhoneNumber, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtEmail))))
                         .addGap(112, 112, 112))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtRescheduleAppointmentId, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPatientId, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(304, 304, 304)
@@ -228,7 +228,7 @@ public FrmRegisterPatient() {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtRescheduleAppointmentId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPatientId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -248,10 +248,10 @@ public FrmRegisterPatient() {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel11)
                                     .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(txtBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(calBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -296,9 +296,29 @@ public FrmRegisterPatient() {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
     String fullName = txtFullName.getText().trim();
    String address = txtAdress.getText().trim();
-   String phone = txPhoneNumber.getText().trim();
+   String phone = txtPhoneNumber.getText().trim();
    String email = txtEmail.getText().trim();
    String age = txtAge.getText().trim();
+   
+   
+    if(!GUIValidation.validateOnlyNumbers(txtPatientId, "ID")){
+        return;
+    }
+    if(!GUIValidation.validateNotEmpty(txtFullName, "Nombre Completo")){
+        return;
+    }
+    if(!GUIValidation.validateFutureDate(calBirthDate)){
+        return;
+    }
+    if(!GUIValidation.validateNotEmpty(txtAdress, "Dirección")){
+        return;
+    }
+    if(!GUIValidation.validateNumericLength(txtPhoneNumber, "Teléfono", 10)){
+        return;
+    }
+    if(!GUIValidation.validateEmail(txtEmail, "Email")){
+        return;
+    }
 
    if (fullName.isEmpty() || address.isEmpty() || phone.isEmpty() ||
        email.isEmpty() || age.isEmpty() ||
@@ -320,9 +340,9 @@ public FrmRegisterPatient() {
         this.dispose();          // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void txPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txPhoneNumberActionPerformed
+    private void txtPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhoneNumberActionPerformed
 
-    }//GEN-LAST:event_txPhoneNumberActionPerformed
+    }//GEN-LAST:event_txtPhoneNumberActionPerformed
 
     private void txtFullNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFullNameActionPerformed
 
@@ -337,7 +357,7 @@ public FrmRegisterPatient() {
     }       // TODO add your handling code here:
     }//GEN-LAST:event_txtFullNameKeyTyped
 
-    private void txPhoneNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txPhoneNumberKeyTyped
+    private void txtPhoneNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPhoneNumberKeyTyped
     char c = evt.getKeyChar();
 
 
@@ -345,11 +365,11 @@ public FrmRegisterPatient() {
         evt.consume();
         JOptionPane.showMessageDialog(this, "Solo se permiten números.");
     }        // TODO add your handling code here:
-    }//GEN-LAST:event_txPhoneNumberKeyTyped
+    }//GEN-LAST:event_txtPhoneNumberKeyTyped
 
-    private void txtRescheduleAppointmentIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRescheduleAppointmentIdActionPerformed
+    private void txtPatientIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPatientIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtRescheduleAppointmentIdActionPerformed
+    }//GEN-LAST:event_txtPatientIdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -390,6 +410,7 @@ public FrmRegisterPatient() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSave;
+    private com.toedter.calendar.JDateChooser calBirthDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -405,12 +426,11 @@ public FrmRegisterPatient() {
     private javax.swing.JRadioButton radGenderFemale;
     private javax.swing.JRadioButton radGenderMale;
     private javax.swing.ButtonGroup sex;
-    private javax.swing.JTextField txPhoneNumber;
     private javax.swing.JTextField txtAdress;
     private javax.swing.JTextField txtAge;
-    private com.toedter.calendar.JDateChooser txtBirthDate;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFullName;
-    private javax.swing.JTextField txtRescheduleAppointmentId;
+    private javax.swing.JTextField txtPatientId;
+    private javax.swing.JTextField txtPhoneNumber;
     // End of variables declaration//GEN-END:variables
 }
