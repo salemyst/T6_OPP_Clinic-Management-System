@@ -16,6 +16,8 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
      */
     public FrmCreatePrescription() {
         initComponents();
+        this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -27,8 +29,6 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ToamedicalLb = new javax.swing.JLabel();
-        PrescriptionLb = new javax.swing.JLabel();
         PrescriptionNameLb = new javax.swing.JPanel();
         cedulaLb = new javax.swing.JLabel();
         cedula = new javax.swing.JTextField();
@@ -37,17 +37,16 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtBoxobservaciones = new javax.swing.JTextArea();
-        CancelButton = new javax.swing.JButton();
         SaveButton = new javax.swing.JButton();
+        PrescriptionLb = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        btnBackToMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        ToamedicalLb.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        ToamedicalLb.setText("Clinica Toamedical  ");
+        PrescriptionNameLb.setBackground(new java.awt.Color(255, 255, 255));
 
-        PrescriptionLb.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        PrescriptionLb.setText("Crear Prescripcion");
-
+        cedulaLb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cedulaLb.setText("Cédula del paciente: ");
 
         cedula.addActionListener(new java.awt.event.ActionListener() {
@@ -56,20 +55,33 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
             }
         });
 
+        MedicamentoLb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         MedicamentoLb.setText("Nombre del medicamento:");
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Indicaciones médicas:");
 
         txtBoxobservaciones.setColumns(20);
         txtBoxobservaciones.setRows(5);
         jScrollPane1.setViewportView(txtBoxobservaciones);
 
-        CancelButton.setText("Cancelar");
-
         SaveButton.setText("Guardar");
         SaveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveButtonActionPerformed(evt);
+            }
+        });
+
+        PrescriptionLb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        PrescriptionLb.setText("CREAR PRESCRIPCIÓN");
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel10.setText("CLÍNICA TOAMEDICAL");
+
+        btnBackToMenu.setText("Regresar al menú");
+        btnBackToMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackToMenuActionPerformed(evt);
             }
         });
 
@@ -80,48 +92,56 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
             .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
                 .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(MedicamentoLb)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMedication))
-                    .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(22, 22, 22)
                         .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
-                                .addGap(277, 277, 277)
-                                .addComponent(CancelButton))
-                            .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
-                                .addComponent(cedulaLb)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cedulaLb, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(MedicamentoLb, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMedication, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(SaveButton)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(280, 280, 280))
+                        .addGap(303, 303, 303)
+                        .addComponent(PrescriptionLb))
+                    .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnBackToMenu)
+                        .addGap(131, 131, 131)
+                        .addComponent(jLabel10))
+                    .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
+                        .addGap(273, 273, 273)
+                        .addComponent(SaveButton)))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         PrescriptionNameLbLayout.setVerticalGroup(
             PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel10))
+                    .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnBackToMenu)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PrescriptionLb)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cedulaLb)
                     .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addGap(19, 19, 19)
                 .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(MedicamentoLb)
                     .addComponent(txtMedication, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
+                .addGap(23, 23, 23)
                 .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CancelButton)
-                    .addComponent(SaveButton)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addComponent(SaveButton)
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -129,28 +149,12 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(95, Short.MAX_VALUE)
-                .addComponent(PrescriptionNameLb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(299, 299, 299)
-                        .addComponent(ToamedicalLb))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(313, 313, 313)
-                        .addComponent(PrescriptionLb)))
+                .addComponent(PrescriptionNameLb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(ToamedicalLb)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PrescriptionLb)
-                .addGap(18, 18, 18)
-                .addComponent(PrescriptionNameLb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+            .addComponent(PrescriptionNameLb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -163,6 +167,13 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
         JOptionPane.showMessageDialog(rootPane,"Preescripcion Creada");
     }//GEN-LAST:event_SaveButtonActionPerformed
+
+    private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
+        FrmDoctorMenu login = new FrmDoctorMenu();
+        login.setVisible(true);
+
+        this.dispose();         // TODO add your handling code here:
+    }//GEN-LAST:event_btnBackToMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,15 +201,15 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton CancelButton;
     private javax.swing.JLabel MedicamentoLb;
     private javax.swing.JLabel PrescriptionLb;
     private javax.swing.JPanel PrescriptionNameLb;
     private javax.swing.JButton SaveButton;
-    private javax.swing.JLabel ToamedicalLb;
+    private javax.swing.JButton btnBackToMenu;
     private javax.swing.JTextField cedula;
     private javax.swing.JLabel cedulaLb;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtBoxobservaciones;
     private javax.swing.JTextField txtMedication;

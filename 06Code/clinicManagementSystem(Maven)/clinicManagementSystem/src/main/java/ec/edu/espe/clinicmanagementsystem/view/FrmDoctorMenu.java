@@ -17,6 +17,8 @@ public class FrmDoctorMenu extends javax.swing.JFrame {
      */
     public FrmDoctorMenu() {
         initComponents();
+        this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -40,6 +42,8 @@ public class FrmDoctorMenu extends javax.swing.JFrame {
         btnSignOut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel1.setText("Menú de doctor.");

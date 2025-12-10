@@ -14,6 +14,7 @@ public class FrmMainMenu extends javax.swing.JFrame {
      */
     public FrmMainMenu() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -33,6 +34,8 @@ public class FrmMainMenu extends javax.swing.JFrame {
         btnPatientLogIN = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Seleccione su rol.");
