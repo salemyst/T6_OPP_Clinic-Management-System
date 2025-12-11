@@ -1,11 +1,21 @@
 package ec.edu.espe.clinicmanagementsystem.view;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;
 import com.toedter.calendar.JDateChooser;
 import ec.edu.espe.clinicmanagementsystem.utils.GUIValidation;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoCollection;
+import org.bson.Document;
+
+
+
 
 
 /**
@@ -34,6 +44,19 @@ public FrmRegisterPatient() {
     });
 }
 
+
+    public static class MongoConnection {
+        private static MongoDatabase database;
+
+        public static MongoDatabase getConnection() {
+            if (database == null) {
+                String uri = "mongodb+srv://thais:thais@cluster0.9yfzmcp.mongodb.net/ToaMedicalDB?retryWrites=true&w=majority";
+                MongoClient client = MongoClients.create(uri);
+                database = client.getDatabase("ToaMedicalDB");
+            }
+            return database;
+        }
+    }
 
     
     
@@ -294,41 +317,67 @@ public FrmRegisterPatient() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-    String fullName = txtFullName.getText().trim();
-   String address = txtAdress.getText().trim();
-   String phone = txtPhoneNumber.getText().trim();
-   String email = txtEmail.getText().trim();
-   String age = txtAge.getText().trim();
-   
-   
-    if(!GUIValidation.validateOnlyNumbers(txtPatientId, "ID")){
-        return;
-    }
-    if(!GUIValidation.validateNotEmpty(txtFullName, "Nombre Completo")){
-        return;
-    }
-    if(!GUIValidation.validateFutureDate(calBirthDate)){
-        return;
-    }
-    if(!GUIValidation.validateNotEmpty(txtAdress, "Dirección")){
-        return;
-    }
-    if(!GUIValidation.validateNumericLength(txtPhoneNumber, "Teléfono", 10)){
-        return;
-    }
-    if(!GUIValidation.validateEmail(txtEmail, "Email")){
-        return;
-    }
+ String fullName = txtFullName.getText().trim();
+String address = txtAdress.getText().trim();
+String phone = txtPhoneNumber.getText().trim();
+String email = txtEmail.getText().trim();
+String age = txtAge.getText().trim();
 
-   if (fullName.isEmpty() || address.isEmpty() || phone.isEmpty() ||
-       email.isEmpty() || age.isEmpty() ||
-       (!radGenderMale.isSelected() && !radGenderFemale.isSelected())) {
 
-       JOptionPane.showMessageDialog(this, "Por favor ingrese todos los datos.");
-       return;
-   }
+if (!GUIValidation.validateOnlyNumbers(txtPatientId, "ID")) return;
+if (!GUIValidation.validateNotEmpty(txtFullName, "Nombre Completo")) return;
+if (!GUIValidation.validateFutureDate(calBirthDate)) return;
+if (!GUIValidation.validateNotEmpty(txtAdress, "Dirección")) return;
+if (!GUIValidation.validateNumericLength(txtPhoneNumber, "Teléfono", 10)) return;
+if (!GUIValidation.validateEmail(txtEmail, "Email")) return;
 
-   JOptionPane.showMessageDialog(this, "Información guardada con éxito");
+if (fullName.isEmpty() || address.isEmpty() || phone.isEmpty()
+        || email.isEmpty() || age.isEmpty()
+        || (!radGenderMale.isSelected() && !radGenderFemale.isSelected())) {
+
+    JOptionPane.showMessageDialog(this, "Por favor ingrese todos los datos.");
+    return;
+}
+
+try {
+
+    String patientId = txtPatientId.getText().trim();
+    String gender = radGenderMale.isSelected() ? "Male" : "Female";
+
+    Date birthDate = calBirthDate.getDate();
+    String birth = (birthDate != null)
+            ? new SimpleDateFormat("yyyy-MM-dd").format(birthDate)
+            : "";
+
+
+    MongoDatabase database = MongoConnection.getConnection();
+    MongoCollection<Document> collection = (MongoCollection<Document>) database.getCollection("Patients"); 
+
+    
+    Document existingPatient = collection.find(new Document("patientId", patientId)).first();
+    if (existingPatient != null) {
+        JOptionPane.showMessageDialog(this, "El ID ingresado ya existe. Por favor use otro.");
+        return; 
+    }
+    
+
+    Document patient = new Document ("patientId", patientId)
+            .append ("fullName", fullName)
+            .append("email", email)
+            .append("phoneNumber", phone)
+            .append("address", address)
+            .append("age", age)
+            .append("gender", gender)
+            .append("birthDate", birth);
+
+  
+    collection.insertOne(patient);
+
+    JOptionPane.showMessageDialog(this, "Paciente registrado exitosamente");
+
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(this, "Error al guardar en MongoDB: " + e.getMessage());
+}
 
     }//GEN-LAST:event_btnSaveActionPerformed
 

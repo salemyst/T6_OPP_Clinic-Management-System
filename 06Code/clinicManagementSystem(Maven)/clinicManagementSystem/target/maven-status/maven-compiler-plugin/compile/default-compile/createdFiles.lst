@@ -6,6 +6,7 @@ ec\edu\espe\clinicmanagementsystem\view\FrmLogInReceptionist$2.class
 ec\edu\espe\clinicmanagementsystem\view\FrmAddNewMedicalRecord$1.class
 ec\edu\espe\clinicmanagementsystem\view\FrmCancelAppointment.class
 ec\edu\espe\clinicmanagementsystem\view\FrmPrescriptionView.class
+ec\edu\espe\clinicmanagementsystem\view\MongoClientURI.class
 ec\edu\espe\clinicmanagementsystem\view\FrmPrescriptionView$1.class
 ec\edu\espe\clinicmanagementsystem\view\FrmRequestAppointment$4.class
 ec\edu\espe\clinicmanagementsystem\view\FrmUpdatePatientInfo.class
@@ -18,6 +19,8 @@ ec\edu\espe\clinicmanagementsystem\view\FmrInvoices$1.class
 ec\edu\espe\clinicmanagementsystem\view\FrmLogInPatient$3.class
 ec\edu\espe\clinicmanagementsystem\view\FrmPatientMenu$4.class
 ec\edu\espe\clinicmanagementsystem\view\FrmReceptionistMenu$6.class
+ec\edu\espe\clinicmanagementsystem\view\FrmRegisterPatient$MongoConnection.class
+ec\edu\espe\clinicmanagementsystem\view\MongoCollection.class
 ec\edu\espe\clinicmanagementsystem\view\FrmRequestAppointment$2.class
 ec\edu\espe\clinicmanagementsystem\view\FrmUpdatePatientInfo$4.class
 ec\edu\espe\clinicmanagementsystem\view\FrmRegisterPatient$6.class
