@@ -19,6 +19,7 @@ public class FrmLogInPatient extends javax.swing.JFrame {
      */
     public FrmLogInPatient() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -161,7 +162,7 @@ public class FrmLogInPatient extends javax.swing.JFrame {
     return;
     }
     
-     String pacienteCorrecto = "01";   
+     String pacienteCorrecto = "1";   
 
      if (patientIdInput.equals(pacienteCorrecto)) {
          FrmPatientMenu menu = new FrmPatientMenu();

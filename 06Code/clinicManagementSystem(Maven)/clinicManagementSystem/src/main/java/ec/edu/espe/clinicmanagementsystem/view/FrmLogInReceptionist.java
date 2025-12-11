@@ -18,6 +18,7 @@ public class FrmLogInReceptionist extends javax.swing.JFrame {
      */
     public FrmLogInReceptionist() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

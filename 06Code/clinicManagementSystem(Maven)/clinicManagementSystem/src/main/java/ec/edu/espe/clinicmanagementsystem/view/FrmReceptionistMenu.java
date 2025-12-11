@@ -17,6 +17,7 @@ public class FrmReceptionistMenu extends javax.swing.JFrame {
      */
     public FrmReceptionistMenu() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

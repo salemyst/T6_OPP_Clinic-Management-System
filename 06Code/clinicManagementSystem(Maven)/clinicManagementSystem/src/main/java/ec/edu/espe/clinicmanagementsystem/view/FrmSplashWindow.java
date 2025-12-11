@@ -26,6 +26,14 @@ public class FrmSplashWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         setImageLabel(txtIcon, "/ec/edu/espe/clinicmanagementsystem/images/toamedicalLogo.jpg");
+        
+        javax.swing.Timer timer = new javax.swing.Timer(2000, e -> {
+            FrmMainMenu mainMenu = new FrmMainMenu();
+            mainMenu.setVisible(true);
+            this.dispose(); 
+        });
+        timer.setRepeats(false); 
+        timer.start();
     }
 
     /**

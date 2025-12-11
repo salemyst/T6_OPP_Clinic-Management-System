@@ -39,6 +39,7 @@ public class FrmPrescriptionView extends javax.swing.JFrame {
      */
     public FrmPrescriptionView() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

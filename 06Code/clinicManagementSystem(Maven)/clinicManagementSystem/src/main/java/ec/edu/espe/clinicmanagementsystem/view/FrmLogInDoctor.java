@@ -17,6 +17,8 @@ public class FrmLogInDoctor extends javax.swing.JFrame {
      */
     public FrmLogInDoctor() {
         initComponents();
+        setLocationRelativeTo(null);
+        
     }
 
     /**
