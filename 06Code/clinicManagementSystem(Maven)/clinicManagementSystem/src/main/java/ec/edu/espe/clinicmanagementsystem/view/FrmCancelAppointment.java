@@ -1,13 +1,16 @@
 package ec.edu.espe.clinicmanagementsystem.view;
 
 import ec.edu.espe.clinicmanagementsystem.utils.GUIValidation;
+import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
 import javax.swing.JOptionPane;
+import javax.swing.text.Document;
 
 /**
  *
  * @author César Vargas, Paradigm, @ESPE
  */
 public class FrmCancelAppointment extends javax.swing.JFrame {
+    MongoManager mongoManager = new MongoManager();
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmCancelAppointment.class.getName());
 
@@ -42,6 +45,11 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         btnBackToMenu.setText("Regresar al menú");
+        btnBackToMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackToMenuActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel10.setText("CLÍNICA TOAMEDICAL");
@@ -127,6 +135,9 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
        
         option = JOptionPane.showConfirmDialog(rootPane, "Cancelando Cita " + appointmentId , "Está seguro de cancelar su cita? ", JOptionPane.YES_NO_CANCEL_OPTION);
        if (option == JOptionPane.YES_OPTION){
+            org.bson.Document filter = new org.bson.Document("appointmentId",getValue());
+           mongoManager.delete("appointments",filter );
+           
            JOptionPane.showMessageDialog(rootPane, "La cita " + appointmentId + " fué Cancelada." );
            emptyFields();           
        } else if (option == JOptionPane.NO_OPTION){
@@ -135,6 +146,14 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
            txtAppointmentId.requestFocus();
        } 
     }//GEN-LAST:event_btnCancelAppointmentActionPerformed
+
+    private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
+        FrmReceptionistMenu login = new FrmReceptionistMenu();
+        login.setVisible(true);
+
+
+        this.dispose();  
+    }//GEN-LAST:event_btnBackToMenuActionPerformed
     
     private void emptyFields() {
         

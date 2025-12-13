@@ -1,14 +1,22 @@
-
 package ec.edu.espe.clinicmanagementsystem.view;
 
+import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
 import javax.swing.JOptionPane;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import org.bson.Document;
+import java.util.List;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  *
  * @author Adrian Toapanta, Object Masters, @ESPE
  */
 public class FrmViewAppointments extends javax.swing.JFrame {
-    
+
+    MongoManager mongoManager = new MongoManager();
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmViewAppointments.class.getName());
 
     /**
@@ -16,6 +24,7 @@ public class FrmViewAppointments extends javax.swing.JFrame {
      */
     public FrmViewAppointments() {
         initComponents();
+        loadData();
         this.setLocationRelativeTo(null);
 
     }
@@ -34,8 +43,6 @@ public class FrmViewAppointments extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         ViewAppoiment = new javax.swing.JLabel();
         ToamedicalLb = new javax.swing.JLabel();
-        RescheduleButton = new javax.swing.JButton();
-        SaveButton = new javax.swing.JButton();
         btnBackToMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,15 +76,6 @@ public class FrmViewAppointments extends javax.swing.JFrame {
         ToamedicalLb.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         ToamedicalLb.setText("CLÍNICA TOAMEDICAL");
 
-        RescheduleButton.setText("Reagendar");
-        RescheduleButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RescheduleButtonActionPerformed(evt);
-            }
-        });
-
-        SaveButton.setText("Guardar");
-
         btnBackToMenu.setText("Regresar al menú");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -93,12 +91,7 @@ public class FrmViewAppointments extends javax.swing.JFrame {
                         .addComponent(ToamedicalLb))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(51, 51, 51)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(203, 203, 203)
-                        .addComponent(RescheduleButton)
-                        .addGap(90, 90, 90)
-                        .addComponent(SaveButton)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(48, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -116,17 +109,9 @@ public class FrmViewAppointments extends javax.swing.JFrame {
                     .addComponent(ToamedicalLb, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(6, 6, 6)
                 .addComponent(ViewAppoiment)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 101, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(SaveButton)
-                            .addComponent(RescheduleButton))
-                        .addGap(28, 28, 28))))
+                .addGap(53, 53, 53)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 101, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -144,10 +129,46 @@ public class FrmViewAppointments extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+private void loadData() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
 
-    private void RescheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RescheduleButtonActionPerformed
-        JOptionPane.showMessageDialog(rootPane,"Cita MOdificanda ");
-    }//GEN-LAST:event_RescheduleButtonActionPerformed
+            List<Document> documents = mongoManager.getAll("appointments");
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+            for (Document doc : documents) {
+                Object[] row = new Object[4];
+                Object appointmentIdObj = doc.get("appointmentId");
+                if (appointmentIdObj != null) {
+                    row[0] = appointmentIdObj.toString();
+                } else {
+                    row[0] = "Sin ID";
+                }
+
+                Object doctorIdObj = doc.get("doctorId");
+                if (doctorIdObj != null) {
+                    row[1] = doctorIdObj.toString();
+                } else {
+                    row[1] = "Sin ID";
+                }
+
+                Object rawDate = doc.get("date");
+
+                row[2] = mongoManager.dateFormated(rawDate, false);
+                row[3] = mongoManager.dateFormated(rawDate, true);  
+
+                model.addRow(row);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al leer la base de datos: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
 
     /**
      * @param args the command line arguments
@@ -175,8 +196,6 @@ public class FrmViewAppointments extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton RescheduleButton;
-    private javax.swing.JButton SaveButton;
     private javax.swing.JLabel ToamedicalLb;
     private javax.swing.JLabel ViewAppoiment;
     private javax.swing.JButton btnBackToMenu;

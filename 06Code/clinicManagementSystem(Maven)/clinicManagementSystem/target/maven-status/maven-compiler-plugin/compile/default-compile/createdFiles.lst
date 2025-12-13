@@ -98,7 +98,6 @@ ec\edu\espe\clinicmanagementsystem\view\FrmViewMedicalHistory$2.class
 ec\edu\espe\clinicmanagementsystem\view\FrmCreatePrescription$3.class
 ec\edu\espe\clinicmanagementsystem\view\FrmRegisterPatient$3.class
 ec\edu\espe\clinicmanagementsystem\model\Doctor.class
-ec\edu\espe\clinicmanagementsystem\view\FrmViewAppointments$2.class
 ec\edu\espe\clinicmanagementsystem\view\FrmLogInPatient$2.class
 ec\edu\espe\clinicmanagementsystem\view\FrmReceptionistMenu$4.class
 ec\edu\espe\clinicmanagementsystem\model\Appointment.class
@@ -108,6 +107,7 @@ ec\edu\espe\clinicmanagementsystem\model\Date.class
 ec\edu\espe\clinicmanagementsystem\view\FrmLogInDoctor$1.class
 ec\edu\espe\clinicmanagementsystem\model\Clinic.class
 ec\edu\espe\clinicmanagementsystem\view\FrmRescheduleAppointment$2.class
+ec\edu\espe\clinicmanagementsystem\utils\MongoManager.class
 ec\edu\espe\clinicmanagementsystem\view\FrmMainMenu$1.class
 ec\edu\espe\clinicmanagementsystem\view\FrmDoctorMenu$6.class
 ec\edu\espe\clinicmanagementsystem\view\FrmRegisterPatient$4.class
