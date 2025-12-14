@@ -77,6 +77,11 @@ public class FrmViewAppointments extends javax.swing.JFrame {
         ToamedicalLb.setText("CLÍNICA TOAMEDICAL");
 
         btnBackToMenu.setText("Regresar al menú");
+        btnBackToMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackToMenuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -129,6 +134,12 @@ public class FrmViewAppointments extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
+        FrmDoctorMenu login = new FrmDoctorMenu();
+        login.setVisible(true);
+        this.dispose(); 
+    }//GEN-LAST:event_btnBackToMenuActionPerformed
 private void loadData() {
         try {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();

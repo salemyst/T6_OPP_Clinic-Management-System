@@ -384,9 +384,7 @@ try {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         FrmReceptionistMenu login = new FrmReceptionistMenu();
         login.setVisible(true);
-
-
-        this.dispose();          // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void txtPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhoneNumberActionPerformed

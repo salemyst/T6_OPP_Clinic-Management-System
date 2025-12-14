@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package ec.edu.espe.clinicmanagementsystem.view;
 
 import java.awt.Image;
@@ -12,7 +9,7 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author Windows
+ * @author Thais Santorum
  */
 public class FrmSplashWindow extends javax.swing.JFrame {
     

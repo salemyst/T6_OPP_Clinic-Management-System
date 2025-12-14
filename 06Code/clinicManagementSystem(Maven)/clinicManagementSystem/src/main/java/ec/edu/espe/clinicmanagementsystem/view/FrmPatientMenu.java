@@ -31,11 +31,15 @@ public class FrmPatientMenu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnPayShowBilling = new javax.swing.JButton();
-        btnShowPatientMedicalHistory = new javax.swing.JButton();
-        btnShowPrescriptions = new javax.swing.JButton();
-        btnRequestAppointment = new javax.swing.JButton();
-        btnSignOut = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        itmSignOut = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        itmExit = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        itmViewMedicalHistory = new javax.swing.JMenuItem();
+        itmRequestAppointment = new javax.swing.JMenuItem();
+        itmInvoices = new javax.swing.JMenuItem();
+        viewPrescriptions = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,82 +48,80 @@ public class FrmPatientMenu extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel1.setText("Menú de paciente.");
 
-        btnPayShowBilling.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnPayShowBilling.setText("Ver / Pagar facturas.");
-        btnPayShowBilling.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPayShowBillingActionPerformed(evt);
-            }
-        });
-
-        btnShowPatientMedicalHistory.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnShowPatientMedicalHistory.setText("Ver historia clínica.");
-
-        btnShowPrescriptions.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnShowPrescriptions.setText("Ver mis prescripciones.");
-        btnShowPrescriptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShowPrescriptionsActionPerformed(evt);
-            }
-        });
-
-        btnRequestAppointment.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnRequestAppointment.setText("Solicitar una cita.");
-        btnRequestAppointment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRequestAppointmentActionPerformed(evt);
-            }
-        });
-
-        btnSignOut.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSignOut.setText("Cerrar sesión");
-        btnSignOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSignOutActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnSignOut)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnShowPatientMedicalHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnPayShowBilling, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
-                        .addGap(48, 48, 48)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnShowPrescriptions, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                            .addComponent(btnRequestAppointment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(233, 233, 233)
-                        .addComponent(jLabel1)))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addGap(233, 233, 233)
+                .addComponent(jLabel1)
+                .addContainerGap(209, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnSignOut)
-                .addGap(15, 15, 15)
+                .addGap(47, 47, 47)
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRequestAppointment)
-                    .addComponent(btnShowPatientMedicalHistory))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPayShowBilling)
-                    .addComponent(btnShowPrescriptions))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
+
+        itmSignOut.setText("Usuario");
+
+        jMenuItem1.setText("Cerrar sesión");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        itmSignOut.add(jMenuItem1);
+
+        itmExit.setText("Salir");
+        itmExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmExitActionPerformed(evt);
+            }
+        });
+        itmSignOut.add(itmExit);
+
+        jMenuBar1.add(itmSignOut);
+
+        jMenu2.setText("Opciones");
+
+        itmViewMedicalHistory.setText("Ver historia clínica");
+        itmViewMedicalHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmViewMedicalHistoryActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itmViewMedicalHistory);
+
+        itmRequestAppointment.setText("Solicitar una cita");
+        itmRequestAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmRequestAppointmentActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itmRequestAppointment);
+
+        itmInvoices.setText("Ver facturas");
+        itmInvoices.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmInvoicesActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itmInvoices);
+
+        viewPrescriptions.setText("Ver prescripciones");
+        viewPrescriptions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewPrescriptionsActionPerformed(evt);
+            }
+        });
+        jMenu2.add(viewPrescriptions);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,25 +139,39 @@ public class FrmPatientMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPayShowBillingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayShowBillingActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPayShowBillingActionPerformed
+    private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_itmExitActionPerformed
 
-    private void btnRequestAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestAppointmentActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRequestAppointmentActionPerformed
-
-    private void btnShowPrescriptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowPrescriptionsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnShowPrescriptionsActionPerformed
-
-    private void btnSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignOutActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         FrmLogInPatient login = new FrmLogInPatient();
         login.setVisible(true);
-
-
         this.dispose();
-    }//GEN-LAST:event_btnSignOutActionPerformed
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void itmViewMedicalHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmViewMedicalHistoryActionPerformed
+        FrmViewMedicalHistory view = new FrmViewMedicalHistory();
+        view.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itmViewMedicalHistoryActionPerformed
+
+    private void itmInvoicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmInvoicesActionPerformed
+        FrmInvoices view = new FrmInvoices();
+        view.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itmInvoicesActionPerformed
+
+    private void viewPrescriptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPrescriptionsActionPerformed
+        FrmPrescriptionView view = new FrmPrescriptionView();
+        view.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_viewPrescriptionsActionPerformed
+
+    private void itmRequestAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmRequestAppointmentActionPerformed
+        FrmRequestAppointment request = new FrmRequestAppointment();
+        request.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itmRequestAppointmentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,12 +199,16 @@ public class FrmPatientMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPayShowBilling;
-    private javax.swing.JButton btnRequestAppointment;
-    private javax.swing.JButton btnShowPatientMedicalHistory;
-    private javax.swing.JButton btnShowPrescriptions;
-    private javax.swing.JButton btnSignOut;
+    private javax.swing.JMenuItem itmExit;
+    private javax.swing.JMenuItem itmInvoices;
+    private javax.swing.JMenuItem itmRequestAppointment;
+    private javax.swing.JMenu itmSignOut;
+    private javax.swing.JMenuItem itmViewMedicalHistory;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem viewPrescriptions;
     // End of variables declaration//GEN-END:variables
 }

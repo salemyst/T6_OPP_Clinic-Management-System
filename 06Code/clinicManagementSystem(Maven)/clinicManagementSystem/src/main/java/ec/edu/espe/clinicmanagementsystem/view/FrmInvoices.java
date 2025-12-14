@@ -7,14 +7,14 @@ import javax.swing.JOptionPane;
  *
  * @author Adrian Toapanta, Object Masters, @ESPE
  */
-public class FmrInvoices extends javax.swing.JFrame {
+public class FrmInvoices extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FmrInvoices.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmInvoices.class.getName());
 
     /**
      * Creates new form Invoices
      */
-    public FmrInvoices() {
+    public FrmInvoices() {
         initComponents();
         setLocationRelativeTo(null); 
     }
@@ -41,6 +41,8 @@ public class FmrInvoices extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         IdLb.setText("ID del paciente:");
 
         BuscarButton.setText("Buscar");
@@ -62,6 +64,11 @@ public class FmrInvoices extends javax.swing.JFrame {
         });
 
         CancelarButton.setText("Cancelar");
+        CancelarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,6 +138,12 @@ public class FmrInvoices extends javax.swing.JFrame {
        JOptionPane.showMessageDialog(rootPane,"pagando factura");
     }//GEN-LAST:event_btnPagarActionPerformed
 
+    private void CancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarButtonActionPerformed
+        FrmPatientMenu login = new FrmPatientMenu();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_CancelarButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -153,7 +166,7 @@ public class FmrInvoices extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FmrInvoices().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new FrmInvoices().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

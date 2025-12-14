@@ -30,16 +30,22 @@ public class FrmDoctorMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnShowMedicalHistory = new javax.swing.JButton();
-        btnGenerateBilling = new javax.swing.JButton();
-        btnShowDoctorAppointment = new javax.swing.JButton();
-        btnAddMedicalHistory = new javax.swing.JButton();
-        btnAddPrescription = new javax.swing.JButton();
-        btnModifyMedicalHistory = new javax.swing.JButton();
-        btnCheckAppointment = new javax.swing.JButton();
-        btnSignOut = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        itmSignOut = new javax.swing.JMenuItem();
+        itmExit = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        itmAddNewMedicalRecord = new javax.swing.JMenuItem();
+        itmModifyMedicalRecord = new javax.swing.JMenuItem();
+        timViewMedicalRecord = new javax.swing.JMenuItem();
+        itmViewPrescription = new javax.swing.JMenuItem();
+        itmViewAppointments = new javax.swing.JMenuItem();
+        itmCheckAppointment = new javax.swing.JMenuItem();
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,113 +54,96 @@ public class FrmDoctorMenu extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel1.setText("Menú de doctor.");
 
-        btnShowMedicalHistory.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnShowMedicalHistory.setText("Ver historia clínica de paciente.");
-        btnShowMedicalHistory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShowMedicalHistoryActionPerformed(evt);
-            }
-        });
-
-        btnGenerateBilling.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnGenerateBilling.setText("Generar factura.");
-        btnGenerateBilling.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenerateBillingActionPerformed(evt);
-            }
-        });
-
-        btnShowDoctorAppointment.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnShowDoctorAppointment.setText("Ver mis citas");
-
-        btnAddMedicalHistory.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnAddMedicalHistory.setText("Añadir registro a historia clínica.");
-        btnAddMedicalHistory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddMedicalHistoryActionPerformed(evt);
-            }
-        });
-
-        btnAddPrescription.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnAddPrescription.setText("Crear prescripción.");
-        btnAddPrescription.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddPrescriptionActionPerformed(evt);
-            }
-        });
-
-        btnModifyMedicalHistory.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnModifyMedicalHistory.setText("Modificar registro de historia clínica.");
-        btnModifyMedicalHistory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModifyMedicalHistoryActionPerformed(evt);
-            }
-        });
-
-        btnCheckAppointment.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCheckAppointment.setText("Marcar cita como completada");
-
-        btnSignOut.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSignOut.setText("Cerrar sesión");
-        btnSignOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSignOutActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnSignOut)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGenerateBilling, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(183, 183, 183))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnAddMedicalHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnShowMedicalHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                            .addComponent(btnShowDoctorAppointment, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(48, 48, 48)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnAddPrescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnModifyMedicalHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCheckAppointment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(233, 233, 233)
-                        .addComponent(jLabel1)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(233, 233, 233)
+                .addComponent(jLabel1)
+                .addContainerGap(229, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnSignOut)
-                .addGap(15, 15, 15)
+                .addGap(47, 47, 47)
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnModifyMedicalHistory)
-                    .addComponent(btnAddMedicalHistory))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnShowMedicalHistory)
-                    .addComponent(btnAddPrescription))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCheckAppointment)
-                    .addComponent(btnShowDoctorAppointment, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGenerateBilling)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(206, Short.MAX_VALUE))
         );
+
+        jMenu1.setText("Usuario");
+
+        itmSignOut.setText("Cerrar sesión");
+        itmSignOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmSignOutActionPerformed(evt);
+            }
+        });
+        jMenu1.add(itmSignOut);
+
+        itmExit.setText("Salir");
+        itmExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmExitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(itmExit);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Opciones");
+
+        itmAddNewMedicalRecord.setText("Añadir registro a historia clínica");
+        itmAddNewMedicalRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmAddNewMedicalRecordActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itmAddNewMedicalRecord);
+
+        itmModifyMedicalRecord.setText("Modificar registro de historia clínica");
+        itmModifyMedicalRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmModifyMedicalRecordActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itmModifyMedicalRecord);
+
+        timViewMedicalRecord.setText("Ver historia clínica del paciente");
+        timViewMedicalRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timViewMedicalRecordActionPerformed(evt);
+            }
+        });
+        jMenu2.add(timViewMedicalRecord);
+
+        itmViewPrescription.setText("Crear prescripción");
+        itmViewPrescription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmViewPrescriptionActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itmViewPrescription);
+
+        itmViewAppointments.setText("Ver mis citas");
+        itmViewAppointments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmViewAppointmentsActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itmViewAppointments);
+
+        itmCheckAppointment.setText("Marcar cita como completada");
+        itmCheckAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmCheckAppointmentActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itmCheckAppointment);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,45 +161,54 @@ public class FrmDoctorMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnShowMedicalHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowMedicalHistoryActionPerformed
-        FrmViewMedicalHistory login = new FrmViewMedicalHistory ();
-        login.setVisible(true);
-
-
-        this.dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_btnShowMedicalHistoryActionPerformed
-
-    private void btnGenerateBillingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateBillingActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGenerateBillingActionPerformed
-
-    private void btnModifyMedicalHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyMedicalHistoryActionPerformed
-        FrmModifyMedicalRecord login = new FrmModifyMedicalRecord ();
-        login.setVisible(true);
-
-
-        this.dispose();
-    }//GEN-LAST:event_btnModifyMedicalHistoryActionPerformed
-
-    private void btnSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignOutActionPerformed
+    private void itmSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSignOutActionPerformed
         FrmLogInDoctor login = new FrmLogInDoctor ();
         login.setVisible(true);
 
 
         this.dispose();
-    }//GEN-LAST:event_btnSignOutActionPerformed
+    }//GEN-LAST:event_itmSignOutActionPerformed
 
-    private void btnAddMedicalHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMedicalHistoryActionPerformed
+    private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed
+         System.exit(0);
+
+    }//GEN-LAST:event_itmExitActionPerformed
+
+    private void itmAddNewMedicalRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmAddNewMedicalRecordActionPerformed
         FrmAddNewMedicalRecord login = new FrmAddNewMedicalRecord ();
         login.setVisible(true);
-
-
         this.dispose();
-    }//GEN-LAST:event_btnAddMedicalHistoryActionPerformed
+    }//GEN-LAST:event_itmAddNewMedicalRecordActionPerformed
 
-    private void btnAddPrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPrescriptionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAddPrescriptionActionPerformed
+    private void itmModifyMedicalRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmModifyMedicalRecordActionPerformed
+        FrmModifyMedicalRecord login = new FrmModifyMedicalRecord ();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itmModifyMedicalRecordActionPerformed
+
+    private void itmCheckAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCheckAppointmentActionPerformed
+        FrmCheckAppointment login = new FrmCheckAppointment ();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itmCheckAppointmentActionPerformed
+
+    private void itmViewAppointmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmViewAppointmentsActionPerformed
+        FrmViewAppointments view = new FrmViewAppointments ();
+        view.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itmViewAppointmentsActionPerformed
+
+    private void itmViewPrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmViewPrescriptionActionPerformed
+        FrmCreatePrescription view = new FrmCreatePrescription ();
+        view.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itmViewPrescriptionActionPerformed
+
+    private void timViewMedicalRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timViewMedicalRecordActionPerformed
+        FrmViewMedicalHistoryDoctor login = new FrmViewMedicalHistoryDoctor ();
+        login.setVisible(true);
+        this.dispose(); 
+    }//GEN-LAST:event_timViewMedicalRecordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,15 +236,19 @@ public class FrmDoctorMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddMedicalHistory;
-    private javax.swing.JButton btnAddPrescription;
-    private javax.swing.JButton btnCheckAppointment;
-    private javax.swing.JButton btnGenerateBilling;
-    private javax.swing.JButton btnModifyMedicalHistory;
-    private javax.swing.JButton btnShowDoctorAppointment;
-    private javax.swing.JButton btnShowMedicalHistory;
-    private javax.swing.JButton btnSignOut;
+    private javax.swing.JMenuItem itmAddNewMedicalRecord;
+    private javax.swing.JMenuItem itmCheckAppointment;
+    private javax.swing.JMenuItem itmExit;
+    private javax.swing.JMenuItem itmModifyMedicalRecord;
+    private javax.swing.JMenuItem itmSignOut;
+    private javax.swing.JMenuItem itmViewAppointments;
+    private javax.swing.JMenuItem itmViewPrescription;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem timViewMedicalRecord;
     // End of variables declaration//GEN-END:variables
 }

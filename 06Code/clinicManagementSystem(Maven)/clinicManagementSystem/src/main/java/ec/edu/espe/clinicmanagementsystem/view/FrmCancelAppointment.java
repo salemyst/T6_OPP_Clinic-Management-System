@@ -150,9 +150,7 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
         FrmReceptionistMenu login = new FrmReceptionistMenu();
         login.setVisible(true);
-
-
-        this.dispose();  
+        this.dispose();
     }//GEN-LAST:event_btnBackToMenuActionPerformed
     
     private void emptyFields() {

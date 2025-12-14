@@ -8,14 +8,14 @@ package ec.edu.espe.clinicmanagementsystem.view;
  *
  * @author Windows
  */
-public class FrmFrmMarkAppoimentAsComplete extends javax.swing.JFrame {
+public class FrmCheckAppointment extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmFrmMarkAppoimentAsComplete.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmCheckAppointment.class.getName());
 
     /**
      * Creates new form FrmFrmMarkAppoimentAsComplete
      */
-    public FrmFrmMarkAppoimentAsComplete() {
+    public FrmCheckAppointment() {
         initComponents();
         this.setLocationRelativeTo(null);
 
@@ -132,8 +132,7 @@ public class FrmFrmMarkAppoimentAsComplete extends javax.swing.JFrame {
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
         FrmDoctorMenu login = new FrmDoctorMenu();
         login.setVisible(true);
-
-        this.dispose();         // TODO add your handling code here:
+        this.dispose(); 
     }//GEN-LAST:event_btnBackToMenuActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -166,7 +165,7 @@ public class FrmFrmMarkAppoimentAsComplete extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FrmFrmMarkAppoimentAsComplete().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new FrmCheckAppointment().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

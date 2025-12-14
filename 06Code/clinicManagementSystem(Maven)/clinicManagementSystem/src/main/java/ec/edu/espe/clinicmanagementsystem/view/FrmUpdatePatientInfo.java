@@ -251,9 +251,7 @@ public class FrmUpdatePatientInfo extends javax.swing.JFrame {
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
         FrmReceptionistMenu login = new FrmReceptionistMenu();
         login.setVisible(true);
-
-
-        this.dispose();          // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnBackToMenuActionPerformed
 
     private void txtPatientIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPatientIdActionPerformed

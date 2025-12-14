@@ -150,11 +150,9 @@ public class FrmViewMedicalHistory extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
-        FrmDoctorMenu login = new FrmDoctorMenu();
+        FrmPatientMenu login = new FrmPatientMenu();
         login.setVisible(true);
-
-
-        this.dispose();         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnBackToMenuActionPerformed
 
     private void txtPatientIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPatientIdActionPerformed
