@@ -4,15 +4,19 @@ import ec.edu.espe.clinicmanagementsystem.model.Date;
 import ec.edu.espe.clinicmanagementsystem.utils.GUIValidation;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
+import org.bson.Document;
+import java.util.List;
 
 /**
  *
  * @author César Vargas, Paradigm, @ESPE
  */
 public class FrmRescheduleAppointment extends javax.swing.JFrame {
-    
+
+    MongoManager mongoManager = new MongoManager();
     Date date = new Date();
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmRescheduleAppointment.class.getName());
 
     /**
@@ -72,7 +76,7 @@ public class FrmRescheduleAppointment extends javax.swing.JFrame {
 
         jLabel9.setText("Mins");
 
-        spinMinutes.setModel(new javax.swing.SpinnerNumberModel(0, 0, 55, 5));
+        spinMinutes.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 30));
 
         jLabel8.setText("Hrs");
 
@@ -202,74 +206,113 @@ public class FrmRescheduleAppointment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRescheduleAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRescheduleAppointmentActionPerformed
-        int option = 0;
-        
-        if(!GUIValidation.validateOnlyNumbers(txtRescheduleAppointmentId, "id de la cita a Reagendar")){
+
+        if (!GUIValidation.validateOnlyNumbers(txtRescheduleAppointmentId, "id de la cita a Reagendar")) {
             return;
         }
-        if(!GUIValidation.validateDateRange(calNewDate, "Seleccione la nueva fecha para su cita")){
+        if (!GUIValidation.validateDateRange(calNewDate, "Seleccione la nueva fecha para su cita")) {
             return;
         }
-        
-        int rescheduleAppointmentId = getValue();
-        readValues();
-       
-        option = JOptionPane.showConfirmDialog(rootPane, "Reagendando Cita con id: " + rescheduleAppointmentId, "Reagendar una cita", JOptionPane.YES_NO_CANCEL_OPTION);
-       if (option == JOptionPane.YES_OPTION){
-           JOptionPane.showMessageDialog(rootPane, "La cita" + rescheduleAppointmentId + "fué reagendada");
-           emptyFields();           
-       } else if (option == JOptionPane.NO_OPTION){
-           JOptionPane.showMessageDialog(rootPane, "La cita" + rescheduleAppointmentId + "no se reagendará.","",JOptionPane.WARNING_MESSAGE);
-       } else {
-           txtRescheduleAppointmentId.requestFocus();
-       }  
-      
+        try {
+            int appointmentId = Integer.parseInt(txtRescheduleAppointmentId.getText());
+            Document filter = new Document("appointmentId", appointmentId);
+
+            List<Document> results = mongoManager.find("appointments", filter);
+
+            if (results.isEmpty()) {
+                JOptionPane.showMessageDialog(rootPane, "No existe ninguna cita con el ID: " + appointmentId, "Error", JOptionPane.ERROR_MESSAGE);
+                txaAppointmentFound.setText("");
+                return;
+            }
+
+            Document foundAppointment = results.get(0);
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("ID Cita: ").append(foundAppointment.get("appointmentId")).append("\n");
+            sb.append("ID Doctor: ").append(foundAppointment.get("doctorId")).append("\n");
+            sb.append("ID Paciente: ").append(foundAppointment.get("patientId")).append("\n");
+            sb.append("Estado: ").append(foundAppointment.getString("status")).append("\n");
+
+            Object currentDateObj = foundAppointment.get("date");
+            String dateText = mongoManager.dateFormated(currentDateObj, false);
+            String timeText = mongoManager.dateFormated(currentDateObj, true);
+
+            sb.append("Fecha Actual: ").append(dateText).append("\n");
+            sb.append("Hora Actual: ").append(timeText).append("\n");
+
+            txaAppointmentFound.setText(sb.toString());
+
+            int option = JOptionPane.showConfirmDialog(rootPane,
+                    "¿Desea actualizar la fecha de esta cita?",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (option == JOptionPane.YES_OPTION) {
+                java.util.Date newDate = calNewDate.getDate();
+                int newHour = (Integer) spinHour.getValue();
+                int newMin = (Integer) spinMinutes.getValue();
+
+                Document newDateObj = mongoManager.createDateDocument(newDate, newHour, newMin);
+                Document updateData = new Document("date", newDateObj);
+
+                long count = mongoManager.update("appointments", filter, updateData);
+
+                if (count > 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Cita reagendada exitosamente.");
+                    emptyFields();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Error al actualizar la cita.");
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(rootPane, "El ID debe ser un número entero.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Error: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnRescheduleAppointmentActionPerformed
 
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
         FrmReceptionistMenu login = new FrmReceptionistMenu();
         login.setVisible(true);
-        this.dispose();   
+        this.dispose();
     }//GEN-LAST:event_btnBackToMenuActionPerformed
 
     private void emptyFields() {
-        
+
         txtRescheduleAppointmentId.setText("");
         txaAppointmentFound.setText("");
         calNewDate.setDate(null);
         spinHour.setValue(7);
-        spinMinutes.setValue(0);   
+        spinMinutes.setValue(0);
     }
-    
-    
+
     private void readValues() {
-        
+
         int rescheduleAppointmentId = Integer.parseInt(txtRescheduleAppointmentId.getText());
-        
+
         java.util.Date dateSelected = calNewDate.getDate();
-        
+
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
         SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
         SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
-        
+
         int year = Integer.parseInt(yearFormat.format(dateSelected));
         int month = Integer.parseInt(monthFormat.format(dateSelected));
         int day = Integer.parseInt(dayFormat.format(dateSelected));
-        
+
         int hour = Integer.valueOf(spinHour.getValue().toString());
         int minute = Integer.valueOf(spinMinutes.getValue().toString());
-        
-        date = new Date(day, month, year, hour, minute); 
-        
+
+        date = new Date(day, month, year, hour, minute);
+
     }
-    
+
     public int getValue() {
-        
+
         return Integer.parseInt(txtRescheduleAppointmentId.getText());
     }
-    
-    
-    
+
     /**
      * @param args the command line arguments
      */

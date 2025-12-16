@@ -33,13 +33,6 @@ public class Notification {
         this.date = date;
     }
     
-    public void send() {
-        System.out.println("\n--- ENVIANDO NOTIFICACION ---");
-        System.out.println("Fecha: " + this.date.toString());
-        System.out.println("Mensaje: " + this.message);
-        System.out.println("-----------------------------");
-    }
-    
     @Override
     public String toString() {
         return "Notification{" + "message=" + message + ", date=" + date + '}';

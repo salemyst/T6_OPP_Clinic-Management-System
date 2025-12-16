@@ -4,19 +4,19 @@ package ec.edu.espe.clinicmanagementsystem.view;
  *
  * @author César Vargas, Paradigm, @ESPE
  */
-
-import ec.edu.espe.clinicmanagementsystem.controller.AppointmentController;
 import ec.edu.espe.clinicmanagementsystem.model.Appointment;
 import ec.edu.espe.clinicmanagementsystem.model.Date;
 import ec.edu.espe.clinicmanagementsystem.utils.GUIValidation;
+import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 public class FrmRequestAppointmentR extends javax.swing.JFrame {
-    
+
+    MongoManager mongoManager = new MongoManager();
     Appointment appointment = new Appointment();
     Date date = new Date();
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmRequestAppointmentR.class.getName());
 
     /**
@@ -103,7 +103,7 @@ public class FrmRequestAppointmentR extends javax.swing.JFrame {
 
         jLabel8.setText("Hrs");
 
-        spinMinutes.setModel(new javax.swing.SpinnerNumberModel(0, 0, 55, 5));
+        spinMinutes.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 30));
 
         jLabel9.setText("Mins");
 
@@ -218,49 +218,69 @@ public class FrmRequestAppointmentR extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRequestAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestAppointmentActionPerformed
-        int option = 0;
-
-        if(!GUIValidation.validateOnlyNumbers(txtAppointmentId, "id de la cita")){
+        if (!GUIValidation.validateOnlyNumbers(txtAppointmentId, "id de la cita")) {
             return;
         }
-        if(!GUIValidation.validateOnlyNumbers(txtDoctorId, "id del doctor")){
+        if (!GUIValidation.validateOnlyNumbers(txtDoctorId, "id del doctor")) {
             return;
         }
-        if(!GUIValidation.validateOnlyNumbers(txtPatientId, "id del paciente")){
+        if (!GUIValidation.validateOnlyNumbers(txtPatientId, "id del paciente")) {
             return;
         }
-        if(!GUIValidation.validateDateRange(calDate, "Fecha de la cita")){
+        if (!GUIValidation.validateDateRange(calDate, "Fecha de la cita")) {
             return;
         }
 
         readValues();
 
-        option = JOptionPane.showConfirmDialog(rootPane, "Agendando una Cita\n" + appointment, "Agendar una cita", JOptionPane.YES_NO_CANCEL_OPTION);
+        int option = JOptionPane.showConfirmDialog(rootPane, "Agendando una Cita\n" + appointment, "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION);
 
         if (option == JOptionPane.YES_OPTION) {
-
             try {
-                AppointmentController controller = new AppointmentController();
+                int appId = Integer.parseInt(txtAppointmentId.getText());
+                int patId = Integer.parseInt(txtPatientId.getText());
+                int docId = Integer.parseInt(txtDoctorId.getText());
+                java.util.Date selectedDate = calDate.getDate();
+                int hour = (Integer) spinHour.getValue();
+                int minute = (Integer) spinMinutes.getValue();
 
-                boolean saved = controller.saveAppointment(appointment);
-
-                controller.close();
-
-                if(saved) {
-                    JOptionPane.showMessageDialog(rootPane, "La cita fue guardada en MongoDB exitosamente.");
-                    emptyFields();
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Error al guardar en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                if (checkIdExists(appId)) {
+                    JOptionPane.showMessageDialog(rootPane, "Error: El ID de cita " + appId + " ya existe.", "ID Duplicado", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                if (!checkPatientExists(patId)) {
+                    JOptionPane.showMessageDialog(rootPane, "Error: El paciente con ID " + patId + " no existe.", "Paciente No Encontrado", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
 
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, "Error de conexión: " + e.getMessage());
-            }
+                if (!checkDoctorExists(docId)) {
+                    JOptionPane.showMessageDialog(rootPane, "Error: El doctor con ID " + docId + " no existe.", "Doctor No Encontrado", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
-        } else if (option == JOptionPane.NO_OPTION) {
-            JOptionPane.showMessageDialog(rootPane, "La cita no se agendará.", "", JOptionPane.WARNING_MESSAGE);
-        } else {
-            txtAppointmentId.requestFocus();
+                if (checkScheduleConflict(docId, selectedDate, hour, minute)) {
+                    JOptionPane.showMessageDialog(rootPane, "El doctor ya tiene una cita en ese horario.", "Horario Ocupado", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                org.bson.Document dateObject = mongoManager.createDateDocument(selectedDate, hour, minute);
+
+                org.bson.Document appointmentDoc = new org.bson.Document();
+                appointmentDoc.append("appointmentId", appId);
+                appointmentDoc.append("patientId", patId);
+                appointmentDoc.append("doctorId", docId);
+                appointmentDoc.append("status", "Agendado");
+                appointmentDoc.append("date", dateObject);
+
+                mongoManager.insert("appointments", appointmentDoc);
+
+                JOptionPane.showMessageDialog(rootPane, "La cita fue guardada exitosamente.");
+                emptyFields();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, "Error: " + e.getMessage());
+            }
         }
 
     }//GEN-LAST:event_btnRequestAppointmentActionPerformed
@@ -268,7 +288,7 @@ public class FrmRequestAppointmentR extends javax.swing.JFrame {
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
         FrmReceptionistMenu login = new FrmReceptionistMenu();
         login.setVisible(true);
-        this.dispose();        
+        this.dispose();
     }//GEN-LAST:event_btnBackToMenuActionPerformed
 
     private void txtPatientIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPatientIdActionPerformed
@@ -278,9 +298,9 @@ public class FrmRequestAppointmentR extends javax.swing.JFrame {
     private void txtDoctorIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDoctorIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDoctorIdActionPerformed
-    
+
     private void emptyFields() {
-        
+
         txtAppointmentId.setText("");
         txtPatientId.setText("");
         txtDoctorId.setText("");
@@ -288,34 +308,61 @@ public class FrmRequestAppointmentR extends javax.swing.JFrame {
         spinHour.setValue(7);
         spinMinutes.setValue(0);
     }
-    
-    
+
     private void readValues() {
-        
+
         int appoinmentId = Integer.parseInt(txtAppointmentId.getText());
         int patientId = Integer.parseInt(txtPatientId.getText());
         int doctorId = Integer.parseInt(txtDoctorId.getText());
         java.util.Date dateSelected = calDate.getDate();
-        
+
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
         SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
         SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
-        
+
         int year = Integer.parseInt(yearFormat.format(dateSelected));
         int month = Integer.parseInt(monthFormat.format(dateSelected));
         int day = Integer.parseInt(dayFormat.format(dateSelected));
-        
+
         int hour = Integer.valueOf(spinHour.getValue().toString());
         int minute = Integer.valueOf(spinMinutes.getValue().toString());
-        
-        date = new Date(day, month, year, hour, minute);  
-        
+
+        date = new Date(day, month, year, hour, minute);
+
         appointment = new Appointment(appoinmentId, date, patientId, doctorId);
     }
-    
-    
-    
-    
+
+    private boolean checkIdExists(int id) {
+        org.bson.Document filter = new org.bson.Document("appointmentId", id);
+        java.util.List<org.bson.Document> results = mongoManager.find("appointments", filter);
+        return !results.isEmpty();
+    }
+
+    private boolean checkDoctorExists(int doctorId) {
+        org.bson.Document filter = new org.bson.Document("doctorId", doctorId);
+        java.util.List<org.bson.Document> results = mongoManager.find("doctors", filter);
+        return !results.isEmpty();
+    }
+
+    private boolean checkScheduleConflict(int doctorId, java.util.Date date, int hour, int minute) {
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        String dateString = sdf.format(date);
+        String timeString = String.format("%02d:%02d", hour, minute);
+
+        org.bson.Document filter = new org.bson.Document("doctorId", doctorId)
+                .append("date.date", dateString)
+                .append("date.time", timeString);
+
+        java.util.List<org.bson.Document> results = mongoManager.find("appointments", filter);
+        return !results.isEmpty();
+    }
+
+    private boolean checkPatientExists(int patientId) {
+        org.bson.Document filter = new org.bson.Document("patientId", patientId);
+        java.util.List<org.bson.Document> results = mongoManager.find("patients", filter);
+        return !results.isEmpty();
+    }
+
     /**
      * @param args the command line arguments
      */

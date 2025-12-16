@@ -98,9 +98,4 @@ public class Patient {
         }
     }
 
-    public void payBill(Billing bill) {
-        System.out.println("Paciente " + this.fullName + " esta pagando la factura " + bill.getBillId());
-        bill.updatePayment("Pagado"); 
-        System.out.println("Factura pagada. Nuevo estado: " + bill.getStatus());
-    }
 }

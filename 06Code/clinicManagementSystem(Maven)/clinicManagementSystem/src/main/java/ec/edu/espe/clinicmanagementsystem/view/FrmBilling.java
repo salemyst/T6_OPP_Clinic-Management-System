@@ -174,9 +174,8 @@ public class FrmBilling extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
-        FrmDoctorMenu login = new FrmDoctorMenu();
-        login.setVisible(true);
-        this.dispose(); 
+        FrmReceptionistMenu frmReceptionistMenu = new FrmReceptionistMenu();
+        frmReceptionistMenu.setVisible(true);
     }//GEN-LAST:event_btnBackToMenuActionPerformed
 
     /**

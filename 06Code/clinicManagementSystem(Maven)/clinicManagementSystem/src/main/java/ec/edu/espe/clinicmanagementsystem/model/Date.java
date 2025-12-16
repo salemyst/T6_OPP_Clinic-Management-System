@@ -67,30 +67,17 @@ public class Date {
     public String toString() {
         return String.format("%04d-%02d-%02d @ %02d:%02d", year, month, day, hour, minute);
     }
-    
-    public void setDate(int day, int month, int year) {
-        this.setDay(day);
-        this.setMonth(month);
-        this.setYear(year);
-    }
+      public boolean isBefore(Date other) {
 
-    public void setTime(int hour, int minute) {
-        this.setHour(hour);
-        this.setMinute(minute);
-    }
-
-    public String getDate() {
-        return String.format("%04d-%02d-%02d", this.year, this.month, this.day);
-    }
-
-    public String getTime() {
-        return String.format("%02d:%02d", this.hour, this.minute);
-    }
-    public boolean isBefore(Date other) {
         if (this.year != other.year) return this.year < other.year;
+
         if (this.month != other.month) return this.month < other.month;
+
         if (this.day != other.day) return this.day < other.day;
+
         if (this.hour != other.hour) return this.hour < other.hour;
+
         return this.minute < other.minute;
+
     }
 }

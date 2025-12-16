@@ -33,7 +33,7 @@ public class ClinicController {
     private List<Billing> billings;
     private List<Prescription> prescriptions;  
     public ClinicController(){ 
-        // Inicialización de Repositorios y Carga de Datos
+
         String dataDirectory = "data";
         new File(dataDirectory).mkdirs();
 
@@ -90,7 +90,7 @@ public class ClinicController {
         savePrescriptionChanges();
     }
 
-    // --- Métodos de Persistencia (Guardar Cambios en JSON) ---
+  
 
     public void savePatientChanges() {
         this.patientRepository.saveData(this.patients);
@@ -116,7 +116,7 @@ public class ClinicController {
         this.prescriptionRepository.saveData(this.prescriptions);
     }
 
-    // --- Métodos de Búsqueda (Controller) ---
+
 
     public Patient searchPatient(int patientId) {
         for (Patient p : patients) {

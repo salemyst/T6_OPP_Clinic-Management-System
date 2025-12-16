@@ -78,15 +78,5 @@ public class Prescription {
         return "Prescription{" + "prescriptionId=" + prescriptionId + ", patientId=" + patientId + ", medication=" + medication + ", dosage=" + dosage + '}';
     }
     
-    public void printPrescription() {
-        System.out.println("\n--- Imprimiendo Prescripcion ---");
-        System.out.println("ID Prescripcion: " + this.prescriptionId);
-        System.out.println("Paciente ID: " + this.patientId);
-        System.out.println("Fecha: " + this.date.toString());
-        System.out.println("---------------------------------");
-        System.out.println("Medicamento: " + this.medication);
-        System.out.println("Dosis: " + this.dosage);
-        System.out.println("Instrucciones: " + this.instructions);
-        System.out.println("---------------------------------");
-    }
+
 }

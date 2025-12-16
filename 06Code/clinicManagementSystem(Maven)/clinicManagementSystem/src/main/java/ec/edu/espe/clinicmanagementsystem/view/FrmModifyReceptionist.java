@@ -1,6 +1,7 @@
 package ec.edu.espe.clinicmanagementsystem.view;
 
 import ec.edu.espe.clinicmanagementsystem.utils.GUIValidation;
+import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
 import javax.swing.JOptionPane;
 
 /**
@@ -8,7 +9,9 @@ import javax.swing.JOptionPane;
  * @author César Vargas, Paradigm, @ESPE
  */
 public class FrmModifyReceptionist extends javax.swing.JFrame {
-    
+
+    MongoManager mongoManager = new MongoManager();
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmModifyReceptionist.class.getName());
 
     /**
@@ -212,31 +215,85 @@ public class FrmModifyReceptionist extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateDataActionPerformed
-        int option = 0;
-        
-        if(!GUIValidation.validateOnlyNumbers(txtReceptionistId, "id del Recepcionista")) {
+        if (!ec.edu.espe.clinicmanagementsystem.utils.GUIValidation.validateOnlyNumbers(txtReceptionistId, "id del Recepcionista")) {
             return;
         }
-        if(!GUIValidation.validateNumericLength(txtNewPhone, "Nuevo Teléfono", 10)) {
-            return;
-        }
-        if(!GUIValidation.validateEmail(txtNewEmail, "Nuevo Email")) {
-            return;
-        }
-        
-        readValues();
-        
-        option = JOptionPane.showConfirmDialog(rootPane, "Actualizando Datos ", "Está seguro de actualizar los datos? ", JOptionPane.YES_NO_CANCEL_OPTION);
-       if (option == JOptionPane.YES_OPTION){
-           JOptionPane.showMessageDialog(rootPane, "Datos actualizados exitosamente");
-           emptyFields();           
-       } else if (option == JOptionPane.NO_OPTION){
-           JOptionPane.showMessageDialog(rootPane, "Los datos no se actualizarán ","",JOptionPane.WARNING_MESSAGE);
-       } else {
-           txtReceptionistId.requestFocus();
-       } 
-    }//GEN-LAST:event_btnUpdateDataActionPerformed
 
+        searchReceptionist();
+        if (txtpRecepcionistFound.getText().isEmpty()) {
+            return;
+        }
+
+        int option = javax.swing.JOptionPane.showConfirmDialog(rootPane, "¿Está seguro de actualizar los datos?", "Confirmar", javax.swing.JOptionPane.YES_NO_OPTION);
+
+        if (option == javax.swing.JOptionPane.YES_OPTION) {
+            try {
+                int id = Integer.parseInt(txtReceptionistId.getText());
+                org.bson.Document filter = new org.bson.Document("receptionistId", id);
+                org.bson.Document updateData = new org.bson.Document();
+
+                boolean existChanges = false;
+
+                if (!txtNewPhone.getText().isEmpty()) {
+                    if (!ec.edu.espe.clinicmanagementsystem.utils.GUIValidation.validateNumericLength(txtNewPhone, "Nuevo Teléfono", 10)) {
+                        return;
+                    }
+                    updateData.append("phone", txtNewPhone.getText());
+                    existChanges = true;
+                }
+
+                if (!txtNewEmail.getText().isEmpty()) {
+                    if (!ec.edu.espe.clinicmanagementsystem.utils.GUIValidation.validateEmail(txtNewEmail, "Nuevo Email")) {
+                        return;
+                    }
+                    updateData.append("email", txtNewEmail.getText());
+                    existChanges = true;
+                }
+
+                if (existChanges) {
+                    long count = mongoManager.update("receptionists", filter, updateData);
+
+                    if (count > 0) {
+                        javax.swing.JOptionPane.showMessageDialog(rootPane, "Datos actualizados exitosamente.");
+                        emptyFields();
+                    } else {
+                        javax.swing.JOptionPane.showMessageDialog(rootPane, "No se pudo actualizar.");
+                    }
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(rootPane, "No ingresó datos nuevos para actualizar.");
+                }
+
+            } catch (Exception e) {
+                javax.swing.JOptionPane.showMessageDialog(rootPane, "Error: " + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnUpdateDataActionPerformed
+    private void searchReceptionist() {
+        if (txtReceptionistId.getText().isEmpty()) {
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(txtReceptionistId.getText());
+            org.bson.Document filter = new org.bson.Document("receptionistId", id);
+
+            java.util.List<org.bson.Document> results = mongoManager.find("receptionists", filter);
+
+            if (!results.isEmpty()) {
+                org.bson.Document doc = results.get(0);
+                txtpRecepcionistFound.setText(doc.getString("name"));
+                txtpOldPhone.setText(doc.getString("phone"));
+                txtpOldEmail.setText(doc.getString("email"));
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Recepcionista no encontrado.");
+                txtpRecepcionistFound.setText("");
+                txtpOldPhone.setText("");
+                txtpOldEmail.setText("");
+            }
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser numérico.");
+        }
+    }
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
         FrmReceptionistMenu login = new FrmReceptionistMenu();
         login.setVisible(true);
@@ -255,14 +312,14 @@ public class FrmModifyReceptionist extends javax.swing.JFrame {
         txtpOldEmail.setText("");
         txtpOldPhone.setText("");
     }
-       
+
     private void readValues() {
-        
+
         int receptionistId = Integer.parseInt(txtReceptionistId.getText());
         String newPhone = txtNewPhone.getText();
-        String newEmail = txtNewEmail.getText();    
+        String newEmail = txtNewEmail.getText();
     }
-    
+
     /**
      * @param args the command line arguments
      */

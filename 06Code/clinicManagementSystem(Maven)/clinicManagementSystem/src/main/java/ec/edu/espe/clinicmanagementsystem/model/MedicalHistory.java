@@ -83,12 +83,4 @@ public class MedicalHistory {
                 "\nTratamientos: " + treatments +
                 "\nObservaciones: " + observations ;
     }
-    
-    public void addRecord() {
-        System.out.println("Historial ID: " + this.historyId);
     }
-    
-    public void updateHistory() {
-        System.out.println("Historial ID: " + this.historyId);
-    }
-}

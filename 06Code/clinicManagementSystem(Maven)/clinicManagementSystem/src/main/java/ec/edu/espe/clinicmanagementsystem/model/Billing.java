@@ -67,23 +67,4 @@ public class Billing {
     public String toString() {
         return "Billing{" + "billId=" + billId + ", amount=" + amount + ", date=" + date + ", status=" + status + '}';
     }
-    
-    public void generateBill() {
-        System.out.println("Factura " + this.billId + " generada por un monto de " + this.amount);
-        this.status = "Pending"; 
-    }
-
-    public void updatePayment(String newStatus) {
-        this.status = newStatus;
-    }
-
-    public void viewBill() {
-        System.out.println("--- Viendo Factura ---");
-        System.out.println("ID Factura: " + this.billId);
-        System.out.println("Paciente ID: " + this.patientId);
-        System.out.println("Fecha: " + this.date.toString());
-        System.out.println("Monto: $" + this.amount);
-        System.out.println("Estado: " + this.status);
-        System.out.println("----------------------");
-    }
 }

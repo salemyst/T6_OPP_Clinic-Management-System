@@ -1,8 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.clinicmanagementsystem.view;
+
+import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
 
 /**
  *
@@ -10,6 +8,8 @@ package ec.edu.espe.clinicmanagementsystem.view;
  */
 public class FrmCheckAppointment extends javax.swing.JFrame {
     
+    MongoManager mongoManager = new MongoManager();
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmCheckAppointment.class.getName());
 
     /**
@@ -35,8 +35,8 @@ public class FrmCheckAppointment extends javax.swing.JFrame {
         btnBackToMenu = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtAppointmentId = new javax.swing.JTextField();
+        btnUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,16 +57,16 @@ public class FrmCheckAppointment extends javax.swing.JFrame {
 
         jLabel1.setText("ID de la cita: ");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtAppointmentId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtAppointmentIdActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Actualizar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setText("Actualizar");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -80,7 +80,7 @@ public class FrmCheckAppointment extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1))
+                        .addComponent(txtAppointmentId))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(6, 6, 6)
@@ -94,7 +94,7 @@ public class FrmCheckAppointment extends javax.swing.JFrame {
                         .addComponent(btnBackToMenu))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(151, 151, 151)
-                        .addComponent(jButton1)))
+                        .addComponent(btnUpdate)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -109,9 +109,9 @@ public class FrmCheckAppointment extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAppointmentId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
-                .addComponent(jButton1)
+                .addComponent(btnUpdate)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -132,16 +132,48 @@ public class FrmCheckAppointment extends javax.swing.JFrame {
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
         FrmDoctorMenu login = new FrmDoctorMenu();
         login.setVisible(true);
-        this.dispose(); 
+        this.dispose();
     }//GEN-LAST:event_btnBackToMenuActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtAppointmentIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAppointmentIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtAppointmentIdActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        if (txtAppointmentId.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingrese el ID de la cita.");
+            return;
+        }
+
+        try {
+            int appointmentId = Integer.parseInt(txtAppointmentId.getText().trim());
+
+            org.bson.Document filter = new org.bson.Document("appointmentId", appointmentId);
+
+            java.util.List<org.bson.Document> results = mongoManager.find("appointments", filter);
+
+            if (results.isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Error: No existe ninguna cita registrada con el ID " + appointmentId, "Cita no encontrada", javax.swing.JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            org.bson.Document updateData = new org.bson.Document("status", "Completada");
+
+            long count = mongoManager.update("appointments", filter, updateData);
+
+            if (count > 0) {
+                javax.swing.JOptionPane.showMessageDialog(this, "La cita ID " + appointmentId + " ha sido marcada como COMPLETADA.");
+                txtAppointmentId.setText("");
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "No se pudo actualizar el estado de la cita.");
+            }
+
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El ID de la cita debe ser un número entero.");
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error de conexión: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,11 +202,11 @@ public class FrmCheckAppointment extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBackToMenu;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtAppointmentId;
     // End of variables declaration//GEN-END:variables
 }

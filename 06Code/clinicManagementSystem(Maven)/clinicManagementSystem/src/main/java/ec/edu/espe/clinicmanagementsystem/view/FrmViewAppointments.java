@@ -57,7 +57,7 @@ public class FrmViewAppointments extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre del doctor", "Fecha de la cita", "Hora de la cita"
+                "ID", "ID del doctor", "Fecha de la cita", "Hora de la cita"
             }
         ) {
             boolean[] canEdit = new boolean [] {

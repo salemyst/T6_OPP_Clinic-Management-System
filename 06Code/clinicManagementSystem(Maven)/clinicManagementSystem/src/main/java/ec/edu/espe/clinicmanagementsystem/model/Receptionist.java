@@ -73,26 +73,7 @@ public class Receptionist {
         this.password = password;
     }
 
-    public Appointment createAppointment(Clinic clinic, int appId, Date appDate, int patId, int docId) {
-        System.out.println("Recepcionista " + this.name + " creando cita.");
-        Appointment newAppointment = new Appointment(appId, appDate, patId, docId);
-        clinic.saveNewAppointment(newAppointment); 
-        return newAppointment;
-    }
 
-    public Patient registerPatient(Clinic clinic, int patientId, String fullName, String gender, String phone, String address) {
-        System.out.println("Recepcionista " + this.name + " registrando a " + fullName);
-        Patient newPatient = new Patient(patientId, fullName, gender, phone, address);
-        clinic.registerPatient(newPatient); 
-        return newPatient;
-    }
-
-    public void updatePatientInfo(Clinic clinic, Patient patient, String newPhone, String newAddress) {
-        System.out.println("Recepcionista " + this.name + " actualizando info de " + patient.getFullName());
-        patient.setPhone(newPhone);
-        patient.setAddress(newAddress);
-        clinic.savePatientChanges(); 
-    }
 
     @Override
     public String toString() {

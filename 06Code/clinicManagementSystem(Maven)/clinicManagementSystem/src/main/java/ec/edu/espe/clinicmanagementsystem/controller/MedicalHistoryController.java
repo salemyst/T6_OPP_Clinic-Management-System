@@ -11,7 +11,7 @@ public class MedicalHistoryController {
 
 
     public void addRecord(MedicalHistory medicalHistory) {
-        // Lógica de negocio: Por ejemplo, validar datos o asignar un ID secuencial.
+ 
         System.out.println("Registro de Historial Médico ID: " + medicalHistory.getHistoryId() + " ha sido añadido al sistema.");
     }
 

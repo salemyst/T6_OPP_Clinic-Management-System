@@ -9,11 +9,13 @@ import ec.edu.espe.clinicmanagementsystem.controller.AppointmentController;
 import ec.edu.espe.clinicmanagementsystem.model.Appointment;
 import ec.edu.espe.clinicmanagementsystem.model.Date;
 import ec.edu.espe.clinicmanagementsystem.utils.GUIValidation;
+import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 public class FrmRequestAppointment extends javax.swing.JFrame {
     
+    MongoManager mongoManager = new MongoManager();
     Appointment appointment = new Appointment();
     Date date = new Date();
     
@@ -240,23 +242,39 @@ public class FrmRequestAppointment extends javax.swing.JFrame {
         if (option == JOptionPane.YES_OPTION) {
 
             try {
-                AppointmentController controller = new AppointmentController();
+                int appId = Integer.parseInt(txtAppointmentId.getText());
+                int patId = Integer.parseInt(txtPatientId.getText());
+                int docId = Integer.parseInt(txtDoctorId.getText());
 
-                boolean saved = controller.saveAppointment(appointment);
+                java.util.Date selectedDate = calDate.getDate();
+                int hour = (Integer) spinHour.getValue();
+                int minute = (Integer) spinMinutes.getValue();
 
-                controller.close();
+                org.bson.Document dateObject = mongoManager.createDateDocument(selectedDate, hour, minute);
 
-                if(saved) {
-                    JOptionPane.showMessageDialog(rootPane, "La cita fue guardada en MongoDB exitosamente.");
-                    emptyFields();
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Error al guardar en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                if (dateObject == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Por favor, seleccione una fecha válida.");
+                    return;
                 }
 
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, "Error de conexión: " + e.getMessage());
-            }
+                org.bson.Document appointmentDoc = new org.bson.Document();
+                appointmentDoc.append("appointmentId", appId);
+                appointmentDoc.append("patientId", patId);
+                appointmentDoc.append("doctorId", docId);
+                appointmentDoc.append("status", "Agendado");
+                appointmentDoc.append("date", dateObject);
 
+                mongoManager.insert("appointments", appointmentDoc);
+
+                JOptionPane.showMessageDialog(rootPane, "La cita fue guardada exitosamente.");
+                emptyFields();
+
+            } catch (NumberFormatException nf) {
+                JOptionPane.showMessageDialog(rootPane, "Error: Los IDs deben ser números enteros válidos.");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, "Error de conexión o base de datos: " + e.getMessage());
+                e.printStackTrace();
+            }
         } else if (option == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(rootPane, "La cita no se agendará.", "", JOptionPane.WARNING_MESSAGE);
         } else {

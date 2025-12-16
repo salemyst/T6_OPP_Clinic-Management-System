@@ -121,4 +121,28 @@ public class MongoManager {
         }
         return rawDate.toString();
     }
+    public org.bson.Document createDateDocument(java.util.Date date, int hour, int minute) {
+        if (date == null) {
+            return null;
+        }
+
+        java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        java.text.SimpleDateFormat yearFormat = new java.text.SimpleDateFormat("yyyy");
+        java.text.SimpleDateFormat monthFormat = new java.text.SimpleDateFormat("MM");
+        java.text.SimpleDateFormat dayFormat = new java.text.SimpleDateFormat("dd");
+
+        String dateString = dateFormat.format(date);
+        String timeString = String.format("%02d:%02d", hour, minute);
+
+        org.bson.Document dateDoc = new org.bson.Document();
+        dateDoc.append("date", dateString);
+        dateDoc.append("day", Integer.parseInt(dayFormat.format(date)));
+        dateDoc.append("month", Integer.parseInt(monthFormat.format(date)));
+        dateDoc.append("year", Integer.parseInt(yearFormat.format(date)));
+        dateDoc.append("hour", hour);
+        dateDoc.append("minute", minute);
+        dateDoc.append("time", timeString);
+
+        return dateDoc;
+    }
 }

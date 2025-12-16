@@ -82,32 +82,7 @@ public class Doctor {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public void viewAppointments(Clinic clinic) {
-        System.out.println("--- Citas para el Dr. " + this.fullName + " ---");
-        for (Appointment app : clinic.getAppointments()) {
-            if (app.getDoctorId() == this.doctorId) {
-                System.out.println(app.toString());
-            }
-        }
-    }
-
-    public void updateMedicalHistory(Clinic clinic, Patient patient, MedicalHistory newRecord) {
-        System.out.println(this.fullName + " actualizando historial de " + patient.getFullName());
-        patient.addMedicalRecord(newRecord); 
-        clinic.savePatientChanges(); 
-    }
-
-    public Prescription createPrescription(Patient patient, int presId, String medication, String dosage, Date date) {
-        System.out.println("Dr. " + this.fullName + " creando prescripcion para " + patient.getFullName());
-        Prescription newPrescription = new Prescription(presId,patient.getPatientId(), medication, dosage, "Tomar cada 8 horas", date);
-        return newPrescription;
-    }
-    
-    public void diagnose(Patient patient, String diagnosis) {
-        System.out.println(  this.fullName + " diagnostico a " + patient.getFullName() + " con: " + diagnosis);
-    }
-
+  
     @Override
     public String toString() {
         return "Doctor{" + "doctorId=" + doctorId + ", fullName=" + fullName + ", specialty=" + specialty + '}';

@@ -1,4 +1,3 @@
-
 package ec.edu.espe.clinicmanagementsystem.view;
 
 import com.google.gson.Gson;
@@ -13,32 +12,34 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
 
 /**
  *
  * @author Adrian Toapanta, Object Masters, @ESPE
  */
 public class FrmPrescriptionView extends javax.swing.JFrame {
-    
+
+    MongoManager mongoManager = new MongoManager();
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmPrescriptionView.class.getName());
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        this.dispose(); // Cierra la ventana actual
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        this.dispose();
     }
-    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) throws IOException {                                           
-   
-        int prescriptionId = (int) (System.currentTimeMillis() % 100000); 
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
+
+        int prescriptionId = (int) (System.currentTimeMillis() % 100000);
         Date currentDate = new Date();
-       
-           
+
     }
-    
 
     /**
      * Creates new form PrescriptionView
      */
     public FrmPrescriptionView() {
         initComponents();
+        txaPrescriptions.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
         setLocationRelativeTo(null);
     }
 
@@ -53,10 +54,10 @@ public class FrmPrescriptionView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         idLb = new javax.swing.JLabel();
-        Idtxt = new javax.swing.JTextField();
+        txtPatientId = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        BuscarButton = new javax.swing.JButton();
+        txaPrescriptions = new javax.swing.JTextArea();
+        btnFind = new javax.swing.JButton();
         prescripcionesLb = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnBackToMenu = new javax.swing.JButton();
@@ -67,17 +68,22 @@ public class FrmPrescriptionView extends javax.swing.JFrame {
 
         idLb.setText("ID del paciente:");
 
-        Idtxt.addActionListener(new java.awt.event.ActionListener() {
+        txtPatientId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IdtxtActionPerformed(evt);
+                txtPatientIdActionPerformed(evt);
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txaPrescriptions.setColumns(20);
+        txaPrescriptions.setRows(5);
+        jScrollPane1.setViewportView(txaPrescriptions);
 
-        BuscarButton.setText("Buscar");
+        btnFind.setText("Buscar");
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindActionPerformed(evt);
+            }
+        });
 
         prescripcionesLb.setText("PRESCRIPCIONES");
 
@@ -104,9 +110,9 @@ public class FrmPrescriptionView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(idLb)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Idtxt)
+                        .addComponent(txtPatientId)
                         .addGap(18, 18, 18)
-                        .addComponent(BuscarButton)
+                        .addComponent(btnFind)
                         .addGap(74, 74, 74))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -134,8 +140,8 @@ public class FrmPrescriptionView extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idLb)
-                    .addComponent(Idtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BuscarButton))
+                    .addComponent(txtPatientId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFind))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -158,18 +164,83 @@ public class FrmPrescriptionView extends javax.swing.JFrame {
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
         FrmPatientMenu login = new FrmPatientMenu();
         login.setVisible(true);
-        this.dispose();     
+        this.dispose();
     }//GEN-LAST:event_btnBackToMenuActionPerformed
 
-    private void IdtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IdtxtActionPerformed
+    private void txtPatientIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPatientIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_IdtxtActionPerformed
+    }//GEN-LAST:event_txtPatientIdActionPerformed
+
+    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
+
+        loadData();
+
+    }//GEN-LAST:event_btnFindActionPerformed
+    private void loadData() {
+        if (txtPatientId.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor ingrese un ID de paciente para buscar.");
+            return;
+        }
+
+        try {
+            int targetPatientId = Integer.parseInt(txtPatientId.getText().trim());
+
+            org.bson.Document patientFilter = new org.bson.Document("patientId", targetPatientId);
+            java.util.List<org.bson.Document> patientsFound = mongoManager.find("patients", patientFilter);
+
+            if (patientsFound.isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "No existe ningún paciente registrado con el ID: " + targetPatientId);
+                txaPrescriptions.setText("");
+                return;
+            }
+
+            String patientName = patientsFound.get(0).getString("fullName");
+
+            org.bson.Document prescriptionFilter = new org.bson.Document("patientId", targetPatientId);
+            java.util.List<org.bson.Document> prescriptions = mongoManager.find("prescriptions", prescriptionFilter);
+
+            if (prescriptions.isEmpty()) {
+                txaPrescriptions.setText("Paciente: " + patientName + "\n\nEste paciente no tiene prescripciones registradas.");
+                return;
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.append("Paciente: ").append(patientName).append("\n");
+            sb.append("Total de recetas: ").append(prescriptions.size()).append("\n\n");
+
+            sb.append(String.format("%-5s | %-20s | %-10s | %-12s | %-30s\n",
+                    "ID", "MEDICAMENTO", "DOSIS", "FECHA", "INSTRUCCIONES"));
+            sb.append("-----------------------------------------------------------------------------------------------------\n");
+
+            for (org.bson.Document doc : prescriptions) {
+                String presId = doc.get("prescriptionId").toString();
+                String med = doc.getString("medication");
+                String dosage = doc.getString("dosage");
+                String instr = doc.getString("instructions");
+
+                Object rawDate = doc.get("date");
+                String dateStr = mongoManager.dateFormated(rawDate, false);
+
+                sb.append(String.format("%-5s | %-20s | %-10s | %-12s | %-30s\n",
+                        presId, med, dosage, dateStr, instr));
+            }
+
+            txaPrescriptions.setText(sb.toString());
+
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El ID del paciente debe ser un número entero válido.");
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-try {
+        try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -189,14 +260,14 @@ try {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BuscarButton;
-    private javax.swing.JTextField Idtxt;
     private javax.swing.JButton btnBackToMenu;
+    private javax.swing.JButton btnFind;
     private javax.swing.JLabel idLb;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel prescripcionesLb;
+    private javax.swing.JTextArea txaPrescriptions;
+    private javax.swing.JTextField txtPatientId;
     // End of variables declaration//GEN-END:variables
 }
