@@ -1,6 +1,7 @@
 package ec.edu.espe.clinicmanagementsystem.view;
 
 import ec.edu.espe.clinicmanagementsystem.utils.GUIValidation;
+import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
 import javax.swing.JOptionPane;
 
 /**
@@ -8,6 +9,8 @@ import javax.swing.JOptionPane;
  * @author César Vargas, Paradigm, @ESPE
  */
 public class FrmUpdatePatientInfo extends javax.swing.JFrame {
+    
+    MongoManager mongoManager = new MongoManager();
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmUpdatePatientInfo.class.getName());
 
@@ -223,29 +226,51 @@ public class FrmUpdatePatientInfo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateInformationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateInformationActionPerformed
-        int option = 0;
-        
-        if(!GUIValidation.validateOnlyNumbers(txtPatientId, "id del paciente que se va a actualizar")) {
-            return;
-        }
-        if(!GUIValidation.validateNumericLength(txtNewPhone, "Nuevo Teléfono", 10)){
-            return;
-        }
-        if(!GUIValidation.validateNotEmpty(txtNewAddress, "Nueva dirección")){
+       if(!ec.edu.espe.clinicmanagementsystem.utils.GUIValidation.validateOnlyNumbers(txtPatientId, "id del paciente")) {
             return;
         }
         
-        readValues();
+        searchPatient(); 
+        if (txtpPatientFound.getText().isEmpty()) return;
+
+        int option = javax.swing.JOptionPane.showConfirmDialog(rootPane, "¿Está seguro de actualizar los datos del Paciente?", "Confirmar", javax.swing.JOptionPane.YES_NO_OPTION);
         
-       option = JOptionPane.showConfirmDialog(rootPane, "Actualizando Datos ", "Está seguro de actualizar los datos? ", JOptionPane.YES_NO_CANCEL_OPTION);
-       if (option == JOptionPane.YES_OPTION){
-           JOptionPane.showMessageDialog(rootPane, "Datos actualizados exitosamente");
-           emptyFields();           
-       } else if (option == JOptionPane.NO_OPTION){
-           JOptionPane.showMessageDialog(rootPane, "Los datos no se actualizarán ","",JOptionPane.WARNING_MESSAGE);
-       } else {
-           txtPatientId.requestFocus();
-       } 
+        if (option == javax.swing.JOptionPane.YES_OPTION){
+            try {
+                int id = Integer.parseInt(txtPatientId.getText());
+                org.bson.Document filter = new org.bson.Document("patientId", id);
+                org.bson.Document updateData = new org.bson.Document();
+                
+                boolean existChanges = false;
+                
+                if (!txtNewPhone.getText().isEmpty()) {
+                     if(!ec.edu.espe.clinicmanagementsystem.utils.GUIValidation.validateNumericLength(txtNewPhone, "Nuevo Teléfono", 10)) return;
+                     updateData.append("phoneNumber", txtNewPhone.getText()); // Clave "phoneNumber"
+                     existChanges = true;
+                }
+                
+                if (!txtNewAddress.getText().isEmpty()) {
+                    updateData.append("address", txtNewAddress.getText()); // Clave "address"
+                    existChanges = true;
+                }
+                
+                if (existChanges) {
+                    long count = mongoManager.update("patients", filter, updateData);
+                    
+                    if (count > 0) {
+                        javax.swing.JOptionPane.showMessageDialog(rootPane, "Datos del paciente actualizados exitosamente.");
+                        emptyFields();
+                    } else {
+                        javax.swing.JOptionPane.showMessageDialog(rootPane, "No se pudo actualizar.");
+                    }
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(rootPane, "No ingresó datos nuevos para actualizar.");
+                }
+
+            } catch (Exception e) {
+                javax.swing.JOptionPane.showMessageDialog(rootPane, "Error: " + e.getMessage());
+            }
+        }
     }//GEN-LAST:event_btnUpdateInformationActionPerformed
 
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
@@ -281,7 +306,32 @@ public class FrmUpdatePatientInfo extends javax.swing.JFrame {
         String newAddress = txtNewAddress.getText();     
     }
     
-    
+    private void searchPatient() {
+        if (txtPatientId.getText().isEmpty()) return;
+
+        try {
+            int id = Integer.parseInt(txtPatientId.getText());
+            org.bson.Document filter = new org.bson.Document("patientId", id);
+            
+            java.util.List<org.bson.Document> results = mongoManager.find("patients", filter);
+            
+            if (!results.isEmpty()) {
+                org.bson.Document doc = results.get(0);
+                
+                txtpPatientFound.setText(doc.getString("fullName"));
+                txtpOldPhone.setText(doc.getString("phoneNumber"));
+                txtpOldAddress.setText(doc.getString("address"));   
+                
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Paciente no encontrado con el ID: " + id);
+                txtpPatientFound.setText("");
+                txtpOldPhone.setText("");
+                txtpOldAddress.setText("");
+            }
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser numérico.");
+        }
+    }
     /**
      * @param args the command line arguments
      */
