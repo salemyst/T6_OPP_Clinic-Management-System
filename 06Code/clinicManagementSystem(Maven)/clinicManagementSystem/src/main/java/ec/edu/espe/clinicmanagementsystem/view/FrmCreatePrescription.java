@@ -30,8 +30,8 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
     private void initComponents() {
 
         PrescriptionNameLb = new javax.swing.JPanel();
-        cedulaLb = new javax.swing.JLabel();
-        cedula = new javax.swing.JTextField();
+        lblID = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
         MedicamentoLb = new javax.swing.JLabel();
         txtMedication = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -46,12 +46,12 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
 
         PrescriptionNameLb.setBackground(new java.awt.Color(255, 255, 255));
 
-        cedulaLb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cedulaLb.setText("Cédula del paciente: ");
+        lblID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblID.setText("Id del paciente: ");
 
-        cedula.addActionListener(new java.awt.event.ActionListener() {
+        txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cedulaActionPerformed(evt);
+                txtIdActionPerformed(evt);
             }
         });
 
@@ -94,12 +94,12 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
                     .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cedulaLb, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblID, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(MedicamentoLb, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMedication, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
@@ -111,7 +111,7 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
                         .addGap(131, 131, 131)
                         .addComponent(jLabel10))
                     .addGroup(PrescriptionNameLbLayout.createSequentialGroup()
-                        .addGap(273, 273, 273)
+                        .addGap(274, 274, 274)
                         .addComponent(SaveButton)))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
@@ -129,8 +129,8 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
                 .addComponent(PrescriptionLb)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cedulaLb)
-                    .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblID)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(MedicamentoLb)
@@ -139,9 +139,9 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
                 .addGroup(PrescriptionNameLbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                .addGap(39, 39, 39)
                 .addComponent(SaveButton)
-                .addGap(33, 33, 33))
+                .addGap(34, 34, 34))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -160,9 +160,9 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cedulaActionPerformed
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cedulaActionPerformed
+    }//GEN-LAST:event_txtIdActionPerformed
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
         JOptionPane.showMessageDialog(rootPane,"Preescripcion Creada");
@@ -205,12 +205,12 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
     private javax.swing.JPanel PrescriptionNameLb;
     private javax.swing.JButton SaveButton;
     private javax.swing.JButton btnBackToMenu;
-    private javax.swing.JTextField cedula;
-    private javax.swing.JLabel cedulaLb;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblID;
     private javax.swing.JTextArea txtBoxobservaciones;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtMedication;
     // End of variables declaration//GEN-END:variables
 }

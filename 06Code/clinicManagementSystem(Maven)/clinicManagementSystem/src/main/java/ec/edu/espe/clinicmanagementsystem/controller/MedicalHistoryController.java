@@ -24,4 +24,7 @@ public class MedicalHistoryController {
         System.out.println("Historial Médico ID: " + medicalHistory.getHistoryId() + " ha sido actualizado con nueva información en la fecha: " + medicalHistory.getDate().toString());
 
     }  
+    public class FrmViewMedicalHistory extends javax.swing.JFrame {
+        private MedicalHistoryController controller = new MedicalHistoryController();
+    }
 }
