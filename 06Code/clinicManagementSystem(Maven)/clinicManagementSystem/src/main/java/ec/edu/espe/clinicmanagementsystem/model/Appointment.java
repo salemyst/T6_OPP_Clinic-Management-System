@@ -74,19 +74,4 @@ public class Appointment {
                 "\n-------------------------";  
     }
     
-    public void reschedule(Date newDate) {
-        this.setDate(newDate);
-        this.setStatus("Agendada"); 
-        System.out.println("Cita " + this.appointmentId + " reagendada para: " + newDate.toString());
-    }
-
-    public void cancel() {
-        this.setStatus("Cancelada");
-        System.out.println("Cita " + this.appointmentId + " ha sido cancelada.");
-    }
-
-    public void markCompleted() {
-        this.setStatus("Completeda");
-        System.out.println("Cita " + this.appointmentId + " marcada como completada.");
-    }
 }
