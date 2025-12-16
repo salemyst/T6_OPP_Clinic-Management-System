@@ -27,6 +27,21 @@ public class GUIValidation {
         return true;
     }
 
+    public static boolean validateOnlyLetters(JTextField txt, String fieldName) {
+    if (txt.getText().trim().isEmpty()) {
+        showError(txt, "El campo '" + fieldName + "' es obligatorio.");
+        return false;
+    }
+
+    if (!txt.getText().trim().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
+        showError(txt, "El campo '" + fieldName + "' solo debe contener letras.");
+        return false;
+    }
+
+    markSuccess(txt);
+    return true;
+}
+
     public static boolean validateOnlyNumbers(JTextField txt, String fieldName) {
         if (txt.getText().trim().isEmpty()) {
             showError(txt, "El campo '" + fieldName + "' es obligatorio.");
@@ -41,6 +56,45 @@ public class GUIValidation {
         return true;
     }
 
+    public static boolean validateLetterKey(
+        char c,
+        JTextComponent txt,
+        String fieldName
+    ) {
+    if (!Character.isLetter(c) && c != ' ') {
+        txt.setBackground(new Color(255, 200, 200));
+        JOptionPane.showMessageDialog(
+            txt,
+            "El campo '" + fieldName + "' solo acepta letras",
+            "Error",
+            JOptionPane.WARNING_MESSAGE
+        );
+        return false;
+    }
+    txt.setBackground(Color.WHITE);
+    return true;
+}
+
+    public static boolean validateNumberKey(
+        char c,
+        JTextComponent txt,
+        String fieldName
+    ) {
+    if (!Character.isDigit(c)) {
+        txt.setBackground(new Color(255, 200, 200));
+        JOptionPane.showMessageDialog(
+            txt,
+            "El campo '" + fieldName + "' solo acepta números",
+            "Error",
+            JOptionPane.WARNING_MESSAGE
+        );
+        return false;
+    }
+    txt.setBackground(Color.WHITE);
+    return true;
+}
+
+    
     public static boolean validateNumericLength(JTextField txt, String fieldName, int length) {
         if (!validateOnlyNumbers(txt, fieldName)) return false;
 
