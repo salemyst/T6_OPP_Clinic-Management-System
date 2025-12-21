@@ -1,25 +1,73 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package ec.edu.espe.clinicmanagementsystem.view;
+
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import ec.edu.espe.clinicmanagementsystem.utils.GUIValidation;
+import org.bson.Document;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author Adrian Toapanta, Object Masters, @ESPE
  */
 public class FrmBilling extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmBilling.class.getName());
+    DefaultTableModel model;
+    private MongoDatabase database;
+    private MongoCollection<Document> collection;
 
-    /**
-     * Creates new form FrmBilling
-     */
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmBilling.class.getName());
+    
+    
+    
     public FrmBilling() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        model = (DefaultTableModel) tblBilling.getModel();
+        tblBilling.setModel(model);
 
+
+        try {
+            MongoClient mongoClient = MongoClients.create("mongodb+srv://thais:thais@cluster0.9yfzmcp.mongodb.net/");
+            database = mongoClient.getDatabase("ToaMedicalDB");
+            collection = database.getCollection("Billings");
+
+            loadBillingFromMongo();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al conectar a MongoDB: " + e.getMessage());
+        }
+
+        this.setLocationRelativeTo(null);
     }
+
+    
+    private void clearFields() {
+        txtId.setText("");
+        txtName.setText("");
+        txtAddress.setText("");
+        txtBill.setText("");
+    }
+    
+    private void loadBillingFromMongo() {
+        model.setRowCount(0);
+        try {
+            for (Document doc : collection.find()) {
+                model.addRow(new Object[]{
+                    doc.getString("id"),
+                    doc.getString("name"),
+                    doc.getString("address"),
+                    doc.getDouble("cost")
+                });
+            }
+        } catch (Exception e) {
+            System.err.println("Error cargando datos: " + e.getMessage());
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,18 +83,22 @@ public class FrmBilling extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTextPane5 = new javax.swing.JTextPane();
+        txtId = new javax.swing.JTextPane();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTextPane6 = new javax.swing.JTextPane();
+        txtName = new javax.swing.JTextPane();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTextPane7 = new javax.swing.JTextPane();
+        txtAddress = new javax.swing.JTextPane();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTextPane8 = new javax.swing.JTextPane();
+        txtBill = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         btnBackToMenu = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblBilling = new javax.swing.JTable();
+        btnAdd = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 255, 102));
@@ -62,20 +114,35 @@ public class FrmBilling extends javax.swing.JFrame {
 
         jLabel5.setText("Costo:");
 
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setText("Actualizar");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
-        jScrollPane5.setViewportView(jTextPane5);
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdKeyTyped(evt);
+            }
+        });
+        jScrollPane5.setViewportView(txtId);
 
-        jScrollPane6.setViewportView(jTextPane6);
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNameKeyTyped(evt);
+            }
+        });
+        jScrollPane6.setViewportView(txtName);
 
-        jScrollPane7.setViewportView(jTextPane7);
+        jScrollPane7.setViewportView(txtAddress);
 
-        jScrollPane8.setViewportView(jTextPane8);
+        txtBill.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBillKeyTyped(evt);
+            }
+        });
+        jScrollPane8.setViewportView(txtBill);
 
         jLabel1.setText("COBRO DE SERVICIOS");
 
@@ -86,6 +153,35 @@ public class FrmBilling extends javax.swing.JFrame {
         btnBackToMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackToMenuActionPerformed(evt);
+            }
+        });
+
+        tblBilling.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nombre", "Dirección", "Costo"
+            }
+        ));
+        tblBilling.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblBillingMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblBilling);
+
+        btnAdd.setText("Añadir");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Eliminar");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -113,11 +209,14 @@ public class FrmBilling extends javax.swing.JFrame {
                                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(44, 44, 44)
-                                        .addComponent(jButton1)))))))
-                .addContainerGap(107, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                                .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(45, 45, 45)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(29, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1)
@@ -133,50 +232,135 @@ public class FrmBilling extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
-                .addComponent(jButton1)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(39, 39, 39)
+                        .addComponent(btnAdd)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUpdate)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+    int row = tblBilling.getSelectedRow();
+    if (row == -1) {
+        JOptionPane.showMessageDialog(this, "Seleccione una fila para actualizar");
+        return;
+    }
+
+    String originalId = model.getValueAt(row, 0).toString();
+
+    Document newData = new Document()
+            .append("id", txtId.getText())
+            .append("name", txtName.getText())
+            .append("address", txtAddress.getText())
+            .append("cost", Double.parseDouble(txtBill.getText()));
+
+           collection.updateOne(Filters.eq("id", originalId), new Document("$set", newData));
+
+    loadBillingFromMongo();
+    clearFields();
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
         FrmReceptionistMenu frmReceptionistMenu = new FrmReceptionistMenu();
         frmReceptionistMenu.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_btnBackToMenuActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        try {
+            Document bill = new Document()
+                    .append("id", txtId.getText())
+                    .append("name", txtName.getText())
+                    .append("address", txtAddress.getText())
+                    .append("cost", Double.parseDouble(txtBill.getText()));
+            collection.insertOne(bill);
+            loadBillingFromMongo();
+            clearFields();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error insertando: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int row = tblBilling.getSelectedRow();
+        if (row == -1) return;
+
+        String id = model.getValueAt(row, 0).toString();
+        collection.deleteOne(Filters.eq("id", id));
+        loadBillingFromMongo();
+        clearFields();
+
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void tblBillingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillingMouseClicked
+     int row = tblBilling.getSelectedRow();
+        txtId.setText(model.getValueAt(row, 0).toString());
+        txtName.setText(model.getValueAt(row, 1).toString());
+        txtAddress.setText(model.getValueAt(row, 2).toString());
+        txtBill.setText(model.getValueAt(row, 3).toString());
+
+    }//GEN-LAST:event_tblBillingMouseClicked
+
+    private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
+    if (!GUIValidation.validateLetterKey(
+            evt.getKeyChar(),
+            txtName,
+            "Nombre"
+    )) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_txtNameKeyTyped
+
+    private void txtBillKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBillKeyTyped
+
+    }//GEN-LAST:event_txtBillKeyTyped
+
+    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
+    if (!GUIValidation.validateNumberKey(
+            evt.getKeyChar(),
+            txtId,
+            "ID"
+    )) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_txtIdKeyTyped
 
     /**
      * @param args the command line arguments
@@ -204,8 +388,10 @@ public class FrmBilling extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBackToMenu;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -213,13 +399,15 @@ public class FrmBilling extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JTextPane jTextPane5;
-    private javax.swing.JTextPane jTextPane6;
-    private javax.swing.JTextPane jTextPane7;
-    private javax.swing.JTextPane jTextPane8;
+    private javax.swing.JTable tblBilling;
+    private javax.swing.JTextPane txtAddress;
+    private javax.swing.JTextPane txtBill;
+    private javax.swing.JTextPane txtId;
+    private javax.swing.JTextPane txtName;
     // End of variables declaration//GEN-END:variables
 }

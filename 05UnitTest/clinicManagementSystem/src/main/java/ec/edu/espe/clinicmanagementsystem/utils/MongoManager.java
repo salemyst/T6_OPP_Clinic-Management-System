@@ -24,9 +24,9 @@ public class MongoManager {
     private MongoDatabase database;
 
     public MongoManager() {
-        String uri = "mongodb+srv://Cesar:Cesar2006@cluster0.tgbv2qc.mongodb.net/";
+        String uri = "mongodb+srv://thais:thais@cluster0.9yfzmcp.mongodb.net/";
         this.mongoClient = MongoClients.create(uri);
-        this.database = mongoClient.getDatabase("toamedicalDB");
+        this.database = mongoClient.getDatabase("ToaMedicalDB");
     }
 
     public void insert(String collectionName, Document document) {

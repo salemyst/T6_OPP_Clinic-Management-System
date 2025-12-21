@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: ec.edu.espe.clinicmanagementsystem.view.FrmBillingTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.397 s -- in ec.edu.espe.clinicmanagementsystem.view.FrmBillingTest

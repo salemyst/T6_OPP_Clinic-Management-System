@@ -1,0 +1,24 @@
+-------------------------------------------------------------------------------
+Test set: ec.edu.espe.clinicmanagementsystem.view.FrmAddNewMedicalRecordTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.465 s <<< FAILURE! -- in ec.edu.espe.clinicmanagementsystem.view.FrmAddNewMedicalRecordTest
+ec.edu.espe.clinicmanagementsystem.view.FrmAddNewMedicalRecordTest.testEmptyFieldsClearsPatientId -- Time elapsed: 0.378 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.toedter.calendar.JDateChooser.setDate(java.util.Date)" because "this.calDateMedicalRecord" is null
+	at ec.edu.espe.clinicmanagementsystem.view.FrmAddNewMedicalRecord.emptyFields(FrmAddNewMedicalRecord.java:291)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at ec.edu.espe.clinicmanagementsystem.view.FrmAddNewMedicalRecordTest.testEmptyFieldsClearsPatientId(FrmAddNewMedicalRecordTest.java:56)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.view.FrmAddNewMedicalRecordTest.testEmptyFieldsClearsObservations -- Time elapsed: 0.024 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.toedter.calendar.JDateChooser.setDate(java.util.Date)" because "this.calDateMedicalRecord" is null
+	at ec.edu.espe.clinicmanagementsystem.view.FrmAddNewMedicalRecord.emptyFields(FrmAddNewMedicalRecord.java:291)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at ec.edu.espe.clinicmanagementsystem.view.FrmAddNewMedicalRecordTest.testEmptyFieldsClearsObservations(FrmAddNewMedicalRecordTest.java:70)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
