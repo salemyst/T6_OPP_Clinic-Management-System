@@ -1,0 +1,20 @@
+[
+  {
+    "doctorId": 1,
+    "fullName": "Dr. Alan Grant",
+    "specialty": "Cardiologia",
+    "phone": "099123456",
+    "email": "agrant@clinic.com",
+    "username": "agrant",
+    "password": "***"
+  },
+  {
+    "doctorId": 2,
+    "fullName": "Dra. Ellie Sattler",
+    "specialty": "Pediatria",
+    "phone": "099123457",
+    "email": "esattler@clinic.com",
+    "username": "esattler",
+    "password": "****"
+  }
+]

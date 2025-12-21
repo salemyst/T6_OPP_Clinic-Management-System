@@ -32,9 +32,9 @@ public class FrmBilling extends javax.swing.JFrame {
 
 
         try {
-            MongoClient mongoClient = MongoClients.create("mongodb+srv://thais:thais@cluster0.9yfzmcp.mongodb.net/");
-            database = mongoClient.getDatabase("ToaMedicalDB");
-            collection = database.getCollection("Billings");
+            MongoClient mongoClient = MongoClients.create("mongodb+srv://Cesar:Cesar2006@cluster0.tgbv2qc.mongodb.net/");
+            database = mongoClient.getDatabase("toamedicalDB");
+            collection = database.getCollection("billings");
 
             loadBillingFromMongo();
         } catch (Exception e) {
