@@ -1,0 +1,31 @@
+-------------------------------------------------------------------------------
+Test set: ec.edu.espe.clinicmanagementsystem.utils.MongoManagerTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 4.159 s <<< FAILURE! -- in ec.edu.espe.clinicmanagementsystem.utils.MongoManagerTest
+ec.edu.espe.clinicmanagementsystem.utils.MongoManagerTest.testCreateDateDocument_ValidDate -- Time elapsed: 0.027 s <<< FAILURE!
+org.opentest4j.AssertionFailedError
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:34)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:119)
+	at ec.edu.espe.clinicmanagementsystem.utils.MongoManagerTest.testCreateDateDocument_ValidDate(MongoManagerTest.java:50)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.utils.MongoManagerTest.testDateFormated_WithDocumentTimeOnly -- Time elapsed: 0.027 s <<< FAILURE!
+org.opentest4j.AssertionFailedError
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:34)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:119)
+	at ec.edu.espe.clinicmanagementsystem.utils.MongoManagerTest.testDateFormated_WithDocumentTimeOnly(MongoManagerTest.java:79)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.utils.MongoManagerTest.testInsert_NotNullDocument -- Time elapsed: 1.806 s <<< FAILURE!
+org.opentest4j.AssertionFailedError
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:34)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:119)
+	at ec.edu.espe.clinicmanagementsystem.utils.MongoManagerTest.testInsert_NotNullDocument(MongoManagerTest.java:99)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+

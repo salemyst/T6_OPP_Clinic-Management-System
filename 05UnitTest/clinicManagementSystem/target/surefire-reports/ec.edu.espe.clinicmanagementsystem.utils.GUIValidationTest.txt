@@ -1,0 +1,40 @@
+-------------------------------------------------------------------------------
+Test set: ec.edu.espe.clinicmanagementsystem.utils.GUIValidationTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 4.260 s <<< FAILURE! -- in ec.edu.espe.clinicmanagementsystem.utils.GUIValidationTest
+ec.edu.espe.clinicmanagementsystem.utils.GUIValidationTest.testValidateNotEmpty_EmptyString_ReturnsFalse -- Time elapsed: 0.482 s <<< FAILURE!
+org.opentest4j.AssertionFailedError
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:34)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:119)
+	at ec.edu.espe.clinicmanagementsystem.utils.GUIValidationTest.testValidateNotEmpty_EmptyString_ReturnsFalse(GUIValidationTest.java:32)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.utils.GUIValidationTest.testValidateDateRange_DateTooFarInFuture_ReturnsFalse -- Time elapsed: 0.403 s <<< FAILURE!
+org.opentest4j.AssertionFailedError
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:34)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:119)
+	at ec.edu.espe.clinicmanagementsystem.utils.GUIValidationTest.testValidateDateRange_DateTooFarInFuture_ReturnsFalse(GUIValidationTest.java:105)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.utils.GUIValidationTest.testValidatePositiveInt_ValidValue_ReturnsTrue -- Time elapsed: 0.013 s <<< FAILURE!
+org.opentest4j.AssertionFailedError
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:34)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:119)
+	at ec.edu.espe.clinicmanagementsystem.utils.GUIValidationTest.testValidatePositiveInt_ValidValue_ReturnsTrue(GUIValidationTest.java:72)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.utils.GUIValidationTest.testValidateOnlyNumbers_WithLetters_ReturnsFalse -- Time elapsed: 0.166 s <<< FAILURE!
+org.opentest4j.AssertionFailedError
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:34)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:119)
+	at ec.edu.espe.clinicmanagementsystem.utils.GUIValidationTest.testValidateOnlyNumbers_WithLetters_ReturnsFalse(GUIValidationTest.java:52)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+

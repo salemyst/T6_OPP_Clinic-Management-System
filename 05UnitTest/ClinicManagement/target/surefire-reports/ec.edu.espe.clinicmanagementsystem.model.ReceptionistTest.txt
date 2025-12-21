@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest
 -------------------------------------------------------------------------------
-Tests run: 16, Failures: 8, Errors: 3, Skipped: 0, Time elapsed: 0.224 s <<< FAILURE! -- in ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest
-ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testGetPassword -- Time elapsed: 0.020 s <<< FAILURE!
+Tests run: 16, Failures: 8, Errors: 3, Skipped: 0, Time elapsed: 0.061 s <<< FAILURE! -- in ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest
+ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testGetPassword -- Time elapsed: 0.006 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <> but was: <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -15,7 +15,7 @@ org.opentest4j.AssertionFailedError: expected: <> but was: <null>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testGetEmail -- Time elapsed: 0.007 s <<< FAILURE!
+ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testGetEmail -- Time elapsed: 0.001 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <> but was: <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -28,7 +28,7 @@ org.opentest4j.AssertionFailedError: expected: <> but was: <null>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testGetPhone -- Time elapsed: 0.013 s <<< FAILURE!
+ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testGetPhone -- Time elapsed: 0.002 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <> but was: <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -41,7 +41,7 @@ org.opentest4j.AssertionFailedError: expected: <> but was: <null>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testRegisterPatient -- Time elapsed: 0.010 s <<< ERROR!
+ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testRegisterPatient -- Time elapsed: 0.004 s <<< ERROR!
 java.lang.NullPointerException: Cannot invoke "ec.edu.espe.clinicmanagementsystem.model.Clinic.registerPatient(ec.edu.espe.clinicmanagementsystem.model.Patient)" because "clinic" is null
 	at ec.edu.espe.clinicmanagementsystem.model.Receptionist.registerPatient(Receptionist.java:86)
 	at ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testRegisterPatient(ReceptionistTest.java:196)
@@ -49,7 +49,7 @@ java.lang.NullPointerException: Cannot invoke "ec.edu.espe.clinicmanagementsyste
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testToString -- Time elapsed: 0.006 s <<< FAILURE!
+ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testToString -- Time elapsed: 0.001 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: 
 expected: <> but was: <Receptionist
 ID: 0
@@ -65,7 +65,7 @@ Nombre: null>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testGetName -- Time elapsed: 0.002 s <<< FAILURE!
+ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testGetName -- Time elapsed: 0.001 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <> but was: <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -78,7 +78,7 @@ org.opentest4j.AssertionFailedError: expected: <> but was: <null>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testSetReceptionistId -- Time elapsed: 0.001 s <<< FAILURE!
+ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testSetReceptionistId -- Time elapsed: 0 s <<< FAILURE!
 org.opentest4j.AssertionFailedError
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:34)
 	at org.junit.jupiter.api.Assertions.fail(Assertions.java:119)
@@ -87,7 +87,7 @@ org.opentest4j.AssertionFailedError
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testGetReceptionistId -- Time elapsed: 0.001 s <<< FAILURE!
+ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testGetReceptionistId -- Time elapsed: 0 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <1> but was: <0>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -100,7 +100,7 @@ org.opentest4j.AssertionFailedError: expected: <1> but was: <0>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testGetUsername -- Time elapsed: 0.002 s <<< FAILURE!
+ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testGetUsername -- Time elapsed: 0 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <> but was: <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -113,7 +113,7 @@ org.opentest4j.AssertionFailedError: expected: <> but was: <null>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testCreateAppointment -- Time elapsed: 0.004 s <<< ERROR!
+ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testCreateAppointment -- Time elapsed: 0.001 s <<< ERROR!
 java.lang.NullPointerException: Cannot invoke "ec.edu.espe.clinicmanagementsystem.model.Clinic.saveNewAppointment(ec.edu.espe.clinicmanagementsystem.model.Appointment)" because "clinic" is null
 	at ec.edu.espe.clinicmanagementsystem.model.Receptionist.createAppointment(Receptionist.java:79)
 	at ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testCreateAppointment(ReceptionistTest.java:178)
@@ -121,7 +121,7 @@ java.lang.NullPointerException: Cannot invoke "ec.edu.espe.clinicmanagementsyste
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testUpdatePatientInfo -- Time elapsed: 0.002 s <<< ERROR!
+ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testUpdatePatientInfo -- Time elapsed: 0 s <<< ERROR!
 java.lang.NullPointerException: Cannot invoke "ec.edu.espe.clinicmanagementsystem.model.Patient.getFullName()" because "patient" is null
 	at ec.edu.espe.clinicmanagementsystem.model.Receptionist.updatePatientInfo(Receptionist.java:91)
 	at ec.edu.espe.clinicmanagementsystem.model.ReceptionistTest.testUpdatePatientInfo(ReceptionistTest.java:212)

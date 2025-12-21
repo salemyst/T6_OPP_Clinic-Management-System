@@ -1,0 +1,25 @@
+-------------------------------------------------------------------------------
+Test set: ec.edu.espe.clinicmanagementsystem.view.FrmLogInReceptionistTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.431 s <<< FAILURE! -- in ec.edu.espe.clinicmanagementsystem.view.FrmLogInReceptionistTest
+ec.edu.espe.clinicmanagementsystem.view.FrmLogInReceptionistTest.testLoadReceptionists_NullOnMissingFile -- Time elapsed: 0.016 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Debería retornar null o capturar excepción si el archivo JSON no existe. ==> expected: <null> but was: <[{"password":"1234","phone":"099654321","name":"John Hammond","receptionistId":1,"email":"jhammond@clinic.com","username":"jhammond"}]>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertNull.failNotNull(AssertNull.java:50)
+	at org.junit.jupiter.api.AssertNull.assertNull(AssertNull.java:35)
+	at org.junit.jupiter.api.Assertions.assertNull(Assertions.java:287)
+	at ec.edu.espe.clinicmanagementsystem.view.FrmLogInReceptionistTest.testLoadReceptionists_NullOnMissingFile(FrmLogInReceptionistTest.java:109)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+ec.edu.espe.clinicmanagementsystem.view.FrmLogInReceptionistTest.testCredentials_ValidUser1 -- Time elapsed: 0.014 s <<< FAILURE!
+org.opentest4j.AssertionFailedError
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:34)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:119)
+	at ec.edu.espe.clinicmanagementsystem.view.FrmLogInReceptionistTest.testCredentials_ValidUser1(FrmLogInReceptionistTest.java:57)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+

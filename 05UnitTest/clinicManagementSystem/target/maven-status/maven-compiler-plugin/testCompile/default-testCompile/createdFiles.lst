@@ -1,5 +1,8 @@
-ec\edu\espe\clinicmanagementsystem\view\FrmCancelAppointmentTest.class
 ec\edu\espe\clinicmanagementsystem\view\FrmAddNewMedicalRecordTest.class
 ec\edu\espe\clinicmanagementsystem\view\FrmCheckAppointmentTest.class
-ec\edu\espe\clinicmanagementsystem\view\FrmBillingTest.class
+ec\edu\espe\clinicmanagementsystem\utils\GUIValidationTest.class
 ec\edu\espe\clinicmanagementsystem\view\FrmCreatePrescriptionTest.class
+ec\edu\espe\clinicmanagementsystem\view\FrmCancelAppointmentTest.class
+ec\edu\espe\clinicmanagementsystem\view\FrmBillingTest.class
+ec\edu\espe\clinicmanagementsystem\view\FrmLogInReceptionistTest.class
+ec\edu\espe\clinicmanagementsystem\utils\MongoManagerTest.class
