@@ -6,7 +6,6 @@ ec\edu\espe\clinicmanagementsystem\view\FrmDoctorMenu$8.class
 ec\edu\espe\clinicmanagementsystem\view\FrmReceptionistMenu$9.class
 ec\edu\espe\clinicmanagementsystem\model\MedicalHistory.class
 ec\edu\espe\clinicmanagementsystem\view\FrmLogInReceptionist$2.class
-ec\edu\espe\clinicmanagementsystem\controller\MedicalHistoryController$FrmViewMedicalHistory.class
 ec\edu\espe\clinicmanagementsystem\view\FrmAddNewMedicalRecord$1.class
 ec\edu\espe\clinicmanagementsystem\view\FrmCancelAppointment.class
 ec\edu\espe\clinicmanagementsystem\view\FrmPrescriptionView.class

@@ -45,6 +45,7 @@ public class FrmMainMenu extends javax.swing.JFrame {
 
         btnReceptionistLogIn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnReceptionistLogIn.setText("Recepcionista");
+        btnReceptionistLogIn.setFocusPainted(false);
         btnReceptionistLogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReceptionistLogInActionPerformed(evt);
@@ -53,6 +54,7 @@ public class FrmMainMenu extends javax.swing.JFrame {
 
         btnDoctorLogIn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDoctorLogIn.setText("Doctor");
+        btnDoctorLogIn.setFocusPainted(false);
         btnDoctorLogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDoctorLogInActionPerformed(evt);
@@ -61,6 +63,7 @@ public class FrmMainMenu extends javax.swing.JFrame {
 
         btnPatientLogIN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnPatientLogIN.setText("Paciente");
+        btnPatientLogIN.setFocusPainted(false);
         btnPatientLogIN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPatientLogINActionPerformed(evt);
@@ -72,20 +75,13 @@ public class FrmMainMenu extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnPatientLogIN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnDoctorLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnReceptionistLogIn)))))
+                .addGap(54, 54, 54)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(btnReceptionistLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDoctorLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPatientLogIN, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -121,25 +117,22 @@ public class FrmMainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPatientLogINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientLogINActionPerformed
-        FrmLogInPatient login = new FrmLogInPatient();
-        login.setVisible(true);
-        
-        this.dispose();
+    FrmPatientMenu menu = new FrmPatientMenu();
+    menu.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_btnPatientLogINActionPerformed
 
-    private void btnReceptionistLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReceptionistLogInActionPerformed
-        FrmLogInReceptionist login = new FrmLogInReceptionist();
-        login.setVisible(true);
-
-        this.dispose();
-    }//GEN-LAST:event_btnReceptionistLogInActionPerformed
-
     private void btnDoctorLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorLogInActionPerformed
-        FrmLogInDoctor login = new FrmLogInDoctor();
-        login.setVisible(true);
-        
-        this.dispose();
+    FrmDoctorMenu menu = new FrmDoctorMenu();
+    menu.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_btnDoctorLogInActionPerformed
+
+    private void btnReceptionistLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReceptionistLogInActionPerformed
+    FrmReceptionistMenu menu = new FrmReceptionistMenu();
+    menu.setVisible(true);
+    this.dispose();
+    }//GEN-LAST:event_btnReceptionistLogInActionPerformed
 
     /**
      * @param args the command line arguments
