@@ -117,19 +117,19 @@ public class FrmMainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPatientLogINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientLogINActionPerformed
-    FrmPatientMenu menu = new FrmPatientMenu();
+    FrmLogInPatient menu = new FrmLogInPatient();
     menu.setVisible(true);
     this.dispose();
     }//GEN-LAST:event_btnPatientLogINActionPerformed
 
     private void btnDoctorLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorLogInActionPerformed
-    FrmDoctorMenu menu = new FrmDoctorMenu();
+    FrmLogInDoctor menu = new FrmLogInDoctor();
     menu.setVisible(true);
     this.dispose();
     }//GEN-LAST:event_btnDoctorLogInActionPerformed
 
     private void btnReceptionistLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReceptionistLogInActionPerformed
-    FrmReceptionistMenu menu = new FrmReceptionistMenu();
+    FrmLogInReceptionist menu = new FrmLogInReceptionist();
     menu.setVisible(true);
     this.dispose();
     }//GEN-LAST:event_btnReceptionistLogInActionPerformed
