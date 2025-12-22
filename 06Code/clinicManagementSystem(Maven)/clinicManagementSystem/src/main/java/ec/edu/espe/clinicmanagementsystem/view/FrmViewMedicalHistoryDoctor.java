@@ -1,10 +1,18 @@
 package ec.edu.espe.clinicmanagementsystem.view;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+
 /**
  *
  * @author César Vargas, Paradigm, @ESPE
  */
 public class FrmViewMedicalHistoryDoctor extends javax.swing.JFrame {
+      private MongoDatabase database;
+    private MongoCollection<Document> collection;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmViewMedicalHistoryDoctor.class.getName());
 
@@ -13,9 +21,24 @@ public class FrmViewMedicalHistoryDoctor extends javax.swing.JFrame {
      */
     public FrmViewMedicalHistoryDoctor() {
         initComponents();
+        txtMedicalHistory.setEditable(false);
         this.setLocationRelativeTo(null);
-
+     conectarMongo();
     }
+    private void conectarMongo() {
+    try {
+
+        MongoClient mongoClient = MongoClients.create("mongodb+srv://Cesar:Cesar2006@cluster0.tgbv2qc.mongodb.net/");
+        database = mongoClient.getDatabase("toamedicalDB");
+        
+        collection = database.getCollection("medicalHistorys"); 
+        
+        System.out.println("Conexión exitosa a MongoDB desde FrmViewMedicalHistory");
+        
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al conectar a MongoDB: " + e.getMessage());
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,7 +57,7 @@ public class FrmViewMedicalHistoryDoctor extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtpPatientFound = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txaMedicalHistory = new javax.swing.JTextArea();
+        txtMedicalHistory = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         btnBackToMenu = new javax.swing.JButton();
@@ -57,9 +80,9 @@ public class FrmViewMedicalHistoryDoctor extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(txtpPatientFound);
 
-        txaMedicalHistory.setColumns(20);
-        txaMedicalHistory.setRows(5);
-        jScrollPane2.setViewportView(txaMedicalHistory);
+        txtMedicalHistory.setColumns(20);
+        txtMedicalHistory.setRows(5);
+        jScrollPane2.setViewportView(txtMedicalHistory);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("VER HISTORIA MEDICA DEL PACIENTE");
@@ -156,14 +179,54 @@ public class FrmViewMedicalHistoryDoctor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackToMenuActionPerformed
 
     private void txtPatientIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPatientIdActionPerformed
-        // TODO add your handling code here:
+String idIngresado = txtPatientId.getText().trim();
+
+    if (idIngresado.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID de paciente.");
+        return;
+    }
+
+    try {
+        int idABuscar = Integer.parseInt(idIngresado);
+        // Buscamos por el campo patientId que definimos anteriormente
+        Document query = new Document("patientId", idABuscar);
+        Document resultado = collection.find(query).first();
+
+        if (resultado != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("=========================================\n");
+            sb.append("       HISTORIAL CLÍNICO - TOAMEDICAL    \n");
+            sb.append("=========================================\n\n");
+            sb.append("ID Registro: ").append(resultado.get("historyId")).append("\n");
+            sb.append("Fecha:       ").append(resultado.get("date")).append("\n");
+            sb.append("Alergias:    ").append(resultado.getString("allergies")).append("\n");
+            sb.append("Enfermedades:").append(resultado.getString("diseases")).append("\n");
+            sb.append("Tratamientos:").append(resultado.getString("treatments")).append("\n");
+            sb.append("-----------------------------------------\n");
+            sb.append("Observaciones:\n").append(resultado.getString("observations")).append("\n");
+            sb.append("=========================================\n");
+
+            txtMedicalHistory.setText(sb.toString());
+            // Posiciona el cursor al inicio del texto
+            txtMedicalHistory.setCaretPosition(0); 
+            
+            txtpPatientFound.setText("Resultados para el Paciente: " + idABuscar);
+        } else {
+            emptyFields();
+            javax.swing.JOptionPane.showMessageDialog(this, "No se encontró historial para el paciente con ID: " + idABuscar);
+        }
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser un número entero.");
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error de conexión o búsqueda: " + e.getMessage());
+    }
     }//GEN-LAST:event_txtPatientIdActionPerformed
 
     private void emptyFields() {
         
         txtPatientId.setText("");
         txtpPatientFound.setText("");
-        txaMedicalHistory.setText(""); 
+        txtMedicalHistory.setText(""); 
     }
     
     
@@ -209,7 +272,7 @@ public class FrmViewMedicalHistoryDoctor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea txaMedicalHistory;
+    private javax.swing.JTextArea txtMedicalHistory;
     private javax.swing.JTextField txtPatientId;
     private javax.swing.JTextPane txtpPatientFound;
     // End of variables declaration//GEN-END:variables

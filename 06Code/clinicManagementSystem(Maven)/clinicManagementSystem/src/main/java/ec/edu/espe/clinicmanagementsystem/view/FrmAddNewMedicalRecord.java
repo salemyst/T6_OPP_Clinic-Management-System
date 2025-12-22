@@ -1,11 +1,16 @@
 package ec.edu.espe.clinicmanagementsystem.view;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.toedter.calendar.JDateChooser;
 import ec.edu.espe.clinicmanagementsystem.model.Date;
 import ec.edu.espe.clinicmanagementsystem.model.MedicalHistory;
 import ec.edu.espe.clinicmanagementsystem.utils.GUIValidation;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+import org.bson.Document;
 
 
 /**
@@ -13,6 +18,8 @@ import javax.swing.JOptionPane;
  * @author César Vargas, Paradigm, @ESPE
  */
 public class FrmAddNewMedicalRecord extends javax.swing.JFrame {
+        private MongoDatabase database;
+    private MongoCollection<Document> collection;
     MedicalHistory medicalHistory = new MedicalHistory();
     Date date = new Date();
     
@@ -25,6 +32,14 @@ public class FrmAddNewMedicalRecord extends javax.swing.JFrame {
     public FrmAddNewMedicalRecord() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
+    try {
+        MongoClient mongoClient = MongoClients.create("mongodb+srv://Cesar:Cesar2006@cluster0.tgbv2qc.mongodb.net/");
+        database = mongoClient.getDatabase("toamedicalDB");
+        collection = database.getCollection("medicalHistorys");
+    } catch (Exception e) {
+        logger.log(java.util.logging.Level.SEVERE, "Error de conexión", e);
+    }
 
     }
 
@@ -260,7 +275,22 @@ public class FrmAddNewMedicalRecord extends javax.swing.JFrame {
         option = JOptionPane.showConfirmDialog(rootPane, "Añadiendo nuevo Historial Médico" + medicalHistory , "Añadir nuevo Historial Médico?", JOptionPane.YES_NO_CANCEL_OPTION);
        if (option == JOptionPane.YES_OPTION){
            JOptionPane.showMessageDialog(rootPane, "El historial médico fué registrado" + medicalHistory);
-           emptyFields();           
+           emptyFields();    
+           try {
+        Document doc = new Document("historyId", medicalHistory.getHistoryId())
+                .append("patientId", Integer.parseInt(txtPatientId.getText())) 
+                .append("allergies", medicalHistory.getAllergies())
+                .append("diseases", medicalHistory.getDiseases())
+                .append("treatments", medicalHistory.getTreatments())
+                .append("observations", medicalHistory.getObservations())
+                .append("date", medicalHistory.getDate().toString()); 
+
+        collection.insertOne(doc);
+        JOptionPane.showMessageDialog(rootPane, "El historial médico fue guardado en la base de datos");
+        emptyFields();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(rootPane, "Error al guardar: " + e.getMessage());
+    }
        } else if (option == JOptionPane.NO_OPTION){
            JOptionPane.showMessageDialog(rootPane, "La información de este historial no se guardará ","",JOptionPane.WARNING_MESSAGE);
        } else {
