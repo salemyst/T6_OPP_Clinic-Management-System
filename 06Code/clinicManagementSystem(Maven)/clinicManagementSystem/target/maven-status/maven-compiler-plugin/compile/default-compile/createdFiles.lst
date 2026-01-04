@@ -6,6 +6,7 @@ ec\edu\espe\clinicmanagementsystem\view\FrmDoctorMenu$8.class
 ec\edu\espe\clinicmanagementsystem\view\FrmReceptionistMenu$9.class
 ec\edu\espe\clinicmanagementsystem\model\MedicalHistory.class
 ec\edu\espe\clinicmanagementsystem\view\FrmLogInReceptionist$2.class
+ec\edu\espe\clinicmanagementsystem\controller\MedicalHistoryController$FrmViewMedicalHistory.class
 ec\edu\espe\clinicmanagementsystem\view\FrmAddNewMedicalRecord$1.class
 ec\edu\espe\clinicmanagementsystem\view\FrmCancelAppointment.class
 ec\edu\espe\clinicmanagementsystem\view\FrmPrescriptionView.class
@@ -61,6 +62,7 @@ ec\edu\espe\clinicmanagementsystem\utils\JsonRepository.class
 ec\edu\espe\clinicmanagementsystem\view\FrmReceptionistMenu$10.class
 ec\edu\espe\clinicmanagementsystem\view\FrmPatientMenu$6.class
 ec\edu\espe\clinicmanagementsystem\view\FrmCreatePrescription.class
+ec\edu\espe\clinicmanagementsystem\utils\AppointmentNotificationService.class
 ec\edu\espe\clinicmanagementsystem\view\FrmBilling.class
 ec\edu\espe\clinicmanagementsystem\view\FrmModifyMedicalRecord$2.class
 ec\edu\espe\clinicmanagementsystem\controller\PatientController.class
@@ -149,5 +151,6 @@ ec\edu\espe\clinicmanagementsystem\view\FrmRequestAppointment.class
 ec\edu\espe\clinicmanagementsystem\controller\MedicalHistoryController.class
 ec\edu\espe\clinicmanagementsystem\view\FrmUpdatePatientInfo$2.class
 ec\edu\espe\clinicmanagementsystem\view\FrmPatientMenu$3.class
+ec\edu\espe\clinicmanagementsystem\utils\AppointmentNotificationService$1.class
 ec\edu\espe\clinicmanagementsystem\model\Billing.class
 ec\edu\espe\clinicmanagementsystem\view\FrmLogInReceptionist$3.class

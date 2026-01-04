@@ -93,7 +93,7 @@ public class MongoManager {
         if (rawDate == null) {
             return "Sin datos";
         }
-        
+
         if (rawDate instanceof Document) {
             Document doc = (Document) rawDate;
             try {
@@ -121,6 +121,7 @@ public class MongoManager {
         }
         return rawDate.toString();
     }
+
     public org.bson.Document createDateDocument(java.util.Date date, int hour, int minute) {
         if (date == null) {
             return null;
@@ -144,5 +145,50 @@ public class MongoManager {
         dateDoc.append("time", timeString);
 
         return dateDoc;
+    }
+
+    public String getEmail(String collectionName, String idFieldName, Object idValue) {
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        Document filter = new Document(idFieldName, idValue);
+        Document result = collection.find(filter).first();
+
+        if (result != null) {
+            if (result.containsKey("email")) {
+                return result.getString("email");
+            } else if (result.containsKey("email")) {
+                return result.getString("email");
+            }
+        }
+        return null;
+    }
+
+    public String getInfo(String collectionName, String searchField, Object searchValue, String targetField) {
+        try {
+            if (collectionName == null || searchField == null || targetField == null) {
+                return null;
+            }
+
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+            Document filter = new Document(searchField, searchValue);
+            Document result = collection.find(filter).first();
+
+            if (result == null) {
+                return null;
+            }
+
+            if (!result.containsKey(targetField)) {
+                return null;
+            }
+
+            Object value = result.get(targetField);
+            return value != null ? value.toString() : null;
+
+        } catch (com.mongodb.MongoException me) {
+            me.printStackTrace();
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -6,6 +6,7 @@ package ec.edu.espe.clinicmanagementsystem.view;
  */
 import ec.edu.espe.clinicmanagementsystem.model.Appointment;
 import ec.edu.espe.clinicmanagementsystem.model.Date;
+import ec.edu.espe.clinicmanagementsystem.utils.AppointmentNotificationService;
 import ec.edu.espe.clinicmanagementsystem.utils.GUIValidation;
 import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
 import java.text.SimpleDateFormat;
@@ -248,7 +249,7 @@ public class FrmRequestAppointmentR extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, "Error: El ID de cita " + appId + " ya existe.", "ID Duplicado", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                
+
                 if (!checkPatientExists(patId)) {
                     JOptionPane.showMessageDialog(rootPane, "Error: El paciente con ID " + patId + " no existe.", "Paciente No Encontrado", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -274,6 +275,10 @@ public class FrmRequestAppointmentR extends javax.swing.JFrame {
                 appointmentDoc.append("date", dateObject);
 
                 mongoManager.insert("appointments", appointmentDoc);
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                String dateString = sdf.format(selectedDate) + " a las " + hour + ":" + (minute < 10 ? "0" + minute : minute);
+                sendNotificationInBackground(String.valueOf(patId), dateString);
 
                 JOptionPane.showMessageDialog(rootPane, "La cita fue guardada exitosamente.");
                 emptyFields();
@@ -361,6 +366,24 @@ public class FrmRequestAppointmentR extends javax.swing.JFrame {
         org.bson.Document filter = new org.bson.Document("patientId", patientId);
         java.util.List<org.bson.Document> results = mongoManager.find("patients", filter);
         return !results.isEmpty();
+    }
+
+    private void sendNotificationInBackground(String patientId, String dateInfo) {
+        new Thread(() -> {
+            try {
+                int patientIdInt = Integer.parseInt(patientId);
+                String senderEmail = "projectoopt6@gmail.com";
+                String senderPassword = "iajg vlvp blky unwd";
+                String patientEmail = mongoManager.getEmail("patients", "patientId", patientIdInt);
+
+                AppointmentNotificationService service = new AppointmentNotificationService(senderEmail, senderPassword);
+                String patientName = mongoManager.getInfo("patients", "patientId",patientIdInt, "fullName");
+                service.sendReservationConfirmation(patientEmail, patientName, dateInfo);
+
+            } catch (Exception e) {
+                System.err.println("Error enviando notificación: " + e.getMessage());
+            }
+        }).start();
     }
 
     /**
