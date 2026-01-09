@@ -1,12 +1,15 @@
 
 package ec.edu.espe.clinicmanagementsystem.view;
 
+import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
+import java.util.List;
 import javax.swing.JOptionPane;
+import org.bson.Document;
 
 
 /**
  *
- * @author Windows
+ * @author Thais Santorum
  */
 public class FrmLogInDoctor extends javax.swing.JFrame {
     
@@ -158,6 +161,7 @@ public class FrmLogInDoctor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDoctorPasswordActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         String userInput = txtDoctorUser.getText();
         String passInput = String.valueOf(txtDoctorPassword.getPassword());
 
@@ -166,24 +170,15 @@ public class FrmLogInDoctor extends javax.swing.JFrame {
             return;
         }
 
-        String[][] doctorAccounts = {
-            {"agrant", "***"},
-            {"esattler", "****"}
-        };
+        MongoManager mongoManager = new MongoManager();
 
-        boolean loginCorrecto = false;
+        Document filter = new Document("username", userInput)
+                                .append("password", passInput)
+                                .append("type", "Doctor");
 
-        for (String[] account : doctorAccounts) {
-            String user = account[0];
-            String pass = account[1];
+        List<Document> result = mongoManager.find("users", filter);
 
-            if (userInput.equals(user) && passInput.equals(pass)) {
-                loginCorrecto = true;
-                break;
-            }
-        }
-
-        if (loginCorrecto) {
+        if (!result.isEmpty()) {
             FrmDoctorMenu menu = new FrmDoctorMenu();
             menu.setVisible(true);
             this.dispose();

@@ -1,7 +1,9 @@
 
 package ec.edu.espe.clinicmanagementsystem.view;
 
+import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
 import javax.swing.JOptionPane;
+import org.bson.Document;
 
 /**
  *
@@ -10,7 +12,7 @@ import javax.swing.JOptionPane;
 public class FrmCreatePrescription extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmCreatePrescription.class.getName());
-
+    private MongoManager mongoManager = new MongoManager();
     /**
      * Creates new form CreatePrescription
      */
@@ -165,7 +167,41 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdActionPerformed
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
-        JOptionPane.showMessageDialog(rootPane,"Preescripcion Creada");
+        if (txtId.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el ID del paciente");
+            return;
+        }
+
+        if (txtMedication.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el medicamento");
+            return;
+        }
+
+        if (txtBoxobservaciones.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese las indicaciones médicas");
+            return;
+        }
+
+        try {
+            int patientId = Integer.parseInt(txtId.getText());
+
+            Document prescriptionDoc = new Document();
+            prescriptionDoc.append("patientId", patientId);
+            prescriptionDoc.append("medication", txtMedication.getText());
+            prescriptionDoc.append("indications", txtBoxobservaciones.getText());
+
+            mongoManager.insert("prescriptions", prescriptionDoc);
+            JOptionPane.showMessageDialog(this, "Prescripción creada correctamente");
+
+            txtId.setText("");
+            txtMedication.setText("");
+            txtBoxobservaciones.setText("");
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID del paciente debe ser numérico");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar la prescripción: " + e.getMessage());
+        }
     }//GEN-LAST:event_SaveButtonActionPerformed
 
     private void btnBackToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToMenuActionPerformed
@@ -213,4 +249,4 @@ public class FrmCreatePrescription extends javax.swing.JFrame {
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtMedication;
     // End of variables declaration//GEN-END:variables
-}
+} 

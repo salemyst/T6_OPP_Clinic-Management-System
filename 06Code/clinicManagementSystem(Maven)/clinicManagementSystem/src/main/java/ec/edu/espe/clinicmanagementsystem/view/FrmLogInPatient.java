@@ -1,14 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package ec.edu.espe.clinicmanagementsystem.view;
 
+import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
+import java.util.List;
 import javax.swing.JOptionPane;
+import org.bson.Document;
 
 /**
  *
- * @author Windows
+ * @author Thais Santorum
  */
 public class FrmLogInPatient extends javax.swing.JFrame {
     
@@ -155,22 +155,29 @@ public class FrmLogInPatient extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackMainMenu4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    String patientIdInput = txtPatientId.getText(); 
+                                      
+    String patientIdInput = txtPatientId.getText().trim();
 
     if (patientIdInput.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Ingrese su ID por favor.");
-    return;
+        JOptionPane.showMessageDialog(this, "Ingrese su ID por favor.");
+        return;
     }
-    
-     String pacienteCorrecto = "1";   
 
-     if (patientIdInput.equals(pacienteCorrecto)) {
-         FrmPatientMenu menu = new FrmPatientMenu();
-         menu.setVisible(true);
-         this.dispose();
-     } else {
-         JOptionPane.showMessageDialog(this, "ID incorrecto.");
-     } 
+    MongoManager mongoManager = new MongoManager();
+
+    Document filter = new Document("patientId", patientIdInput)
+                            .append("type", "Paciente");
+
+    List<Document> result = mongoManager.find("users", filter);
+
+    if (!result.isEmpty()) {
+        FrmPatientMenu menu = new FrmPatientMenu();
+        menu.setVisible(true);
+        this.dispose();
+    } else {
+        JOptionPane.showMessageDialog(this, "ID incorrecto.");
+    }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

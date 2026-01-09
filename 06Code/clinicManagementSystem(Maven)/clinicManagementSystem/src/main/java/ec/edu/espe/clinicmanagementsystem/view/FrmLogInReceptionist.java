@@ -1,7 +1,10 @@
 
 package ec.edu.espe.clinicmanagementsystem.view;
 
+import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
+import java.util.List;
 import javax.swing.JOptionPane;
+import org.bson.Document;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -156,39 +159,30 @@ public class FrmLogInReceptionist extends javax.swing.JFrame {
     }//GEN-LAST:event_txtReceptionistUserActionPerformed
 
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
-    String userInput = txtReceptionistUser.getText().trim();
-    String passInput = String.valueOf(txtReceptionistPassword.getPassword()).trim();
 
-    
-    if (userInput.isEmpty() || passInput.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor, ingrese usuario y contraseña.");
-        return;
-    }
+        String userInput = txtReceptionistUser.getText().trim();
+        String passInput = String.valueOf(txtReceptionistPassword.getPassword()).trim();
 
-    String[][] receptionistAccounts = {
-        {"jhammond", "1234"},
-        {"mwu", "abcd"}
-    };
-
-    boolean loginCorrecto = false;
-
-    for (String[] account : receptionistAccounts) {
-        String user = account[0];
-        String pass = account[1];
-
-        if (userInput.equals(user) && passInput.equals(pass)) {
-            loginCorrecto = true;
-            break;
+        if (userInput.isEmpty() || passInput.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese usuario y contraseña.");
+            return;
         }
-    }
 
-    if (loginCorrecto) {
-        FrmReceptionistMenu menu = new FrmReceptionistMenu();
-        menu.setVisible(true);
-        this.dispose();
-    } else {
-        JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
-    }
+        MongoManager mongoManager = new MongoManager();
+
+        Document filter = new Document("username", userInput)
+                                .append("password", passInput)
+                                .append("type", "Recepcionista"); // CLAVE
+
+        List<Document> result = mongoManager.find("users", filter);
+
+        if (!result.isEmpty()) {
+            FrmReceptionistMenu menu = new FrmReceptionistMenu();
+            menu.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+        }
     }//GEN-LAST:event_btnLogInActionPerformed
 
     private void txtReceptionistPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReceptionistPasswordActionPerformed

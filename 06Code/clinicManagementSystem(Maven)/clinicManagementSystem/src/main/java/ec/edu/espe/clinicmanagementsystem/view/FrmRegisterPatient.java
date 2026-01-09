@@ -1,19 +1,12 @@
 package ec.edu.espe.clinicmanagementsystem.view;
 
-import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;
-import com.toedter.calendar.JDateChooser;
 import ec.edu.espe.clinicmanagementsystem.utils.GUIValidation;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.MongoCollection;
 import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
-import org.bson.Document;
+
 
 
 
