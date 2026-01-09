@@ -1,18 +1,15 @@
 package ec.edu.espe.clinicmanagementsystem.view;
 
-import com.google.gson.Gson;
+
 import ec.edu.espe.clinicmanagementsystem.model.Date;
-import ec.edu.espe.clinicmanagementsystem.model.Prescription;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.logging.Level;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+
 import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
+import java.io.IOException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.bson.Document;
+
 
 /**
  *
@@ -39,7 +36,6 @@ public class FrmPrescriptionView extends javax.swing.JFrame {
      */
     public FrmPrescriptionView() {
         initComponents();
-        txaPrescriptions.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
         setLocationRelativeTo(null);
     }
 
@@ -55,12 +51,12 @@ public class FrmPrescriptionView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         idLb = new javax.swing.JLabel();
         txtPatientId = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txaPrescriptions = new javax.swing.JTextArea();
         btnFind = new javax.swing.JButton();
         prescripcionesLb = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnBackToMenu = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblPrescriptions = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,10 +69,6 @@ public class FrmPrescriptionView extends javax.swing.JFrame {
                 txtPatientIdActionPerformed(evt);
             }
         });
-
-        txaPrescriptions.setColumns(20);
-        txaPrescriptions.setRows(5);
-        jScrollPane1.setViewportView(txaPrescriptions);
 
         btnFind.setText("Buscar");
         btnFind.addActionListener(new java.awt.event.ActionListener() {
@@ -97,61 +89,84 @@ public class FrmPrescriptionView extends javax.swing.JFrame {
             }
         });
 
+        tblPrescriptions.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID paciente", "Medicación", "Indicaciones"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblPrescriptions);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(29, Short.MAX_VALUE))
+                        .addGap(17, 17, 17)
+                        .addComponent(jScrollPane2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(idLb)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPatientId)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnFind)
-                        .addGap(74, 74, 74))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnBackToMenu)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(idLb)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPatientId, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnFind))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btnBackToMenu)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(352, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(102, 102, 102))
+                        .addGap(275, 275, 275))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(prescripcionesLb)
-                        .addGap(182, 182, 182))))
+                        .addGap(359, 359, 359))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnBackToMenu)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(5, 5, 5)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(prescripcionesLb)
-                .addGap(27, 27, 27)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idLb)
                     .addComponent(txtPatientId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFind))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,69 +188,46 @@ public class FrmPrescriptionView extends javax.swing.JFrame {
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
 
-        loadData();
-
-    }//GEN-LAST:event_btnFindActionPerformed
-    private void loadData() {
-        if (txtPatientId.getText().trim().isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor ingrese un ID de paciente para buscar.");
+        if (txtPatientId.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el ID del paciente");
             return;
         }
 
         try {
-            int targetPatientId = Integer.parseInt(txtPatientId.getText().trim());
+            int patientId = Integer.parseInt(txtPatientId.getText().trim());
 
-            org.bson.Document patientFilter = new org.bson.Document("patientId", targetPatientId);
-            java.util.List<org.bson.Document> patientsFound = mongoManager.find("patients", patientFilter);
+            Document filter = new Document("patientId", patientId);
 
-            if (patientsFound.isEmpty()) {
-                javax.swing.JOptionPane.showMessageDialog(this, "No existe ningún paciente registrado con el ID: " + targetPatientId);
-                txaPrescriptions.setText("");
-                return;
-            }
-
-            String patientName = patientsFound.get(0).getString("fullName");
-
-            org.bson.Document prescriptionFilter = new org.bson.Document("patientId", targetPatientId);
-            java.util.List<org.bson.Document> prescriptions = mongoManager.find("prescriptions", prescriptionFilter);
+            List<Document> prescriptions =
+                    mongoManager.find("prescriptions", filter);
 
             if (prescriptions.isEmpty()) {
-                txaPrescriptions.setText("Paciente: " + patientName + "\n\nEste paciente no tiene prescripciones registradas.");
-                return;
+                JOptionPane.showMessageDialog(this, "No se encontraron prescripciones");
+            } else {
+                loadDataIntoTable(prescriptions);
             }
-
-            StringBuilder sb = new StringBuilder();
-
-            sb.append("Paciente: ").append(patientName).append("\n");
-            sb.append("Total de recetas: ").append(prescriptions.size()).append("\n\n");
-
-            sb.append(String.format("%-5s | %-20s | %-10s | %-12s | %-30s\n",
-                    "ID", "MEDICAMENTO", "DOSIS", "FECHA", "INSTRUCCIONES"));
-            sb.append("-----------------------------------------------------------------------------------------------------\n");
-
-            for (org.bson.Document doc : prescriptions) {
-                String presId = doc.get("prescriptionId").toString();
-                String med = doc.getString("medication");
-                String dosage = doc.getString("dosage");
-                String instr = doc.getString("instructions");
-
-                Object rawDate = doc.get("date");
-                String dateStr = mongoManager.dateFormated(rawDate, false);
-
-                sb.append(String.format("%-5s | %-20s | %-10s | %-12s | %-30s\n",
-                        presId, med, dosage, dateStr, instr));
-            }
-
-            txaPrescriptions.setText(sb.toString());
 
         } catch (NumberFormatException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "El ID del paciente debe ser un número entero válido.");
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + e.getMessage());
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "El ID debe ser numérico");
         }
-    }
 
+    }//GEN-LAST:event_btnFindActionPerformed
+ 
+private void loadDataIntoTable(List<Document> prescriptions) {
+
+    DefaultTableModel model = (DefaultTableModel) tblPrescriptions.getModel();
+    model.setRowCount(0);
+    for (Document doc : prescriptions) {
+        model.addRow(new Object[]{
+            doc.getInteger("patientId"),
+            doc.getString("medication"),
+            doc.getString("indications")
+        });
+    }
+}
+
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -265,9 +257,9 @@ public class FrmPrescriptionView extends javax.swing.JFrame {
     private javax.swing.JLabel idLb;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel prescripcionesLb;
-    private javax.swing.JTextArea txaPrescriptions;
+    private javax.swing.JTable tblPrescriptions;
     private javax.swing.JTextField txtPatientId;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,7 +4,7 @@ import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
 
 /**
  *
- * @author Windows
+ * @author Thais Santórum
  */
 public class FrmCheckAppointment extends javax.swing.JFrame {
     

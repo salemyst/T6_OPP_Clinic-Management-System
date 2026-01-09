@@ -13,6 +13,7 @@ ec\edu\espe\clinicmanagementsystem\view\FrmPrescriptionView.class
 ec\edu\espe\clinicmanagementsystem\view\FrmPrescriptionView$1.class
 ec\edu\espe\clinicmanagementsystem\view\FrmBilling$6.class
 ec\edu\espe\clinicmanagementsystem\controller\BillingController.class
+ec\edu\espe\clinicmanagementsystem\view\FrmPrescriptionView$4.class
 ec\edu\espe\clinicmanagementsystem\view\FrmRequestAppointment$4.class
 ec\edu\espe\clinicmanagementsystem\view\FrmUpdatePatientInfo.class
 ec\edu\espe\clinicmanagementsystem\view\FrmViewMedicalHistoryDoctor$1.class
