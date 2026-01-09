@@ -4,6 +4,8 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
+import java.util.List;
 import org.bson.Document;
 
 /**
@@ -11,8 +13,7 @@ import org.bson.Document;
  * @author César Vargas, Paradigm, @ESPE
  */
 public class FrmViewMedicalHistoryDoctor extends javax.swing.JFrame {
-      private MongoDatabase database;
-    private MongoCollection<Document> collection;
+   private MongoManager mongoManager;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmViewMedicalHistoryDoctor.class.getName());
 
@@ -22,23 +23,23 @@ public class FrmViewMedicalHistoryDoctor extends javax.swing.JFrame {
     public FrmViewMedicalHistoryDoctor() {
         initComponents();
         txtMedicalHistory.setEditable(false);
+        this.mongoManager = new MongoManager();
         this.setLocationRelativeTo(null);
-     conectarMongo();
+       cargarHistoriasClinicas();
     }
-    private void conectarMongo() {
-    try {
+   private void cargarHistoriasClinicas() {
 
-        MongoClient mongoClient = MongoClients.create("mongodb+srv://Cesar:Cesar2006@cluster0.tgbv2qc.mongodb.net/");
-        database = mongoClient.getDatabase("toamedicalDB");
+        List<Document> historiales = mongoManager.getAll("medicalHistorys");
         
-        collection = database.getCollection("medicalHistorys"); 
-        
-        System.out.println("Conexión exitosa a MongoDB desde FrmViewMedicalHistory");
-        
-    } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error al conectar a MongoDB: " + e.getMessage());
+        for (Document doc : historiales) {
+            System.out.println(doc.toJson());
+        }
     }
-}
+   private void cerrarFormulario() {
+        mongoManager.close();
+        this.dispose();
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,45 +182,60 @@ public class FrmViewMedicalHistoryDoctor extends javax.swing.JFrame {
     private void txtPatientIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPatientIdActionPerformed
 String idIngresado = txtPatientId.getText().trim();
 
-    if (idIngresado.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID de paciente.");
-        return;
-    }
-
-    try {
-        int idABuscar = Integer.parseInt(idIngresado);
-        // Buscamos por el campo patientId que definimos anteriormente
-        Document query = new Document("patientId", idABuscar);
-        Document resultado = collection.find(query).first();
-
-        if (resultado != null) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("=========================================\n");
-            sb.append("       HISTORIAL CLÍNICO - TOAMEDICAL    \n");
-            sb.append("=========================================\n\n");
-            sb.append("ID Registro: ").append(resultado.get("historyId")).append("\n");
-            sb.append("Fecha:       ").append(resultado.get("date")).append("\n");
-            sb.append("Alergias:    ").append(resultado.getString("allergies")).append("\n");
-            sb.append("Enfermedades:").append(resultado.getString("diseases")).append("\n");
-            sb.append("Tratamientos:").append(resultado.getString("treatments")).append("\n");
-            sb.append("-----------------------------------------\n");
-            sb.append("Observaciones:\n").append(resultado.getString("observations")).append("\n");
-            sb.append("=========================================\n");
-
-            txtMedicalHistory.setText(sb.toString());
-            // Posiciona el cursor al inicio del texto
-            txtMedicalHistory.setCaretPosition(0); 
-            
-            txtpPatientFound.setText("Resultados para el Paciente: " + idABuscar);
-        } else {
-            emptyFields();
-            javax.swing.JOptionPane.showMessageDialog(this, "No se encontró historial para el paciente con ID: " + idABuscar);
+        if (idIngresado.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID de paciente.");
+            return;
         }
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser un número entero.");
-    } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error de conexión o búsqueda: " + e.getMessage());
-    }
+
+        try {
+            // Intentamos convertir el ID a número
+            int idABuscar = Integer.parseInt(idIngresado);
+            
+            // Filtro para buscar por patientId
+            Document filtro = new Document("patientId", idABuscar);
+            
+            // Usamos el manager para buscar en la colección "medicalHistorys"
+            List<Document> resultados = mongoManager.find("medicalHistorys", filtro);
+            
+            // Obtenemos el primer resultado de la lista (si existe)
+            Document resultado = resultados.isEmpty() ? null : resultados.get(0);
+
+            if (resultado != null) {
+                StringBuilder sb = new StringBuilder();
+                sb.append("=========================================\n");
+                sb.append("    HISTORIAL CLÍNICO - MODO DOCTOR      \n");
+                sb.append("=========================================\n\n");
+                
+                sb.append("ID Registro:  ").append(resultado.getOrDefault("historyId", "N/A")).append("\n");
+                
+                // Usamos el formateador de fecha de tu MongoManager
+                String fechaLimpia = mongoManager.dateFormated(resultado.get("date"), false);
+                sb.append("Fecha:        ").append(fechaLimpia).append("\n");
+                
+                // Usamos getOrDefault para evitar errores si el campo está vacío en la base
+                sb.append("Alergias:     ").append(resultado.getOrDefault("allergies", "Ninguna")).append("\n");
+                sb.append("Enfermedades: ").append(resultado.getOrDefault("diseases", "Ninguna")).append("\n");
+                sb.append("Tratamientos: ").append(resultado.getOrDefault("treatments", "Ninguno")).append("\n");
+                sb.append("-----------------------------------------\n");
+                sb.append("Observaciones del Médico:\n").append(resultado.getOrDefault("observations", "Sin observaciones")).append("\n");
+                sb.append("=========================================\n");
+
+                // Mostramos la información en el JTextArea
+                txtMedicalHistory.setText(sb.toString());
+                txtMedicalHistory.setCaretPosition(0); 
+                
+                // Actualizamos el panel de información superior
+                txtpPatientFound.setText("Resultados para el Paciente ID: " + idABuscar);
+                
+            } else {
+                emptyFields();
+                javax.swing.JOptionPane.showMessageDialog(this, "No se encontró historial para el paciente con ID: " + idABuscar);
+            }
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser un número entero válido.");
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al procesar la búsqueda: " + e.getMessage());
+        }
     }//GEN-LAST:event_txtPatientIdActionPerformed
 
     private void emptyFields() {

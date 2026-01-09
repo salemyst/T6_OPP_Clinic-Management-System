@@ -4,6 +4,8 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
+import java.util.List;
 import org.bson.Document;
 
 /**
@@ -13,8 +15,8 @@ import org.bson.Document;
 public class FrmViewMedicalHistory extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmViewMedicalHistory.class.getName());
-      private MongoDatabase database;
-      private MongoCollection<Document> collection;
+
+       private MongoManager mongoManager;
     /**
      * Creates new form FrmViewMedicalHistory
      */
@@ -22,23 +24,26 @@ public class FrmViewMedicalHistory extends javax.swing.JFrame {
         initComponents();
         txtMedicalHistory.setEditable(false);
         this.setLocationRelativeTo(null);
+        this.mongoManager = new MongoManager();
  
-        conectarMongo();
-    }
-private void conectarMongo() {
-    try {
+      cargarHistoriasClinicas();
+      
 
-        MongoClient mongoClient = MongoClients.create("mongodb+srv://Cesar:Cesar2006@cluster0.tgbv2qc.mongodb.net/");
-        database = mongoClient.getDatabase("toamedicalDB");
-        
-        collection = database.getCollection("medicalHistorys"); 
-        
-        System.out.println("Conexión exitosa a MongoDB desde FrmViewMedicalHistory");
-        
-    } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error al conectar a MongoDB: " + e.getMessage());
     }
-}
+       private void cargarHistoriasClinicas() {
+
+        List<Document> historiales = mongoManager.getAll("medicalHistorys");
+        
+
+        for (Document doc : historiales) {
+            System.out.println(doc.toJson());
+        }
+     
+    }
+          private void cerrarFormulario() {
+        mongoManager.close();
+        this.dispose();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -187,17 +192,24 @@ private void conectarMongo() {
 
     try {
         int idABuscar = Integer.parseInt(idIngresado);
-        // Buscamos por el campo patientId que definimos anteriormente
-        Document query = new Document("patientId", idABuscar);
-        Document resultado = collection.find(query).first();
+        
+        // --- CAMBIO AQUÍ ---
+        Document filter = new Document("patientId", idABuscar);
+        List<Document> resultados = mongoManager.find("medicalHistorys", filter);
+        Document resultado = resultados.isEmpty() ? null : resultados.get(0);
+        // -------------------
 
         if (resultado != null) {
             StringBuilder sb = new StringBuilder();
             sb.append("=========================================\n");
-            sb.append("       HISTORIAL CLÍNICO - TOAMEDICAL    \n");
+            sb.append("        HISTORIAL CLÍNICO - TOAMEDICAL    \n");
             sb.append("=========================================\n\n");
             sb.append("ID Registro: ").append(resultado.get("historyId")).append("\n");
-            sb.append("Fecha:       ").append(resultado.get("date")).append("\n");
+            
+            // Usamos tu método de formato de fecha del manager
+            String fecha = mongoManager.dateFormated(resultado.get("date"), false);
+            sb.append("Fecha:       ").append(fecha).append("\n");
+            
             sb.append("Alergias:    ").append(resultado.getString("allergies")).append("\n");
             sb.append("Enfermedades:").append(resultado.getString("diseases")).append("\n");
             sb.append("Tratamientos:").append(resultado.getString("treatments")).append("\n");
@@ -206,18 +218,17 @@ private void conectarMongo() {
             sb.append("=========================================\n");
 
             txtMedicalHistory.setText(sb.toString());
-            // Posiciona el cursor al inicio del texto
             txtMedicalHistory.setCaretPosition(0); 
             
             txtpPatientFound.setText("Resultados para el Paciente: " + idABuscar);
         } else {
             emptyFields();
-            javax.swing.JOptionPane.showMessageDialog(this, "No se encontró historial para el paciente con ID: " + idABuscar);
+            javax.swing.JOptionPane.showMessageDialog(this, "No se encontró historial para el ID: " + idABuscar);
         }
     } catch (NumberFormatException e) {
         javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser un número entero.");
     } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error de conexión o búsqueda: " + e.getMessage());
+        javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
     }
     }//GEN-LAST:event_txtPatientIdActionPerformed
 
