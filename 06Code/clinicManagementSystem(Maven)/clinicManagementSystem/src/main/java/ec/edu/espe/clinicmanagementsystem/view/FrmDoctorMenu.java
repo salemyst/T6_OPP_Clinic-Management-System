@@ -6,7 +6,7 @@ package ec.edu.espe.clinicmanagementsystem.view;
 
 /**
  *
- * @author Windows
+ * @author Thais Santórum
  */
 public class FrmDoctorMenu extends javax.swing.JFrame {
     
