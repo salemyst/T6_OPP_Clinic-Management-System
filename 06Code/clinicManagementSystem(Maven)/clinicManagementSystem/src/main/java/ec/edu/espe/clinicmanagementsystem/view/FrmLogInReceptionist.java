@@ -171,7 +171,7 @@ public class FrmLogInReceptionist extends javax.swing.JFrame {
 
         Document filter = new Document("username", userInput)
                                 .append("password", passInput)
-                                .append("type", "Recepcionista"); // CLAVE
+                                .append("type", "Receptionist"); 
 
         List<Document> result = mongoManager.find("users", filter);
 
