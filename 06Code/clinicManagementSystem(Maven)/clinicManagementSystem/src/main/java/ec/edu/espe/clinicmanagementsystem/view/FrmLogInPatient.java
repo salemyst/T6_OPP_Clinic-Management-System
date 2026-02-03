@@ -12,6 +12,7 @@ import org.bson.Document;
  */
 public class FrmLogInPatient extends javax.swing.JFrame {
     
+    MongoManager mongoManager = new MongoManager();
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmLogInPatient.class.getName());
 
     /**
@@ -162,15 +163,8 @@ public class FrmLogInPatient extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Ingrese su ID por favor.");
         return;
     }
-
-    MongoManager mongoManager = new MongoManager();
-
-    Document filter = new Document("patientId", patientIdInput)
-                            .append("type", "Paciente");
-
-    List<Document> result = mongoManager.find("users", filter);
-
-    if (!result.isEmpty()) {
+    
+    if (checkPatientExists(Integer.parseInt(patientIdInput))) {
         FrmPatientMenu menu = new FrmPatientMenu();
         menu.setVisible(true);
         this.dispose();
@@ -179,7 +173,11 @@ public class FrmLogInPatient extends javax.swing.JFrame {
     }
 
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    private boolean checkPatientExists(int patientId) {
+        org.bson.Document filter = new org.bson.Document("patientId", patientId);
+        java.util.List<org.bson.Document> results = mongoManager.find("patients", filter);
+        return !results.isEmpty();
+    }
     /**
      * @param args the command line arguments
      */
