@@ -1,7 +1,5 @@
 package ec.edu.espe.clinicmanagementsystem.utils;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
@@ -20,13 +18,10 @@ import java.util.List;
  */
 public class MongoManager {
 
-    private MongoClient mongoClient;
     private MongoDatabase database;
 
     public MongoManager() {
-        String uri = "mongodb+srv://Cesar:Cesar2006@cluster0.tgbv2qc.mongodb.net/";
-        this.mongoClient = MongoClients.create(uri);
-        this.database = mongoClient.getDatabase("toamedicalDB");
+        this.database = MongoConnection.getInstance().getDatabase();
     }
 
     public void insert(String collectionName, Document document) {
@@ -83,10 +78,6 @@ public class MongoManager {
     }
 
     public void close() {
-        if (mongoClient != null) {
-            mongoClient.close();
-            System.out.println("Conexión cerrada.");
-        }
     }
 
     public String dateFormated(Object rawDate, boolean mostrarHora) {

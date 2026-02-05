@@ -275,7 +275,6 @@ public class FrmRequestAppointmentR extends javax.swing.JFrame {
                 appointmentDoc.append("date", dateObject);
 
                 mongoManager.insert("appointments", appointmentDoc);
-
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String dateString = sdf.format(selectedDate) + " a las " + hour + ":" + (minute < 10 ? "0" + minute : minute);
                 sendNotificationInBackground(String.valueOf(patId), dateString);
@@ -368,16 +367,16 @@ public class FrmRequestAppointmentR extends javax.swing.JFrame {
         return !results.isEmpty();
     }
 
-    private void sendNotificationInBackground(String patientId, String dateInfo) {
+private void sendNotificationInBackground(String patientId, String dateInfo) {
         new Thread(() -> {
             try {
                 int patientIdInt = Integer.parseInt(patientId);
-                String senderEmail = "projectoopt6@gmail.com";
-                String senderPassword = "iajg vlvp blky unwd";
+
                 String patientEmail = mongoManager.getEmail("patients", "patientId", patientIdInt);
 
-                AppointmentNotificationService service = new AppointmentNotificationService(senderEmail, senderPassword);
-                String patientName = mongoManager.getInfo("patients", "patientId",patientIdInt, "fullName");
+                AppointmentNotificationService service = new AppointmentNotificationService();
+                
+                String patientName = mongoManager.getInfo("patients", "patientId", patientIdInt, "fullName");
                 service.sendReservationConfirmation(patientEmail, patientName, dateInfo);
 
             } catch (Exception e) {

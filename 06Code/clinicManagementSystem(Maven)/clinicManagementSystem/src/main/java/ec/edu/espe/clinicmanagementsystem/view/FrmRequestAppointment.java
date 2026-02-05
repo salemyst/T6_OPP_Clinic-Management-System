@@ -367,16 +367,16 @@ public class FrmRequestAppointment extends javax.swing.JFrame {
         return !results.isEmpty();
     }
 
-    private void sendNotificationInBackground(String patientId, String dateInfo) {
+private void sendNotificationInBackground(String patientId, String dateInfo) {
         new Thread(() -> {
             try {
                 int patientIdInt = Integer.parseInt(patientId);
-                String senderEmail = "projectoopt6@gmail.com";
-                String senderPassword = "iajg vlvp blky unwd";
+
                 String patientEmail = mongoManager.getEmail("patients", "patientId", patientIdInt);
 
-                AppointmentNotificationService service = new AppointmentNotificationService(senderEmail, senderPassword);
-                String patientName = mongoManager.getInfo("patients", "patientId",patientIdInt, "fullName");
+                AppointmentNotificationService service = new AppointmentNotificationService();
+                
+                String patientName = mongoManager.getInfo("patients", "patientId", patientIdInt, "fullName");
                 service.sendReservationConfirmation(patientEmail, patientName, dateInfo);
 
             } catch (Exception e) {

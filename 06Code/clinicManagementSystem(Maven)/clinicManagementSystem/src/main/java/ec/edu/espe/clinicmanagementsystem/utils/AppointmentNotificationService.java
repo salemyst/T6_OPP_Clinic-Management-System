@@ -14,6 +14,15 @@ public class AppointmentNotificationService {
     private final String appPassword;
     private final Session mailSession;
 
+
+    public AppointmentNotificationService() {
+        GmailConfiguration config = GmailConfiguration.getInstance();
+        this.senderEmail = config.getSenderEmail();
+        this.appPassword = config.getAppPassword();
+        this.mailSession = createMailSession();
+    }
+
+  
     public AppointmentNotificationService(String senderEmail, String appPassword) {
         this.senderEmail = senderEmail;
         this.appPassword = appPassword;
@@ -21,32 +30,33 @@ public class AppointmentNotificationService {
     }
 
     private Session createMailSession() {
-    Properties props = new Properties();  
-    props.put("mail.smtp.host", "smtp.gmail.com"); 
-    props.put("mail.smtp.auth", "true");
-    props.put("mail.smtp.port", "465");
-    props.put("mail.smtp.socketFactory.port", "465");
-    props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-    props.put("mail.smtp.socketFactory.fallback", "false");
 
-    return Session.getInstance(props, new Authenticator() {
-        @Override
-        protected PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(senderEmail, appPassword);
-        }
-    });
-}
+        GmailConfiguration config = GmailConfiguration.getInstance();
+        
+        Properties props = new Properties();
+        
 
-    /**
-     * Sends a confirmation email specifically for a clinic appointment.
-     *
-     * @param recipientEmail The patient's email address.
-     * @param patientName The full name of the patient.
-     * @param appointmentDetails Date and time or relevant details of the
-     * appointment.
-     */
+        props.put("mail.smtp.host", config.getSmtpHost() != null ? config.getSmtpHost() : "smtp.gmail.com");
+        props.put("mail.smtp.auth", config.getSmtpAuth() != null ? config.getSmtpAuth() : "true");
+        props.put("mail.smtp.port", config.getSmtpPort() != null ? config.getSmtpPort() : "465");
+        props.put("mail.smtp.socketFactory.port", config.getSocketFactoryPort() != null ? config.getSocketFactoryPort() : "465");
+        props.put("mail.smtp.socketFactory.class", config.getSocketFactoryClass() != null ? config.getSocketFactoryClass() : "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.socketFactory.fallback", "false");
+
+        return Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(senderEmail, appPassword);
+            }
+        });
+    }
+
     public void sendReservationConfirmation(String recipientEmail, String patientName, String appointmentDetails) {
-        System.out.println("Iniciando proceso de envío de notificación...");
+
+        if (senderEmail == null || appPassword == null) {
+            System.err.println("Error: No hay credenciales de correo configuradas.");
+            return;
+        }
 
         try {
             Message message = new MimeMessage(mailSession);

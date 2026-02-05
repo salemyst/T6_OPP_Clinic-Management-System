@@ -1,4 +1,12 @@
-/06Code/Clinic-Management-System/nbproject/private/
-/05UnitTest/ClinicManagement/nbproject/
-/05UnitTest/clinicManagementSystem/nbproject/
-/06Code/clinicManagementSystem(Maven)/clinicManagementSystem/target/
+# NetBeans
+/nbproject/private/
+/**/nbproject/private/
+/**/nbproject/
+
+# Maven
+/target/
+/**/target/
+
+# Java
+*.class
+*.jar
