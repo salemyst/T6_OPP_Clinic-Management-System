@@ -4,6 +4,8 @@
  */
 package ec.edu.espe.clinicmanagementsystem.view;
 
+import ec.edu.espe.clinicmanagementsystem.model.GoogleUser;
+
 /**
  *
  * @author Thais Santórum
@@ -19,6 +21,10 @@ public class FrmDoctorMenu extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
 
+    }
+    public FrmDoctorMenu(GoogleUser user) {
+        initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

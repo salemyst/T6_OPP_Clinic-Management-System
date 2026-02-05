@@ -4,6 +4,8 @@
  */
 package ec.edu.espe.clinicmanagementsystem.view;
 
+import ec.edu.espe.clinicmanagementsystem.model.GoogleUser;
+
 /**
  *
  * @author Windows
@@ -18,6 +20,10 @@ public class FrmReceptionistMenu extends javax.swing.JFrame {
     public FrmReceptionistMenu() {
         initComponents();
         setLocationRelativeTo(null);
+    }
+        public FrmReceptionistMenu(GoogleUser user) {
+        initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

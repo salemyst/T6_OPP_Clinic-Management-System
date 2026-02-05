@@ -1,8 +1,12 @@
 
 package ec.edu.espe.clinicmanagementsystem.view;
 
+import ec.edu.espe.clinicmanagementsystem.controller.GoogleAuthController;
+import ec.edu.espe.clinicmanagementsystem.model.GoogleUser;
 import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
+import java.awt.Image;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import org.bson.Document;
 import org.json.JSONArray;
@@ -21,8 +25,23 @@ public class FrmLogInReceptionist extends javax.swing.JFrame {
     public FrmLogInReceptionist() {
         initComponents();
         setLocationRelativeTo(null);
+        adjustGoogleIcon();
+
     }
 
+    private void adjustGoogleIcon() {
+        ImageIcon icon = new ImageIcon(
+            getClass().getResource("/ec/edu/espe/clinicmanagementsystem/images/googleIcon.png")
+        );
+
+        Image img = icon.getImage().getScaledInstance(
+            lblGoogleIcon.getWidth(),
+            lblGoogleIcon.getHeight(),
+            Image.SCALE_SMOOTH
+        );
+
+        lblGoogleIcon.setIcon(new ImageIcon(img));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,6 +61,7 @@ public class FrmLogInReceptionist extends javax.swing.JFrame {
         btnLogIn = new javax.swing.JButton();
         txtReceptionistPassword = new javax.swing.JPasswordField();
         btnBackMainMenu4 = new javax.swing.JButton();
+        lblGoogleIcon = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -87,6 +107,13 @@ public class FrmLogInReceptionist extends javax.swing.JFrame {
             }
         });
 
+        lblGoogleIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/clinicmanagementsystem/images/googleIcon.png"))); // NOI18N
+        lblGoogleIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblGoogleIconMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -101,6 +128,9 @@ public class FrmLogInReceptionist extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(btnBackMainMenu4))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(53, 53, 53)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4)
@@ -110,11 +140,10 @@ public class FrmLogInReceptionist extends javax.swing.JFrame {
                             .addComponent(txtReceptionistUser)
                             .addComponent(txtReceptionistPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(132, 132, 132)
-                        .addComponent(btnLogIn)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblGoogleIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnLogIn))))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -134,7 +163,9 @@ public class FrmLogInReceptionist extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtReceptionistPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(lblGoogleIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnLogIn)
                 .addGap(22, 22, 22))
         );
@@ -195,6 +226,17 @@ public class FrmLogInReceptionist extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnBackMainMenu4ActionPerformed
 
+    private void lblGoogleIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGoogleIconMouseClicked
+    GoogleAuthController authController = new GoogleAuthController();
+    GoogleUser user = authController.loginWithGoogle();
+
+    if (user != null) {
+        FrmReceptionistMenu menu = new FrmReceptionistMenu(user);
+        menu.setVisible(true);
+        this.dispose();
+    } 
+    }//GEN-LAST:event_lblGoogleIconMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -229,6 +271,7 @@ public class FrmLogInReceptionist extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblGoogleIcon;
     private javax.swing.JPasswordField txtReceptionistPassword;
     private javax.swing.JTextField txtReceptionistUser;
     // End of variables declaration//GEN-END:variables

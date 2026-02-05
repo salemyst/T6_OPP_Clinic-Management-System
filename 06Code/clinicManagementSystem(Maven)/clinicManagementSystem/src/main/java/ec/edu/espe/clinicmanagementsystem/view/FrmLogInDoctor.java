@@ -1,8 +1,12 @@
 
 package ec.edu.espe.clinicmanagementsystem.view;
 
+import ec.edu.espe.clinicmanagementsystem.controller.GoogleAuthController;
+import ec.edu.espe.clinicmanagementsystem.model.GoogleUser;
 import ec.edu.espe.clinicmanagementsystem.utils.MongoManager;
+import java.awt.Image;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import org.bson.Document;
 
@@ -21,9 +25,22 @@ public class FrmLogInDoctor extends javax.swing.JFrame {
     public FrmLogInDoctor() {
         initComponents();
         setLocationRelativeTo(null);
+        adjustGoogleIcon();
         
     }
+    private void adjustGoogleIcon() {
+        ImageIcon icon = new ImageIcon(
+            getClass().getResource("/ec/edu/espe/clinicmanagementsystem/images/googleIcon.png")
+        );
 
+        Image img = icon.getImage().getScaledInstance(
+            lblGoogleIcon.getWidth(),
+            lblGoogleIcon.getHeight(),
+            Image.SCALE_SMOOTH
+        );
+
+        lblGoogleIcon.setIcon(new ImageIcon(img));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,6 +59,7 @@ public class FrmLogInDoctor extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         txtDoctorPassword = new javax.swing.JPasswordField();
         btnBackMainMenu1 = new javax.swing.JButton();
+        lblGoogleIcon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +103,14 @@ public class FrmLogInDoctor extends javax.swing.JFrame {
             }
         });
 
+        lblGoogleIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/clinicmanagementsystem/images/googleIcon.png"))); // NOI18N
+        lblGoogleIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblGoogleIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblGoogleIconMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -111,9 +137,11 @@ public class FrmLogInDoctor extends javax.swing.JFrame {
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5))
                                 .addGap(28, 28, 28)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtDoctorUser)
-                                    .addComponent(txtDoctorPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblGoogleIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtDoctorUser)
+                                        .addComponent(txtDoctorPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -123,7 +151,7 @@ public class FrmLogInDoctor extends javax.swing.JFrame {
                 .addComponent(btnBackMainMenu1)
                 .addGap(7, 7, 7)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -134,8 +162,10 @@ public class FrmLogInDoctor extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(txtDoctorPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblGoogleIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -194,6 +224,17 @@ public class FrmLogInDoctor extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnBackMainMenu1ActionPerformed
 
+    private void lblGoogleIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGoogleIconMouseClicked
+    GoogleAuthController authController = new GoogleAuthController();
+    GoogleUser user = authController.loginWithGoogle();
+
+    if (user != null) {
+        FrmDoctorMenu menu = new FrmDoctorMenu(user);
+        menu.setVisible(true);
+        this.dispose();
+    }
+    }//GEN-LAST:event_lblGoogleIconMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -227,6 +268,7 @@ public class FrmLogInDoctor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblGoogleIcon;
     private javax.swing.JPasswordField txtDoctorPassword;
     private javax.swing.JTextField txtDoctorUser;
     // End of variables declaration//GEN-END:variables

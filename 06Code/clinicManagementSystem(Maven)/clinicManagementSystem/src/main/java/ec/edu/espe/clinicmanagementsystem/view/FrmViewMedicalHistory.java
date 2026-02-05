@@ -193,11 +193,9 @@ public class FrmViewMedicalHistory extends javax.swing.JFrame {
     try {
         int idABuscar = Integer.parseInt(idIngresado);
         
-        // --- CAMBIO AQUÍ ---
         Document filter = new Document("patientId", idABuscar);
         List<Document> resultados = mongoManager.find("medicalHistorys", filter);
         Document resultado = resultados.isEmpty() ? null : resultados.get(0);
-        // -------------------
 
         if (resultado != null) {
             StringBuilder sb = new StringBuilder();
@@ -206,7 +204,6 @@ public class FrmViewMedicalHistory extends javax.swing.JFrame {
             sb.append("=========================================\n\n");
             sb.append("ID Registro: ").append(resultado.get("historyId")).append("\n");
             
-            // Usamos tu método de formato de fecha del manager
             String fecha = mongoManager.dateFormated(resultado.get("date"), false);
             sb.append("Fecha:       ").append(fecha).append("\n");
             
