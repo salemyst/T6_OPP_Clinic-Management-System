@@ -74,6 +74,7 @@ ec\edu\espe\clinicmanagementsystem\model\Patient.class
 ec\edu\espe\clinicmanagementsystem\view\FrmRegisterPatient$1.class
 ec\edu\espe\clinicmanagementsystem\controller\ClinicController$6.class
 ec\edu\espe\clinicmanagementsystem\view\FrmReceptionistMenu$8.class
+ec\edu\espe\clinicmanagementsystem\utils\GmailConfiguration.class
 ec\edu\espe\clinicmanagementsystem\view\FrmAddNewMedicalRecord$2.class
 ec\edu\espe\clinicmanagementsystem\view\FrmPatientMenu.class
 ec\edu\espe\clinicmanagementsystem\view\FrmPatientMenu$5.class
