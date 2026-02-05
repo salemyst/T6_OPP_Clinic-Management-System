@@ -13,7 +13,7 @@ public class BillingController {
         billing.setStatus("Pending");
         System.out.println("Factura " + billing.getBillId() + " generada por un monto de " + billing.getAmount());
     }
-
+ 
 
     public void updatePaymentStatus(Billing billing, String newStatus) {
         billing.setStatus(newStatus);
